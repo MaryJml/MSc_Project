@@ -40,7 +40,7 @@
 
     #checkboxes {
         overflow-y: auto;
-        max-height: 400px; /* 调整为适合您页面的高度 */
+        max-height: 300px; /* 调整为适合您页面的高度 */
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
@@ -132,7 +132,10 @@
         <!-- 单选按钮将被添加到这里 -->
     </div>
 </div>
+<svg id="chordSvg" width="800" height="800"></svg>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
+<script src="{{ url_for('serve_js', filename='chord_graph.js') }}"></script>
 </html>
