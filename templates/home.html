@@ -60,6 +60,55 @@
     button {
         margin-right: 5px;
     }
+    #nodeSelection {
+        overflow-y: auto;
+        max-height: 200px; /* 调整为适合您页面的高度 */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        width: 200px; /* 调整为适合您的宽度 */
+        margin-top: 10px; /* 与上面的元素保持一些距离 */
+    }
+
+    #nodeSelection label {
+        display: block;
+        margin: 5px 0;
+    }
+
+    #nodeSelection label input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    #deselectNodeButton {
+        display: block;
+        margin-top: 30px; /* 与上面的元素保持一些距离 */
+    }
+    .selectedNode {
+        fill: #d62728; /* 选中节点的颜色 */
+    }
+
+    .relatedNode {
+        fill: #2ca02c; /* 相关节点的颜色 */
+    }
+
+    .relatedLink {
+        stroke: #2ca02c; /* 相关链接的颜色 */
+    }
+
+    .unselectedNode,
+    .unselectedLink {
+        opacity: 0.1; /* 未选中节点和链接的透明度 */
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+
 
 </style>
 <body>
@@ -73,8 +122,14 @@
         <button id="selectAll">Select All</button>
         <button id="deselectAll">Deselect All</button>
     </div>
+    <input type="text" id="bookSearch" placeholder="Search BookID">
     <div id="checkboxes">
         <!-- 复选框将被添加到这里 -->
+    </div>
+    <button id="deselectNodeButton">Deselect Node</button>
+    <input type="text" id="nodeSearch" placeholder="Search Node">
+    <div id="nodeSelection">
+        <!-- 单选按钮将被添加到这里 -->
     </div>
 </div>
 </body>
