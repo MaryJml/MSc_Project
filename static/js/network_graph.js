@@ -117,7 +117,7 @@ const simulation = d3.forceSimulation(nodes)
 svg.append('defs').append('marker')
     .attr('id', 'arrowhead')
     .attr('viewBox', '-0 -5 10 10')  // viewBox的值根据实际情况调整
-    .attr('refX', 20)  // 确保箭头和节点的边界对齐
+    .attr('refX', 50)  // 确保箭头和节点的边界对齐
     .attr('refY', 0)
     .attr('orient', 'auto')
     .attr('markerWidth', 5)
@@ -310,15 +310,21 @@ d3.select('#zoomOutButton').on('click', () => {
     );
 });
 
-
 function updateLinks() {
     const selectedBookIds = new Set(
-        d3.selectAll('input[name="bookId"]:checked')
-            .data()
+        d3.selectAll('input[name="bookId"]:checked').data()
     );
 
-    link.style('opacity', d => selectedBookIds.has(d.bookId) ? 1 : 0);
-    selfLoop.style('opacity', d => selectedBookIds.has(d.bookId) ? 1 : 0);
+    link.style('opacity', d => {
+        const isSelectedBookId = selectedBookIds.has(d.bookId);
+        const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
+        return isSelectedBookId && isSelectedNode ? 1 : 0;
+    });
+    selfLoop.style('opacity', d => {
+        const isSelectedBookId = selectedBookIds.has(d.bookId);
+        const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
+        return isSelectedBookId && isSelectedNode ? 1 : 0;
+    });
 
     // 更新事件处理器，只有在opacity为1时才有效
     const updateMouseEvents = selection => {
@@ -384,4 +390,71 @@ function zoomed(event) {
     simulation.alpha(0.3).restart();  // 重新启动模拟以应用新的力参数
 }
 
+d3.select('#nodeSelection')
+    .selectAll('input')
+    .data(nodes)
+    .enter()
+    .append('label')
+    .text(d => d.id)
+    .append('input')
+    .attr('type', 'radio')
+    .attr('name', 'nodeId')
+    .attr('value', d => d.id);
 
+let selectedNodeId = null;
+d3.selectAll('input[name="nodeId"]').on('change', function(event, d) {
+    selectedNodeId = d.id;
+    updateLinks();
+
+    // 更新节点样式
+    node.classed('selectedNode', n => n.id === selectedNodeId)
+        .classed('relatedNode', n => n.id !== selectedNodeId && links.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)))
+        .classed('unselectedNode', n => n.id !== selectedNodeId && !links.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)));
+
+    // 更新链接样式
+    link.classed('relatedLink', l => l.source.id === selectedNodeId || l.target.id === selectedNodeId)
+        .classed('unselectedLink', l => l.source.id !== selectedNodeId && l.target.id !== selectedNodeId);
+    selfLoop.classed('relatedLink', l => l.source.id === selectedNodeId || l.target.id === selectedNodeId)
+        .classed('unselectedLink', l => l.source.id !== selectedNodeId && l.target.id !== selectedNodeId);
+});
+
+// 为Deselect按钮添加事件处理器
+d3.select('#deselectNodeButton').on('click', () => {
+    selectedNodeId = null;
+    updateLinks();
+    // 取消所有节点和链接的特殊样式
+    node.classed('selectedNode', false)
+        .classed('relatedNode', false)
+        .classed('unselectedNode', false);
+    link.classed('relatedLink', false)
+        .classed('unselectedLink', false);
+    selfLoop.classed('relatedLink', false)
+        .classed('unselectedLink', false);
+
+    // 取消选中所有单选按钮
+    d3.selectAll('input[name="nodeId"]').property('checked', false);
+});
+
+// 搜索并过滤 BookIDs
+d3.select('#bookSearch').on('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    d3.selectAll('#checkboxes label')
+        .style('display', 'none')
+        .filter(function(d) {
+            const text = d.toLowerCase();
+            return text.includes(searchTerm);
+        })
+        .style('display', 'block');
+});
+
+// 搜索并过滤 Nodes
+d3.select('#nodeSearch').on('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    d3.selectAll('#nodeSelection label')
+        .style('display', 'none')
+        .filter(function(d) {
+            const text = d.id.toLowerCase(); // 假设每个节点有一个 'id' 属性
+            return text.includes(searchTerm);
+        })
+        .style('display', 'block');
+});
