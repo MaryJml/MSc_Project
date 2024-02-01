@@ -1,10 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 </head>
+<style>
+    .links line {
+        stroke: #999;
+        stroke-opacity: 0.6;
+    }
+
+    .nodes circle {
+        stroke: #fff;
+        stroke-width: 1.5px;
+    }
+    .tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+    #controls {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 20px;
+    }
+
+    #buttons {
+        margin-bottom: 10px;
+    }
+
+    #checkboxes {
+        overflow-y: auto;
+        max-height: 400px; /* 调整为适合您页面的高度 */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        width: 200px; /* 调整为适合您的宽度 */
+    }
+
+    #checkboxes label {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    #checkboxes label span {
+        margin-left: 5px;
+    }
+
+    button {
+        margin-right: 5px;
+    }
+
+</style>
 <body>
-$END$
+<svg></svg>
+<button id="zoomInButton">Zoom In</button>
+<button id="zoomOutButton">Zoom Out</button>
+<button id="resetZoomButton">Reset Zoom</button>
+
+<div id="controls">
+    <div id="buttons">
+        <button id="selectAll">Select All</button>
+        <button id="deselectAll">Deselect All</button>
+    </div>
+    <div id="checkboxes">
+        <!-- 复选框将被添加到这里 -->
+    </div>
+</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
 </html>
