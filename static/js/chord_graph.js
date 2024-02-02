@@ -17,12 +17,12 @@ links.forEach(d => {
     matrix[source][target] += 1; // 假设每个链接的权重为1，根据实际情况调整
 });
 
-const outerRadius = Math.min(width, height) * 0.2 - 20;
+const outerRadius = Math.min(width, height) * 0.3 - 20;
 const innerRadius = outerRadius - 20;
 
 const chordSvg = d3.select("#chordSvg")
     .append("g")
-    .attr("transform", `translate(${width / 2},${height / 2})`);  // 确保Chord图居中
+    .attr("transform", `translate(${width / 2},${height / 2 + 75})`);  // 确保Chord图居中
 
 const chord = d3.chord()
     .padAngle(0.035)
