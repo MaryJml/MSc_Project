@@ -40,7 +40,7 @@
 
     #checkboxes {
         overflow-y: auto;
-        max-height: 300px; /* 调整为适合您页面的高度 */
+        max-height: 150px; /* 调整为适合您页面的高度 */
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
@@ -62,7 +62,7 @@
     }
     #nodeSelection {
         overflow-y: auto;
-        max-height: 200px; /* 调整为适合您页面的高度 */
+        max-height: 150px; /* 调整为适合您页面的高度 */
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
@@ -108,7 +108,25 @@
         border-radius: 5px;
     }
 
-
+    text {
+        font-family: Arial, sans-serif;
+        font-size: 8px;
+        pointer-events: none;  /* 确保文本不会干扰鼠标事件 */
+        user-select: none;  /* 防止文本被选中 */
+    }
+    .timeline {
+        /* Styling for the timeline */
+    }
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+    .axis text {
+        font-family: sans-serif;
+        font-size: 11px;
+    }
 
 </style>
 <body>
@@ -132,10 +150,20 @@
         <!-- 单选按钮将被添加到这里 -->
     </div>
 </div>
-<svg id="chordSvg" width="800" height="800"></svg>
+<div id="selection">
+    <select id="bookSelector">
+        <!-- Options will be added here dynamically -->
+    </select>
+</div>
+<div id="timeline">
+    <!-- Timeline will be rendered here -->
+</div>
+<svg id="chordSvg" width="800" height="900"></svg>
+
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
 <script src="{{ url_for('serve_js', filename='chord_graph.js') }}"></script>
+<script src="{{ url_for('serve_js', filename='timeline.js') }}"></script>
 </html>
