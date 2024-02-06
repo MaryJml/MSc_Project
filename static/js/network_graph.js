@@ -328,17 +328,30 @@ function updateLinks() {
         const isSelectedBookId = selectedBookIds.has(d.bookId);
         const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
         return isSelectedBookId && isSelectedNode ? 1 : 0;
-    });
+    })
+        .style('pointer-events', d => {
+            const isSelectedBookId = selectedBookIds.has(d.bookId);
+            const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
+            return isSelectedBookId && isSelectedNode ? 'all' : 'none';
+        });
+
     selfLoop.style('opacity', d => {
         const isSelectedBookId = selectedBookIds.has(d.bookId);
         const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
         return isSelectedBookId && isSelectedNode ? 1 : 0;
-    });
+    })
+        .style('pointer-events', d => {
+            const isSelectedBookId = selectedBookIds.has(d.bookId);
+            const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
+            return isSelectedBookId && isSelectedNode ? 'all' : 'none';
+        });
 
     // 更新事件处理器，只有在opacity为1时才有效
     const updateMouseEvents = selection => {
         selection
             .on("mouseover", (event, d) => {
+                console.log('mouseover on link:', d);
+                console.log(selectedBookIds.has(d.bookId));
                 if (selectedBookIds.has(d.bookId)) {
                     const x = event.pageX + 10;
                     const y = event.pageY + 10;
