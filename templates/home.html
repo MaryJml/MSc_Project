@@ -91,10 +91,14 @@
         margin-top: 30px; /* 与上面的元素保持一些距离 */
     }
     .selectedNode {
+        stroke: darkred; /* 边框颜色 */
+        stroke-width: 2; /* 边框粗细 */
         fill: #5D3A9B; /* 修改选中节点的颜色 */
     }
 
     .relatedNode {
+        stroke: darkred;
+        stroke-width: 2;
         fill: #E66100; /* 修改相关节点的颜色 */
     }
 
@@ -141,6 +145,7 @@
 
 </style>
 <body>
+<label><input type="checkbox" id="showOwnerType"> Show Owner Type</label>
 <svg></svg>
 <button id="zoomInButton">Zoom In</button>
 <button id="zoomOutButton">Zoom Out</button>
