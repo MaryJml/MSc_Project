@@ -90,6 +90,7 @@ const svg = d3.select("svg")
 
 const linkCount = {};
 const nodeBookMap = new Map();
+const bookLinkMap = new Map();
 // 计算每个节点的度数
 links.forEach(link => {
     link.source.degree += 1;
@@ -112,6 +113,12 @@ links.forEach(link => {
         nodeBookMap.set(link.target.id, new Set());
     }
     nodeBookMap.get(link.target.id).add(link.bookId);
+
+    if (!bookLinkMap.has(link.bookId)) {
+        bookLinkMap.set(link.bookId, { sourceNodes: new Set(), targetNodes: new Set() });
+    }
+    bookLinkMap.get(link.bookId).sourceNodes.add(link.source.id);
+    bookLinkMap.get(link.bookId).targetNodes.add(link.target.id);
 });
 const linkForce = d3.forceLink(links)
     .id(d => d.id)
@@ -407,6 +414,23 @@ function updateLinks() {
 
     updateMouseEvents(link);
     updateMouseEvents(selfLoop);
+
+    d3.selectAll('#checkboxes label')
+        .style('display', 'none')
+        .filter(function(bookId) {
+            const linkInfo = bookLinkMap.get(bookId);
+            if (!linkInfo) {
+                return false;
+            }
+            if (showIncoming && linkInfo.targetNodes.has(selectedNodeId)) {
+                return true; // 显示与选定节点有传入链接的书籍ID
+            }
+            if (showOutgoing && linkInfo.sourceNodes.has(selectedNodeId)) {
+                return true; // 显示与选定节点有传出链接的书籍ID
+            }
+            return false;
+        })
+        .style('display', 'block');
 }
 
 function showLinkDirectionControls(show) {
