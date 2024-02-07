@@ -141,8 +141,8 @@ svg.append('defs').append('marker')
     .attr('refX', 50)  // 确保箭头和节点的边界对齐
     .attr('refY', 0)
     .attr('orient', 'auto')
-    .attr('markerWidth', 5)
-    .attr('markerHeight', 5)
+    .attr('markerWidth', 8)
+    .attr('markerHeight', 8)
     .attr('xoverflow','visible')
     .append('svg:path')
     .attr('d', 'M 0,-5 L 10 ,0 L 0,5')  // 箭头形状
@@ -229,6 +229,7 @@ function ticked() {
 simulation.on("tick", ticked);
 
 node.on("mouseover", (event, d) => {
+    d3.select(".tooltip").remove();
     const x = event.pageX + 10;
     const y = event.pageY + 10;
     const tooltip = d3.select("body").append("div")
@@ -250,6 +251,7 @@ node.on("mouseover", (event, d) => {
     });
 
 link.on("mouseover", (event, d) => {
+    d3.select(".tooltip").remove();
     const x = event.pageX + 10;
     const y = event.pageY + 10;
     const tooltip = d3.select("body").append("div")
@@ -272,6 +274,7 @@ link.on("mouseover", (event, d) => {
 
 selfLoop
     .on("mouseover", (event, d) => {
+        d3.select(".tooltip").remove();
         const x = event.pageX + 10;
         const y = event.pageY + 10;
         const tooltip = d3.select("body").append("div")
@@ -384,8 +387,7 @@ function updateLinks() {
     const updateMouseEvents = selection => {
         selection
             .on("mouseover", (event, d) => {
-                console.log('mouseover on link:', d);
-                console.log(selectedBookIds.has(d.bookId));
+                d3.select(".tooltip").remove();
                 if (selectedBookIds.has(d.bookId)) {
                     const x = event.pageX + 10;
                     const y = event.pageY + 10;
