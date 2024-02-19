@@ -84,19 +84,23 @@ const svg = d3.select("svg")
     .attr("width", width)
     .attr("height", height);
 
-const linkCount = {};
 const nodeBookMap = new Map();
 const bookLinkMap = new Map();
+const combinedLinks = [];
+const combinedLinkCount = {};
+
 // 计算每个节点的度数
 links.forEach(link => {
     link.source.degree += 1;
     link.target.degree += 1;
 
-    const key = link.source.id + "-" + link.target.id;
-    if (linkCount[key]) {
-        linkCount[key] = linkCount[key] + 1;
+    const linkKey = link.source.id + "-" + link.target.id;
+    if (combinedLinkCount[linkKey]) {
+        combinedLinkCount[linkKey].count++;
+        combinedLinkCount[linkKey].bookIds.push(link.bookId);
     } else {
-        linkCount[key] = 1;
+        combinedLinks.push(link);
+        combinedLinkCount[linkKey] = { count: 1, bookIds: [link.bookId] };
     }
 
     if (!nodeBookMap.has(link.source.id)) {
@@ -116,11 +120,11 @@ links.forEach(link => {
     bookLinkMap.get(link.bookId).sourceNodes.add(link.source.id);
     bookLinkMap.get(link.bookId).targetNodes.add(link.target.id);
 });
-const linkForce = d3.forceLink(links)
+const linkForce = d3.forceLink(combinedLinks)
     .id(d => d.id)
     .distance(link => {
         const key = link.source.id + "-" + link.target.id;
-        const count = linkCount[key];
+        const count = combinedLinkCount[key].count;
         return 300 / count; // 假设基础距离是400，根据链接数量调整
     });
 
@@ -145,11 +149,16 @@ svg.append('defs').append('marker')
     .attr('fill', '#999')  // 箭头颜色
     .style('stroke','none');
 
-const selfLoops = links.filter(d => d.source.id === d.target.id);
-const otherLinks = links.filter(d => d.source.id !== d.target.id);
+const selfLoops = combinedLinks.filter(d => d.source.id === d.target.id);
+const otherLinks = combinedLinks.filter(d => d.source.id !== d.target.id);
 
 const container = svg.append("g");
-
+const linkCounts = Object.values(combinedLinkCount).map(d => d.count);
+const maxLinkCount = Math.max(...linkCounts);
+const minLinkCount = Math.min(...linkCounts);
+const strokeWidthScale = d3.scaleLinear()
+    .domain([minLinkCount, maxLinkCount])
+    .range([1, 3]);
 
 const link = container.append("g")
     .attr("stroke", "#999")
@@ -157,7 +166,7 @@ const link = container.append("g")
     .selectAll("line")
     .data(otherLinks)
     .join("line")
-    .attr("stroke-width", d => Math.sqrt(d.value))
+    .attr("stroke-width", d => strokeWidthScale(combinedLinkCount[d.source.id + "-" + d.target.id].count))
     .attr('marker-end','url(#arrowhead)');  // 应用箭头标记
 
 
@@ -197,7 +206,7 @@ simulation.nodes(nodes).on("tick", () => {
     // 更新节点和边的位置
 });
 
-simulation.force("link").links(links);
+simulation.force("link").links(combinedLinks);
 
 simulation
     .force("x", d3.forceX(width / 2).strength(0.1))
@@ -247,10 +256,8 @@ node.on("mouseover", (event, d) => {
             .remove();
     });
 
-link.on("mouseover", (event, d) => {
+function showTooltip(x, y, html) {
     d3.select(".tooltip").remove();
-    const x = event.pageX + 10;
-    const y = event.pageY + 10;
     const tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
@@ -258,16 +265,24 @@ link.on("mouseover", (event, d) => {
     tooltip.transition()
         .duration(200)
         .style("opacity", .9);
-    tooltip.html("Book ID: " + d.bookId)  // 假设d.bookId包含了book id
+    tooltip.html(html)
         .style("left", x + "px")
         .style("top", y + "px");
+}
+
+function hideTooltip() {
+    d3.select(".tooltip").transition()
+        .duration(0)
+        .style("opacity", 0)
+        .remove();
+}
+
+link.on("mouseover", (event, d) => {
+    const linkKey = d.source.id + "-" + d.target.id;
+    const bookIds = combinedLinkCount[linkKey].bookIds.join(", ");
+    showTooltip(event.pageX, event.pageY, "Book IDs: " + bookIds);
 })
-    .on("mouseout", () => {
-        d3.select(".tooltip").transition()
-            .duration(0)
-            .style("opacity", 0)
-            .remove();
-    });
+    .on("mouseout", hideTooltip);
 
 selfLoop
     .on("mouseover", (event, d) => {
@@ -347,9 +362,15 @@ function updateLinks() {
     const showOutgoing = d3.select('#showOutgoingLinks').property('checked');
 
     link.style('opacity', d => {
+        const linkKey = d.source.id + "-" + d.target.id;
+        const linkInfo = combinedLinkCount[linkKey];
+        if (!linkInfo) {
+            return 0;
+        }
+
         if (!selectedNodeId) {
-            // 如果没有选择节点，则根据选择的书籍ID显示链接
-            return selectedBookIds.has(d.bookId) ? 1 : 0;
+            // 检查是否有任何与此链接关联的书籍ID被选中
+            return linkInfo.bookIds.some(id => selectedBookIds.has(id)) ? 1 : 0;
         }
         const isSelectedBookId = selectedBookIds.has(d.bookId);
         const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
@@ -384,30 +405,11 @@ function updateLinks() {
     const updateMouseEvents = selection => {
         selection
             .on("mouseover", (event, d) => {
-                d3.select(".tooltip").remove();
-                if (selectedBookIds.has(d.bookId)) {
-                    const x = event.pageX + 10;
-                    const y = event.pageY + 10;
-                    const tooltip = d3.select("body").append("div")
-                        .attr("class", "tooltip")
-                        .style("opacity", 0)
-                        .style("left", x + "px")
-                        .style("top", y + "px");
-
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    tooltip.html("Book ID: " + d.bookId);  // 显示bookId
-                }
+                const linkKey = d.source.id + "-" + d.target.id;
+                const bookIds = combinedLinkCount[linkKey].bookIds.join(", ");
+                showTooltip(event.pageX, event.pageY, "Book IDs: " + bookIds);
             })
-            .on("mouseout", (event, d) => {
-                if (selectedBookIds.has(d.bookId)) {
-                    d3.select(".tooltip").transition()
-                        .duration(0)
-                        .style("opacity", 0)
-                        .remove(); // 移除tooltip元素
-                }
-            })
+            .on("mouseout", hideTooltip);
 
     };
 
@@ -466,7 +468,7 @@ function zoomed(event) {
     const newDistance = 300 * event.transform.k ** 2;  // 修改这里来调整距离
     linkForce.distance(link => {
         const key = link.source.id + "-" + link.target.id;
-        const count = linkCount[key];
+        const count = combinedLinkCount[key].count;
         return newDistance / count;  // 调整链接距离
     });
     simulation.alpha(0.3).restart();  // 重新启动模拟以应用新的力参数
@@ -508,8 +510,8 @@ d3.selectAll('input[name="nodeId"]').on('change', function(event, d) {
 
     // 更新节点样式
     node.classed('selectedNode', n => n.id === selectedNodeId)
-        .classed('relatedNode', n => n.id !== selectedNodeId && links.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)))
-        .classed('unselectedNode', n => n.id !== selectedNodeId && !links.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)));
+        .classed('relatedNode', n => n.id !== selectedNodeId && combinedLinks.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)))
+        .classed('unselectedNode', n => n.id !== selectedNodeId && !combinedLinks.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)));
 
     // 更新链接样式
     link.classed('relatedLink', l => l.source.id === selectedNodeId || l.target.id === selectedNodeId)
