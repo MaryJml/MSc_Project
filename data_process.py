@@ -26,12 +26,7 @@ def get_ownerId():
     # variants_check_list = []
     # institution_set = set()
     for book in data:
-        end_dic = {}
         agent_path = []
-        holding_institution_name = book['holdingInstitution']['name']
-        # if 'Copy' not in holding_institution_name:
-        #     end_dic = {'name':find_agent_name(holding_institution_name), 'type': 'corporate'}
-        #     institution_set.add(find_agent_name(holding_institution_name))
         provenances = book['provenance']
         for provenance in provenances:
             # variants_set = set()
@@ -52,14 +47,10 @@ def get_ownerId():
                     #         variants_set.add(variant)
                     # except KeyError:
                     #     pass
+                    agent_dic['ownerId'] = agent['ownerId']
                     try:
                         agent_dic['name'] = find_agent_name(agent['name'])
                         # institution_set.add(find_agent_name(agent['name']))
-                        add = True
-                    except KeyError:
-                        pass
-                    try:
-                        agent_dic['ownerId'] = agent['ownerId']
                         add = True
                     except KeyError:
                         pass
@@ -69,23 +60,17 @@ def get_ownerId():
             except KeyError:
                 pass
             if len(agents_list) != 0:
-                agents_dic['agents'] = agents_list
-                agents_dic['time'] = {}
-                try:
-                    agents_dic['time']['start'] = provenance['timeperiod']['start']
-                except KeyError:
-                    pass
-                try:
-                    agents_dic['time']['end'] = provenance['timeperiod']['end']
-                except KeyError:
-                    pass
-                agent_path.append(agents_dic)
-        # if end_dic != {}:
-        #     end = {'agents':[end_dic]}
-        #     agent_path.append(end_dic)
-        if "Copy" in holding_institution_name:
-            end = {'agents': [{'name': 'Historical Copy'}]}
-            agent_path.append(end)
+                # agents_dic['agents'] = agents_list
+                # agents_dic['time'] = {}
+                # try:
+                #     agents_dic['time']['start'] = provenance['timeperiod']['start']
+                # except KeyError:
+                #     pass
+                # try:
+                #     agents_dic['time']['end'] = provenance['timeperiod']['end']
+                # except KeyError:
+                #     pass
+                agent_path.append(agents_list)
         processed_data[book['id']] = agent_path
     print(processed_data)
 
@@ -132,4 +117,4 @@ def get_time_line_data():
     print(processed_data)
 
 
-get_time_line_data()
+get_ownerId()

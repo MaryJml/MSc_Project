@@ -1,0 +1,155 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-panel, .right-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 调整左右面板的宽度 */
+.left-panel {
+    flex: 3; /* 根据需要调整 */
+}
+
+.right-panel {
+    flex: 1; /* 根据需要调整 */
+}
+
+
+.links line {
+    stroke: #999;
+    stroke-opacity: 0.6;
+}
+
+.nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+}
+
+#buttons {
+    margin-bottom: 10px;
+}
+
+#deselectNodeButton {
+    margin-bottom: 10px;
+}
+
+/* 设置所有复选框容器的滚动 */
+#checkboxes, #nodeSelection, #checkboxes2 {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 180px; /* 更新宽度以匹配您的要求 */
+    margin-bottom: 10px;
+    overflow-y: auto;
+}
+
+#checkboxes {
+    max-height: 150px;
+}
+
+#nodeSelection {
+    max-height: 150px;
+}
+
+#checkboxes2 {
+    max-height: 100px; /* 更小的最大高度 */
+}
+
+#nodeSelection label {
+    display: block; /* 确保每个标签单独一行 */
+    margin: 5px 0;
+}
+
+/* 链接方向控制的样式 */
+#linkDirectionControls label {
+    display: block; /* 一上一下排列 */
+    margin: 5px 0;
+}
+
+.zoom-controls {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.zoom-controls button {
+    margin-right: 5px; /* 为按钮添加右边距 */
+}
+
+/* 搜索条样式调整 */
+input[type="text"] {
+    padding: 5px;
+    margin-bottom: 10px; /* 与复选框保持一致的底部边距 */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px; /* 与复选框宽度一致 */
+}
+
+.selectedNode, .relatedNode {
+    stroke: darkred;
+    stroke-width: 2;
+}
+
+.selectedNode {
+    fill: #5D3A9B; /* 选中节点的颜色 */
+}
+
+.relatedNode {
+    fill: #E66100; /* 相关节点的颜色 */
+}
+
+.relatedLink {
+    stroke: #E66100; /* 相关链接的颜色 */
+}
+
+.unselectedNode, .unselectedLink {
+    opacity: 0.1; /* 未选中节点和链接的透明度 */
+}
+
+.axis path, .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+text {
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    pointer-events: none;  /* 确保文本不会干扰鼠标事件 */
+    user-select: none;  /* 防止文本被选中 */
+}
+
+.search-timeline-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
