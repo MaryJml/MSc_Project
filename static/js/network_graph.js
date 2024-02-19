@@ -125,13 +125,16 @@ const linkForce = d3.forceLink(combinedLinks)
     .distance(link => {
         const key = link.source.id + "-" + link.target.id;
         const count = combinedLinkCount[key].count;
-        return 300 / count; // 假设基础距离是400，根据链接数量调整
-    });
+        return 100 / count; // 假设基础距离是400，根据链接数量调整
+    })
+    .strength(0.8);
 
+const chargeForce = d3.forceManyBody()
+    .strength(-100);
 
 const simulation = d3.forceSimulation(nodes)
     .force("link", linkForce)
-    .force("charge", d3.forceManyBody())
+    .force("charge", chargeForce)
     .force("center", d3.forceCenter(width / 2, height / 2));
 
 
@@ -220,8 +223,7 @@ function ticked() {
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
 
-    node
-        .attr("transform", d => `translate(${d.x}, ${d.y})`);
+    node.attr("transform", d => `translate(${d.x}, ${d.y})`);
 
     selfLoop.attr("d", d => {
         const x = d.source.x;
@@ -465,12 +467,16 @@ function zoomed(event) {
     container.attr("transform", event.transform);  // 缩放和平移容器
 
     // 根据缩放级别动态调整链接距离
-    const newDistance = 300 * event.transform.k ** 2;  // 修改这里来调整距离
+    const newDistance = 100 * event.transform.k ** 2;  // 修改这里来调整距离
     linkForce.distance(link => {
         const key = link.source.id + "-" + link.target.id;
         const count = combinedLinkCount[key].count;
         return newDistance / count;  // 调整链接距离
     });
+
+    const newStrength = -100 * event.transform.k ** 2;
+    chargeForce.strength(newStrength);
+
     simulation.alpha(0.3).restart();  // 重新启动模拟以应用新的力参数
 }
 
