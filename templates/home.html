@@ -8,6 +8,9 @@
 <body>
 <div class="container">
     <div class="left-panel">
+        <div class="description" style="width: 750px">
+            <p>This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.</p>
+        </div>
         <label><input type="checkbox" id="showOwnerType"> Show Owner Type</label>
         <svg></svg>
         <div class="zoom-controls">
@@ -17,6 +20,9 @@
         </div>
     </div>
     <div class="right-panel" id="controls">
+        <div  class="description" style="width: 200px">
+            <p>Users can filter the books they wish to view using BookID checkboxes, and select the nodes they want to view using Node checkboxes, which also display related nodes and links.</p>
+        </div>
         <div id="buttons">
             <button id="selectAll">Select All</button>
             <button id="deselectAll">Deselect All</button>
@@ -24,6 +30,9 @@
         <input type="text" id="bookSearch" placeholder="Search BookID">
         <div id="checkboxes">
             <!-- 复选框将被添加到这里 -->
+        </div>
+        <div class="description" style="width: 200px">
+            <p>Upon selecting an owner, the node becomes purple, connected nodes orange, and non-relevant links vanish. Users can toggle to display "Incoming" or "Outgoing" links for that owner. BookID checkboxes will then filter to show only the books associated with the selected node.</p>
         </div>
         <button id="deselectNodeButton">Deselect Node</button>
         <input type="text" id="nodeSearch" placeholder="Search Node">
@@ -35,6 +44,11 @@
             <label><input type="checkbox" id="showOutgoingLinks" checked> Show Outgoing Links</label>
         </div>
     </div>
+
+</div>
+
+<div class="description" style="width: 790px; margin-top: 20px; margin-left: 5px">
+    <p>The timeline shows book ownership over time, with colors marking the final owner and past holders. Owners are labeled by year for clarity. </p>
 </div>
 <div class="search-timeline-container">
     <div id="timeline">
@@ -50,7 +64,10 @@
     </div>
 </div>
 
-<svg id="chordSvg" width="800" height="900"></svg>
+<div class="description" style="width: 600px; margin-left: 10px">
+    <p>The Chord Diagram serves as a powerful visualization tool for illustrating the inter-relationships between entities, in this case, the exchange of books between owners. Unlike the network graph where the distance between nodes may be influenced by the size of the nodes, causing larger nodes to appear closer, the Chord Diagram provides a more precise representation of the relationships.</p>
+</div>
+<svg id="chordSvg" width="600" height="600"></svg>
 
 
 </body>

@@ -65,8 +65,8 @@ function updateTimeline() {
     const selectedData = [{ bookId: selectedBookId, periods: timeline_data[selectedBookId] }];
 
     // Define dimensions for the timeline
-    const margin = { top: 50, right: 30, bottom: 50, left: 50 },
-        width = 900 - margin.left - margin.right,
+    const margin = { top: 20, right: 30, bottom: 20, left: 0 },
+        width = 790 - margin.left - margin.right,
         height = 350 - margin.top - margin.bottom;
 
     // Create SVG element

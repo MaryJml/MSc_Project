@@ -153,3 +153,8 @@ text {
     justify-content: space-between;
     margin-top: 10px;
 }
+.description{
+    font-size: 10px;
+    color: gray;
+    text-align: left;
+}
