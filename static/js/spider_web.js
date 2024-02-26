@@ -297,7 +297,16 @@ webSvg.append('circle')
     .attr('cx', center.x)
     .attr('cy', center.y)
     .attr('r', 5)
-    .attr('fill', 'red');
+    .attr('fill', 'red')
+    .on('mouseover', function() {
+        webTooltip.style('visibility', 'visible').text("Owner ID: 3467");
+    })
+    .on('mousemove', function(event) {
+        webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+    })
+    .on('mouseout', function() {
+        webTooltip.style('visibility', 'hidden');
+    });
 
 // 计算两点之间的距离
 function distance(a, b) {
