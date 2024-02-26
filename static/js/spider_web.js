@@ -29,6 +29,18 @@ showOwnersCheckbox.addEventListener('change', function() {
 });
 
 // 获取复选框元素
+const showSameOwnersCheckbox = document.getElementById('showSameOwnersCheckbox');
+
+// 添加事件监听器以响应复选框的变化
+showSameOwnersCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+        d3.selectAll('.linkSameOwner').style('opacity', 0.5);
+    } else {
+        d3.selectAll('.linkSameOwner').style('opacity', 0);
+    }
+});
+
+// 获取复选框元素
 const showYearsCheckbox = document.getElementById('showYearsCheckbox');
 
 // 添加事件监听器以响应复选框的变化
@@ -53,11 +65,11 @@ Object.values(timeline_data).forEach(events => {
 const minYearDiff = d3.min(yearDiffs);
 const maxYearDiff = d3.max(yearDiffs);
 
-const UnknownLength = 100;
+const UnknownLength = 80;
 
 const yearScale = d3.scaleLinear()
     .domain([minYearDiff, maxYearDiff])
-    .range([100, 200]);
+    .range([80, 200]);
 
 const timelines = Object.keys(timeline_data).map(bookId => {
     const events = timeline_data[bookId];
@@ -113,6 +125,8 @@ const webTooltip = d3.select('body').append('div')
 
 const centerPadding = 50;
 
+const ownerLocations = {};
+
 timelines.forEach((timeline, index) => {
     // 计算时间线的角度
     const angle = angleStep * index;
@@ -162,6 +176,13 @@ timelines.forEach((timeline, index) => {
         const x = center.x + Math.cos(angle) * accumulatedLengthLeft;
         const y = center.y + Math.sin(angle) * accumulatedLengthLeft;
 
+        timeline.events[i].owner_names.forEach(owner => {
+            if (!ownerLocations[owner]) {
+                ownerLocations[owner] = [];
+            }
+            ownerLocations[owner].push({ x, y });
+        });
+
         webSvg.selectAll(null) // 使用selectAll(null)来创建新的元素
             .data([timeline.events[i]]) // 绑定事件数据
             .enter()
@@ -201,6 +222,13 @@ timelines.forEach((timeline, index) => {
 
         const x = center.x + Math.cos(angle) * accumulatedLengthRight;
         const y = center.y + Math.sin(angle) * accumulatedLengthRight;
+
+        timeline.events[i].owner_names.forEach(owner => {
+            if (!ownerLocations[owner]) {
+                ownerLocations[owner] = [];
+            }
+            ownerLocations[owner].push({ x, y });
+        });
 
         webSvg.selectAll(null)
             .data([timeline.events[i]]) // 绑定事件数据
@@ -264,4 +292,42 @@ webSvg.append('circle')
     .attr('cy', center.y)
     .attr('r', 5)
     .attr('fill', 'red');
+
+// 计算两点之间的距离
+function distance(a, b) {
+    return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+}
+
+// 遍历每个所有者，连接最近的点
+Object.keys(ownerLocations).forEach(owner => {
+    const locations = ownerLocations[owner];
+    if (locations.length > 1) {
+        locations.forEach((location, index) => {
+            let closest = null;
+            let closestDistance = Infinity;
+
+            // 找到最近的点
+            locations.forEach((otherLocation, otherIndex) => {
+                if (index !== otherIndex) {
+                    const dist = distance(location, otherLocation);
+                    if (dist < closestDistance) {
+                        closest = otherLocation;
+                        closestDistance = dist;
+                    }
+                }
+            });
+
+            // 绘制连接最近点的虚线
+            if (closest) {
+                webSvg.append('path')
+                    .attr('class', 'linkSameOwner')
+                    .attr('opacity', 0.5)
+                    .attr('d', d3.line()([[location.x, location.y], [closest.x, closest.y]]))
+                    .attr('stroke', ownerColorScale(owner))
+                    .attr('fill', 'none');
+            }
+        });
+    }
+});
+
 
