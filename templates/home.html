@@ -47,14 +47,17 @@
 
 </div>
 
-<div class="description" style="width: 790px; margin-top: 20px; margin-left: 5px">
-    <p>The timeline shows book ownership over time, with colors marking the final owner and past holders. Owners are labeled by year for clarity. </p>
-</div>
-<div class="search-timeline-container">
-    <div id="timeline">
-        <!-- Timeline will be rendered here -->
+
+<div class="container">
+    <div class="left-panel">
+        <div class="description" style="width: 790px; margin-top: 20px; margin-left: 5px">
+            <p>The timeline shows book ownership over time, with colors marking the final owner and past holders. Owners are labeled by year for clarity. </p>
+        </div>
+        <div id="timeline">
+            <!-- Timeline will be rendered here -->
+        </div>
     </div>
-    <div>
+    <div  class="right-panel" >
         <div id="searchBar">
             <input type="text" id="bookFilter" placeholder="Search for book IDs...">
         </div>
@@ -64,10 +67,6 @@
     </div>
 </div>
 
-<div class="description" style="width: 600px; margin-left: 10px">
-    <p>The Chord Diagram serves as a powerful visualization tool for illustrating the inter-relationships between entities, in this case, the exchange of books between owners. Unlike the network graph where the distance between nodes may be influenced by the size of the nodes, causing larger nodes to appear closer, the Chord Diagram provides a more precise representation of the relationships.</p>
-</div>
-<svg id="chordSvg" width="600" height="600"></svg>
 
 <div class="container">
     <div class="left-panel">
@@ -91,12 +90,23 @@
             <button id="webDeselectAll">Deselect All</button>
         </div>
         <input type="text" id="ownerSearchBar" placeholder="Search Owner ID">
-        <div id="ownerCheckboxes" style="display: none;">
+        <div id="ownerCheckboxes">
             <!-- 复选框将在这里生成 -->
         </div>
     </div>
 </div>
 
+<div class="container">
+    <div class="left-panel">
+        <div class="description" style="width: 600px; justify-content: flex-start;">
+            <p>The Chord Diagram serves as a powerful visualization tool for illustrating the inter-relationships between entities, in this case, the exchange of books between owners. Unlike the network graph where the distance between nodes may be influenced by the size of the nodes, causing larger nodes to appear closer, the Chord Diagram provides a more precise representation of the relationships.</p>
+        </div>
+        <svg id="chordSvg" width="600" height="600"></svg>
+    </div>
+    <div class="right-panel">
+
+    </div>
+</div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>

@@ -109,7 +109,7 @@ const timelines = Object.keys(timeline_data).map(bookId => {
     };
 });
 
-const webWidth = 1000;
+const webWidth = 800;
 const webHeight = 1000;
 
 const webSvg = d3.select('#web')
@@ -331,7 +331,16 @@ Object.keys(ownerLocations).forEach(owner => {
                     .attr('opacity', 0.5)
                     .attr('d', d3.line()([[location.x, location.y], [closest.x, closest.y]]))
                     .attr('stroke', ownerColorScale(owner))
-                    .attr('fill', 'none');
+                    .attr('fill', 'none')
+                    .on('mouseover', function() {
+                        webTooltip.style('visibility', 'visible').text(`${owner}`);
+                    })
+                    .on('mousemove', function(event) {
+                        webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                    })
+                    .on('mouseout', function() {
+                        webTooltip.style('visibility', 'hidden');
+                    });;
             }
         });
     }
@@ -365,7 +374,8 @@ ownerCheckboxesContainer.addEventListener('change', function(event) {
         // 更新对应所有者连线的透明度
         d3.selectAll('.linkSameOwner')
             .filter(function() { return this.getAttribute('data-owner') === owner; })
-            .style('opacity', isChecked ? 0.5 : 0);
+            .style('opacity', isChecked ? 0.5 : 0)
+            .style('pointer-events', this.checked ? 'all' : 'none');
     }
 });
 
@@ -377,7 +387,9 @@ showSameOwnersCheckbox.addEventListener('change', function() {
 
     // 在隐藏复选框时重置所有连线的透明度
     if (!this.checked) {
-        d3.selectAll('.linkSameOwner').style('opacity', 0);
+        d3.selectAll('.linkSameOwner')
+            .style('opacity', 0)
+            .style('pointer-events', this.checked ? 'all' : 'none');
     }
 });
 
