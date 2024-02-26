@@ -23,7 +23,7 @@
         <div  class="description" style="width: 200px">
             <p>Users can filter the books they wish to view using BookID checkboxes, and select the nodes they want to view using Node checkboxes, which also display related nodes and links.</p>
         </div>
-        <div id="buttons">
+        <div class="buttons">
             <button id="selectAll">Select All</button>
             <button id="deselectAll">Deselect All</button>
         </div>
@@ -69,19 +69,34 @@
 </div>
 <svg id="chordSvg" width="600" height="600"></svg>
 
-<label>
-    <input type="checkbox" id="showYearsCheckbox" checked>
-    Show start year
-</label>
-<label>
-    <input type="checkbox" id="showOwnersCheckbox">
-    Show different Owner
-</label>
-<label>
-    <input type="checkbox" id="showSameOwnersCheckbox" checked>
-    Show link between same owner
-</label>
-<svg id="web" width="800" height="600"></svg>
+<div class="container">
+    <div class="left-panel">
+        <svg id="web" width="800" height="600"></svg>
+    </div>
+    <div class="right-panel" id="controls2">
+        <label>
+            <input type="checkbox" id="showYearsCheckbox" checked>
+            Show start year
+        </label>
+        <label>
+            <input type="checkbox" id="showOwnersCheckbox">
+            Show different Owner
+        </label>
+        <label>
+            <input type="checkbox" id="showSameOwnersCheckbox" checked>
+            Show link
+        </label>
+        <div class="buttons">
+            <button id="webSelectAll">Select All</button>
+            <button id="webDeselectAll">Deselect All</button>
+        </div>
+        <input type="text" id="ownerSearchBar" placeholder="Search Owner ID">
+        <div id="ownerCheckboxes" style="display: none;">
+            <!-- 复选框将在这里生成 -->
+        </div>
+    </div>
+</div>
+
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>

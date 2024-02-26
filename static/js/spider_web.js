@@ -28,8 +28,14 @@ showOwnersCheckbox.addEventListener('change', function() {
     }
 });
 
-// 获取复选框元素
-const showSameOwnersCheckbox = document.getElementById('showSameOwnersCheckbox');
+// 初始化函数
+function initialize() {
+    const showSameOwnersCheckbox = document.getElementById('showSameOwnersCheckbox');
+
+    // 根据 showSameOwnersCheckbox 的状态设置 ownerCheckboxes 的显示
+    ownerCheckboxesContainer.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
+}
+
 
 // 添加事件监听器以响应复选框的变化
 showSameOwnersCheckbox.addEventListener('change', function() {
@@ -321,6 +327,7 @@ Object.keys(ownerLocations).forEach(owner => {
             if (closest) {
                 webSvg.append('path')
                     .attr('class', 'linkSameOwner')
+                    .attr('data-owner', owner)
                     .attr('opacity', 0.5)
                     .attr('d', d3.line()([[location.x, location.y], [closest.x, closest.y]]))
                     .attr('stroke', ownerColorScale(owner))
@@ -330,4 +337,90 @@ Object.keys(ownerLocations).forEach(owner => {
     }
 });
 
+const ownerCheckboxesContainer = document.getElementById('ownerCheckboxes');
 
+Array.from(ownerSet).forEach(owner => {
+    const checkboxDiv = document.createElement('div');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `checkbox-${owner}`;
+    checkbox.checked = true;
+    checkbox.setAttribute('data-owner', owner);
+
+    const label = document.createElement('label');
+    label.htmlFor = `checkbox-${owner}`;
+    label.appendChild(document.createTextNode(owner));
+
+    checkboxDiv.appendChild(checkbox);
+    checkboxDiv.appendChild(label);
+    ownerCheckboxesContainer.appendChild(checkboxDiv);
+});
+
+ownerCheckboxesContainer.addEventListener('change', function(event) {
+    if (event.target.type === 'checkbox') {
+        const owner = event.target.getAttribute('data-owner');
+        const isChecked = event.target.checked;
+
+        // 更新对应所有者连线的透明度
+        d3.selectAll('.linkSameOwner')
+            .filter(function() { return this.getAttribute('data-owner') === owner; })
+            .style('opacity', isChecked ? 0.5 : 0);
+    }
+});
+
+showSameOwnersCheckbox.addEventListener('change', function() {
+    ownerCheckboxesContainer.style.display = this.checked ? 'block' : 'none';
+    ownerSearchBar.style.display = this.checked ? 'block' : 'none';
+    selectAllButton.style.display = this.checked ? 'block' : 'none';
+    deselectAllButton.style.display = this.checked ? 'block' : 'none';
+
+    // 在隐藏复选框时重置所有连线的透明度
+    if (!this.checked) {
+        d3.selectAll('.linkSameOwner').style('opacity', 0);
+    }
+});
+
+const ownerSearchBar = document.getElementById('ownerSearchBar');
+ownerSearchBar.addEventListener('input', function() {
+    const searchText = this.value.toLowerCase();
+    Array.from(ownerCheckboxesContainer.children).forEach(div => {
+        // 假设每个 div 包含一个复选框和一个 label
+        if (div.querySelector('label').textContent.toLowerCase().includes(searchText)) {
+            div.style.display = 'block';
+        } else {
+            div.style.display = 'none';
+        }
+    });
+});
+
+// 实现全选和取消全选的功能
+const selectAllButton = document.getElementById('webSelectAll');
+const deselectAllButton = document.getElementById('webDeselectAll');
+
+selectAllButton.addEventListener('click', () => {
+    // 全选所有复选框
+    Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
+        checkbox.checked = true;
+    });
+
+    // 显示所有相关连线
+    if (showSameOwnersCheckbox.checked) {
+        d3.selectAll('.linkSameOwner').style('opacity', 0.5);
+    }
+});
+
+deselectAllButton.addEventListener('click', () => {
+    // 取消全选所有复选框
+    Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    // 隐藏所有相关连线
+    if (showSameOwnersCheckbox.checked) {
+        d3.selectAll('.linkSameOwner').style('opacity', 0);
+    }
+});
+
+// 当页面加载完成时执行初始化函数
+document.addEventListener('DOMContentLoaded', initialize);

@@ -49,7 +49,7 @@
     padding: 20px;
 }
 
-#buttons {
+.buttons {
     margin-bottom: 10px;
 }
 
@@ -58,7 +58,7 @@
 }
 
 /* 设置所有复选框容器的滚动 */
-#checkboxes, #nodeSelection, #checkboxes2 {
+#checkboxes, #nodeSelection, #checkboxes2, #ownerCheckboxes {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -75,7 +75,7 @@
     max-height: 150px;
 }
 
-#checkboxes2 {
+#checkboxes2, #ownerCheckboxes {
     max-height: 100px; /* 更小的最大高度 */
 }
 
