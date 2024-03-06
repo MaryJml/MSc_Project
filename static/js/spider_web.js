@@ -27,7 +27,7 @@ showOwnersCheckbox.addEventListener('change', function() {
             .attr('fill', function(d) {
                 return d.owner_names.includes('Owner ID: 3467') ? 'red' : 'blue';
             });
-        
+
     }
 });
 
