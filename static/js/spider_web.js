@@ -27,6 +27,7 @@ showOwnersCheckbox.addEventListener('change', function() {
             .attr('fill', function(d) {
                 return d.owner_names.includes('Owner ID: 3467') ? 'red' : 'blue';
             });
+        
     }
 });
 
@@ -206,6 +207,27 @@ const centerPadding = 50;
 function distance(a, b) {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
+
+let relatedTimelinesMap = {};
+
+Object.keys(sorted_timeline_data).forEach(bookId => {
+    let ownerNames = new Set(sorted_timeline_data[bookId].map(entry => entry.owner_names).flat());
+    ownerNames.delete('Owner ID: 3467'); // 排除 "Owner ID: 3467"
+    relatedTimelinesMap[bookId] = [];
+    relatedTimelinesMap[bookId].push(sorted_timeline_data[bookId]);
+
+    Object.keys(sorted_timeline_data).forEach(otherBookId => {
+        if (bookId !== otherBookId) {
+            let otherOwnerNames = new Set(sorted_timeline_data[otherBookId].map(entry => entry.owner_names).flat());
+            otherOwnerNames.delete('Owner ID: 3467'); // 同样排除 "Owner ID: 3467"
+            let intersection = new Set([...ownerNames].filter(x => otherOwnerNames.has(x)));
+            if (intersection.size > 0) {
+                relatedTimelinesMap[bookId].push(sorted_timeline_data[otherBookId]);
+            }
+        }
+    });
+});
+
 
 function drawTimelines(data) {
     const ownerLocations = {};
@@ -391,6 +413,8 @@ function drawTimelines(data) {
                         return this.classList.contains(textClass) ? 1 : 0;
                     }
                 });
+                let relatedTimelines = relatedTimelinesMap[timeline.bookId];
+                drawFocusTimelines(relatedTimelines);
             })
             .on('mousemove', function(event) {
                 webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
@@ -476,3 +500,240 @@ function drawTimelines(data) {
 // 当页面加载完成时执行初始化函数
 document.addEventListener('DOMContentLoaded', initialize);
 
+const focusUnknownLength = 80;
+
+const focusYearScale = d3.scaleLinear()
+    .domain([minYearDiff, maxYearDiff])
+    .range([30, 100]);
+const focusedWebWidth = 400;
+const focusedWebHeight = 400;
+const focusedWebSvg = d3.select('#focusedWeb')
+    .attr('width', focusedWebWidth)
+    .attr('height', focusedWebHeight);
+const focusCenter = { x: focusedWebWidth / 2, y: focusedWebHeight / 2 };
+const focusCenterPadding = 30;
+function drawFocusTimelines(data) {
+    const ownerLocations = {};
+    focusedWebSvg.selectAll("*").remove();
+
+    const timelines = Object.keys(data).map(bookId => {
+        const events = data[bookId];
+        const centerIndex = events.findIndex(event => event.owner_names.includes('Owner ID: 3467'));
+
+        let lengthBefore = 0;
+        let lengthAfter = 0;
+
+        // 计算 "Owner ID: 3467" 点之前的长度
+        for (let i = 0; i < centerIndex; i++) {
+            const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
+                ? focusYearScale(events[i + 1].start_time - events[i].start_time)
+                : focusUnknownLength;
+            lengthBefore += yearDiff;
+        }
+
+        // 计算 "Owner ID: 3467" 点之后的长度
+        for (let i = centerIndex; i < events.length - 1; i++) {
+            const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
+                ? focusYearScale(events[i + 1].start_time - events[i].start_time)
+                : focusUnknownLength;
+            lengthAfter += yearDiff;
+        }
+
+        return {
+            bookId,
+            events,
+            centerIndex,
+            lengthBefore,
+            lengthAfter
+        };
+    });
+
+    let angleStep = (2 * Math.PI) / timelines.length;
+
+    if(timelines.length === 2){
+        angleStep = (2 * Math.PI) / (timelines.length + 1);
+    }
+
+
+    timelines.forEach((timeline, index) => {
+        // 计算时间线的角度
+        const angle = angleStep * index;
+        const timelineClass = `class-timeline-${timeline.bookId}`;
+        const textClass = `text-timeline-${timeline.bookId}`;
+
+        // 计算左侧部分的起始点（从中心向左）
+        const startLeftOffsetX = Math.cos(angle) * (timeline.lengthBefore + focusCenterPadding);
+        const startLeftOffsetY = Math.sin(angle) * (timeline.lengthBefore + focusCenterPadding);
+        const startLeftX = focusCenter.x - startLeftOffsetX;
+        const startLeftY = focusCenter.y - startLeftOffsetY;
+
+        // 计算右侧部分的结束点（从中心向右）
+        const endRightOffsetX = Math.cos(angle) * (timeline.lengthAfter + focusCenterPadding);
+        const endRightOffsetY = Math.sin(angle) * (timeline.lengthAfter + focusCenterPadding);
+        const endRightX = focusCenter.x + endRightOffsetX;
+        const endRightY = focusCenter.y + endRightOffsetY;
+
+        // 绘制左侧部分的线段
+        if (timeline.lengthBefore > 0) {
+            const lineLeft = d3.line()([[startLeftX, startLeftY], [focusCenter.x, focusCenter.y]]);
+            focusedWebSvg.append('path')
+                .attr('d', lineLeft)
+                .attr('class', timelineClass)
+                .attr('opacity', 0.6)
+                .attr('stroke', 'black')
+                .attr('fill', 'none');
+        }
+
+        // 绘制右侧部分的线段
+        const lineRight = d3.line()([[focusCenter.x, focusCenter.y], [endRightX, endRightY]]);
+        focusedWebSvg.append('path')
+            .attr('d', lineRight)
+            .attr('class', timelineClass)
+            .attr('opacity', 0.6)
+            .attr('stroke', 'black')
+            .attr('fill', 'none');
+
+
+        let accumulatedLengthLeft = 0;
+        for (let i = timeline.centerIndex - 1; i >= 0; i--) {
+            accumulatedLengthLeft -= (timeline.events[i].start_time !== 'Unknown' && timeline.events[i + 1].start_time !== 'Unknown'
+                ? focusYearScale(timeline.events[i + 1].start_time - timeline.events[i].start_time)
+                : focusUnknownLength);
+
+            const x = focusCenter.x + Math.cos(angle) * accumulatedLengthLeft;
+            const y = focusCenter.y + Math.sin(angle) * accumulatedLengthLeft;
+
+            timeline.events[i].owner_names.forEach(owner => {
+                if (!ownerLocations[owner]) {
+                    ownerLocations[owner] = [];
+                }
+                ownerLocations[owner].push({ x, y });
+            });
+
+            focusedWebSvg.selectAll(null) // 使用selectAll(null)来创建新的元素
+                .data([timeline.events[i]]) // 绑定事件数据
+                .enter()
+                .append('circle')
+                .attr('cx', x)
+                .attr('cy', y)
+                .attr('r', 2)
+                .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
+                .on('mouseover', function() {
+                    webTooltip.style('visibility', 'visible').text(`${timeline.events[i].owner_names.join(', ')}\nYear: ${timeline.events[i].start_time}`);
+                })
+                .on('mousemove', function(event) {
+                    webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                })
+                .on('mouseout', function() {
+                    webTooltip.style('visibility', 'hidden');
+                });
+
+            // 添加文本
+            if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
+                focusedWebSvg.append('text')
+                    .attr('class', `timeline-text ${textClass}`)
+                    .attr('x', x)
+                    .attr('y', y - 10)
+                    .attr('text-anchor', 'middle')
+                    .text(timeline.events[i].start_time);
+            }
+        }
+
+        let accumulatedLengthRight = 0;
+        for (let i = timeline.centerIndex; i < timeline.events.length; i++) {
+            if (i !== timeline.centerIndex) {
+                accumulatedLengthRight += (timeline.events[i].start_time !== 'Unknown' && timeline.events[i - 1].start_time !== 'Unknown'
+                    ? focusYearScale(timeline.events[i].start_time - timeline.events[i - 1].start_time)
+                    : focusUnknownLength);
+            }
+
+            const x = focusCenter.x + Math.cos(angle) * accumulatedLengthRight;
+            const y = focusCenter.y + Math.sin(angle) * accumulatedLengthRight;
+
+            timeline.events[i].owner_names.forEach(owner => {
+                if (!ownerLocations[owner]) {
+                    ownerLocations[owner] = [];
+                }
+                ownerLocations[owner].push({ x, y });
+            });
+
+            focusedWebSvg.selectAll(null)
+                .data([timeline.events[i]]) // 绑定事件数据
+                .enter()
+                .append('circle')
+                .attr('cx', x)
+                .attr('cy', y)
+                .attr('r', 2)
+                .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
+                .on('mouseover', function() {
+                    webTooltip.style('visibility', 'visible').text(`${timeline.events[i].owner_names.join(', ')}\nYear: ${timeline.events[i].start_time}`);
+                })
+                .on('mousemove', function(event) {
+                    webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                })
+                .on('mouseout', function() {
+                    webTooltip.style('visibility', 'hidden');
+                });
+
+            // 添加文本
+            if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
+                focusedWebSvg.append('text')
+                    .attr('class', `timeline-text ${textClass}`)
+                    .attr('x', x)
+                    .attr('y', y - 10)
+                    .attr('text-anchor', 'middle')
+                    .text(timeline.events[i].start_time);
+            }
+        }
+
+    });
+
+    // 在中心点添加共同所有者的标记
+    focusedWebSvg.append('circle')
+        .attr('cx', focusCenter.x)
+        .attr('cy', focusCenter.y)
+        .attr('r', 5)
+        .attr('fill', 'red');
+
+    // 遍历每个所有者，连接最近的点
+    Object.keys(ownerLocations).forEach(owner => {
+        const locations = ownerLocations[owner];
+        if (locations.length > 1) {
+            locations.forEach((location, index) => {
+                let closest = null;
+                let closestDistance = Infinity;
+
+                // 找到最近的点
+                locations.forEach((otherLocation, otherIndex) => {
+                    if (index !== otherIndex) {
+                        const dist = distance(location, otherLocation);
+                        if (dist < closestDistance) {
+                            closest = otherLocation;
+                            closestDistance = dist;
+                        }
+                    }
+                });
+
+                // 绘制连接最近点的虚线
+                if (closest) {
+                    focusedWebSvg.append('path')
+                        .attr('data-owner', owner)
+                        .attr('opacity', 0.5)
+                        .attr('d', d3.line()([[location.x, location.y], [closest.x, closest.y]]))
+                        .attr('stroke', ownerColorScale(owner))
+                        .attr('fill', 'none')
+                        .on('mouseover', function() {
+                            webTooltip.style('visibility', 'visible').text(`${owner}`);
+                        })
+                        .on('mousemove', function(event) {
+                            webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                        })
+                        .on('mouseout', function() {
+                            webTooltip.style('visibility', 'hidden');
+                        });
+                }
+            });
+        }
+    });
+
+}
