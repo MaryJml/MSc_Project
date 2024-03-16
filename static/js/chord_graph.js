@@ -46,7 +46,9 @@ chordSvg.append("g")
     .append("path")
     .attr("d", arc)
     .attr("fill", d => color(d.index)) // 根据您的需求选择颜色
-    .attr("stroke", d => d3.rgb(color(d.index)).darker());
+    .attr("stroke", d => d3.rgb(color(d.index)).darker())
+    .append("title") // 添加title元素以提供鼠标悬停提示
+    .text(d => `${nodes[d.index].id}: ${ownerIdNameMap[nodes[d.index].id.replace("Owner ID: ", "")] || "Unknown"}`);
 
 // 绘制链接弦
 chordSvg.append("g")
@@ -72,4 +74,4 @@ chordSvg.append("g")
         ${d.angle > Math.PI ? "rotate(180)" : ""}
     `)
     .attr("text-anchor", d => d.angle > Math.PI ? "end" : null)
-    .text(d => nodes[d.index].id);  // 假设nodes数组中的每个元素有一个id属性
+    .text(d => nodes[d.index].id);

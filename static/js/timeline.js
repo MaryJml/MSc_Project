@@ -51,7 +51,16 @@ function initialSelection() {
 
 initialSelection();
 
-
+const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .style("background", "#fff")
+    .style("border", "1px solid #000")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+    .text("");
 
 function updateTimeline() {
     // Clear the previous timeline
@@ -95,7 +104,6 @@ function updateTimeline() {
             const yPosition = height / 2;
             const isLastPeriod = periodIndex === book.periods.length - 1; // Check if it's the last period
 
-
             // Ensure owner_names is an array
             const ownerNames = Array.isArray(period.owner_names) ? period.owner_names : [period.owner_names];
 
@@ -104,7 +112,17 @@ function updateTimeline() {
                 .attr("cx", xPosition)
                 .attr("cy", yPosition)
                 .attr("r", 5)
-                .style("fill", isLastPeriod ? "#FEFE62" : "#D35FB7");
+                .style("fill", isLastPeriod ? "#FEFE62" : "#D35FB7")
+                .on("mouseover", function(event, d) {
+                    const ownerName = ownerNames.join("; ").replace(/Owner ID: /g, "").split("; ").map(id => ownerIdNameMap[id.trim()] || `Owner ID: ${id}`).join(", ");
+                    tooltip.html(ownerName)
+                        .style("visibility", "visible")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 10) + "px");
+                })
+                .on("mouseout", function() {
+                    tooltip.style("visibility", "hidden");
+                });
 
             // Add label for the owner name
             timeline_svg.append("text")
