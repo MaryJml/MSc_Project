@@ -28,7 +28,7 @@ def get_ownerId():
     processed_data = {}
     # variants_check_list = []
     # institution_set = set()
-    # id_to_name_dic = {}
+    id_to_name_dic = {}
     for book in data:
         agent_path = []
         provenances = book['provenance']
@@ -39,6 +39,7 @@ def get_ownerId():
             try:
                 agents = provenance['agent']
                 for agent in agents:
+
                     agent_dic = {}
                     add = False
                     # try:
@@ -53,8 +54,8 @@ def get_ownerId():
                     #     pass
                     try:
                         agent_dic['ownerId'] = agent['ownerId']
-                        # if agent['ownerId'] not in id_to_name_dic:
-                        #     id_to_name_dic[agent['ownerId']] = ""
+                        if agent['ownerId'] not in id_to_name_dic:
+                            id_to_name_dic[agent['ownerId']] = ""
                         add = True
                     except KeyError:
                         pass
@@ -62,8 +63,8 @@ def get_ownerId():
                     try:
                         agent_dic['name'] = find_agent_name(agent['name'])
                         add = True
-                        # if id_to_name_dic[agent['ownerId']] == "":
-                        #     id_to_name_dic[agent['ownerId']] = agent['name']
+                        if id_to_name_dic[agent['ownerId']] == "":
+                            id_to_name_dic[agent['ownerId']] = agent['name']
                     # institution_set.add(find_agent_name(agent['name']))
                     except KeyError:
                         pass
@@ -82,7 +83,7 @@ def get_ownerId():
         # data = list(id_to_name_dic.items())
         # df = pd.DataFrame(data, columns=['ID', 'Name'])
         # df.to_csv('my_dataframe.csv', index=False)
-    print(processed_data)
+    print(id_to_name_dic)
 
 
 def get_ownerId_timeperiod():
