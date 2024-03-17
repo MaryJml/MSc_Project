@@ -9,8 +9,28 @@ def serve_js(filename):
 
 
 @app.route('/')
-def home():
-    return render_template('home.html', active_page='path')
+def network():
+    return render_template('network.html', active_page=['network','home'])
+
+@app.route('/spiderweb')
+def spiderweb():
+    return render_template('spiderweb.html', active_page=['spiderweb','home'])
+
+@app.route('/chord')
+def chord():
+    return render_template('chord.html', active_page=['chord','home'])
+
+@app.route('/euler')
+def euler():
+    return render_template('euler.html', active_page=['euler','home'])
+
+@app.route('/intro')
+def intro():
+    return
+
+@app.route('/guide')
+def guide():
+    return
 
 
 if __name__ == '__main__':

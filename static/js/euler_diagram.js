@@ -17,7 +17,7 @@ var chart = venn.VennDiagram();
 var div = d3.select("#venn").datum(vennData).call(chart);
 
 // 创建Tooltip
-var tooltip = d3.select("body").append("div")
+var tooltip = d3.select("#euler").append("div")
     .attr("class", "venntooltip");
 
 div.selectAll("text").style("opacity", 0);

@@ -81,7 +81,7 @@ const drag = simulation => {
 const width = 700; // SVG宽度
 const height = 660; // SVG高度
 
-const svg = d3.select("svg")
+const svg = d3.select("#network")
     .attr("width", width)
     .attr("height", height);
 

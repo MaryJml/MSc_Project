@@ -1,0 +1,11 @@
+{% extends 'sidebar.html' %}
+{% block content %}
+    <div id="euler">
+        <div id="venn"></div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/venn.js"></script>
+    <script src="{{ url_for('serve_js', filename='euler_diagram.js') }}"></script>
+{% endblock %}

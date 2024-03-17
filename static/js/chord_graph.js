@@ -1,3 +1,4 @@
+
 const nodeWeights = new Map(nodes.map(node => [node.id, 0]));
 links.forEach(link => {
     nodeWeights.set(link.source.id, (nodeWeights.get(link.source.id) || 0) + 1);

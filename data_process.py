@@ -22,6 +22,35 @@ variant_to_name = {'Venezia, Monastero di San Giorgio Maggiore': 'Venice, Benedi
 def find_agent_name(name):
     return variant_to_name.get(name, name)
 
+def book_detail():
+    data = load_data()
+    processed_data = {}
+    for book in data:
+        processed_data[book['id']] = {}
+        try:
+            processed_data[book['id']]['title'] = book['hostItem']['title']
+        except KeyError:
+            processed_data[book['id']]['title'] = "Unknown"
+            pass
+        try:
+            processed_data[book['id']]['author'] = book['hostItem']['author']
+        except KeyError:
+            processed_data[book['id']]['author'] = "Unknown"
+            pass
+        try:
+            processed_data[book['id']]['imprint'] = book['hostItem']['imprint']
+        except KeyError:
+            processed_data[book['id']]['imprint'] = "Unknown"
+            pass
+        try:
+            processed_data[book['id']]['holdingInstitution'] = book['holdingInstitution']['name']
+        except KeyError:
+            processed_data[book['id']]['holdingInstitution'] = "Unknown"
+            pass
+
+    print(processed_data)
+
+
 
 def get_ownerId():
     data = load_data()
@@ -297,4 +326,4 @@ def euler_process():
     print("var counts = ", counts)
     print("var overlapsList = ", overlaps_list)
 
-get_ownerId()
+book_detail()
