@@ -22,12 +22,10 @@ const processOwners = (owners, bookId) => {
 
 
 Object.entries(data).forEach(([bookId, ownersList]) => {
-    // 首先处理所有节点
     ownersList.forEach(owners => {
         processOwners(Array.isArray(owners) ? owners : [owners], bookId);
     });
 
-    // 然后处理链接
     for (let i = 0; i < ownersList.length - 1; i++) {
         const currentOwners = Array.isArray(ownersList[i]) ? ownersList[i] : [ownersList[i]];
         const nextOwners = Array.isArray(ownersList[i + 1]) ? ownersList[i + 1] : [ownersList[i + 1]];
@@ -78,8 +76,8 @@ const drag = simulation => {
 
 
 
-const width = 700; // SVG宽度
-const height = 660; // SVG高度
+const width = 700;
+const height = 660;
 
 const svg = d3.select("#network")
     .attr("width", width)
@@ -90,7 +88,6 @@ const bookLinkMap = new Map();
 const combinedLinks = [];
 const combinedLinkCount = {};
 
-// 计算每个节点的度数
 links.forEach(link => {
     link.source.degree += 1;
     link.target.degree += 1;
@@ -109,7 +106,6 @@ links.forEach(link => {
     }
     nodeBookMap.get(link.source.id).add(link.bookId);
 
-    // 更新目标节点的书籍ID集合
     if (!nodeBookMap.has(link.target.id)) {
         nodeBookMap.set(link.target.id, new Set());
     }
@@ -126,7 +122,7 @@ const linkForce = d3.forceLink(combinedLinks)
     .distance(link => {
         const key = link.source.id + "-" + link.target.id;
         const count = combinedLinkCount[key].count;
-        return 100 / count; // 假设基础距离是400，根据链接数量调整
+        return 100 / count;
     })
     .strength(0.8);
 
@@ -141,16 +137,16 @@ const simulation = d3.forceSimulation(nodes)
 
 svg.append('defs').append('marker')
     .attr('id', 'arrowhead')
-    .attr('viewBox', '-0 -5 10 10')  // viewBox的值根据实际情况调整
-    .attr('refX', 40)  // 确保箭头和节点的边界对齐
+    .attr('viewBox', '-0 -5 10 10')
+    .attr('refX', 40)
     .attr('refY', 0)
     .attr('orient', 'auto')
     .attr('markerWidth', 6)
     .attr('markerHeight', 6)
     .attr('xoverflow','visible')
     .append('svg:path')
-    .attr('d', 'M 0,-5 L 10 ,0 L 0,5')  // 箭头形状
-    .attr('fill', '#999')  // 箭头颜色
+    .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+    .attr('fill', '#999')
     .style('stroke','none');
 
 const selfLoops = combinedLinks.filter(d => d.source.id === d.target.id);
@@ -171,10 +167,9 @@ const link = container.append("g")
     .data(otherLinks)
     .join("line")
     .attr("stroke-width", d => strokeWidthScale(combinedLinkCount[d.source.id + "-" + d.target.id].count))
-    .attr('marker-end','url(#arrowhead)');  // 应用箭头标记
+    .attr('marker-end','url(#arrowhead)');
 
 
-// 创建表示自环的路径
 const selfLoop = container.append("g")
     .selectAll("path")
     .data(selfLoops)
@@ -183,11 +178,10 @@ const selfLoop = container.append("g")
     .attr("stroke-opacity", 0.6)
     .attr("fill", "none")
     .attr("d", d => {
-        // 创建一个圆形路径
         const x = d.source.x;
         const y = d.source.y;
-        const dx = 15; // 控制自环大小
-        const dy = 15; // 控制自环大小
+        const dx = 15;
+        const dy = 15;
         return `M ${x},${y} m ${-dx},${-dy} a ${dx},${dy} 0 1,0 ${2*dx},0 a ${dx},${dy} 0 1,0 ${-2*dx},0`;
     });
 const degrees = nodes.map(d => d.degree);
@@ -199,15 +193,14 @@ const node = container.append("g")
     .selectAll("path")
     .data(nodes)
     .join("path")
-    .attr('d', d3.symbol().type(d3.symbolCircle).size(d => sizeScale(d.degree))) // 默认是圆形
+    .attr('d', d3.symbol().type(d3.symbolCircle).size(d => sizeScale(d.degree)))
     .attr("fill", d => color(d.group))
-    .attr("stroke", "#fff")  // 设置边框颜色，这里使用白色
+    .attr("stroke", "#fff")
     .attr("stroke-width", 1.5)
     .call(drag(simulation));
 
 
 simulation.nodes(nodes).on("tick", () => {
-    // 更新节点和边的位置
 });
 
 simulation.force("link").links(combinedLinks);
@@ -229,8 +222,8 @@ function ticked() {
     selfLoop.attr("d", d => {
         const x = d.source.x;
         const y = d.source.y;
-        const dx = 15; // 控制自环大小
-        const dy = 15; // 控制自环大小
+        const dx = 15;
+        const dy = 15;
         return `M ${x},${y} m ${-dx},${-dy} a ${dx},${dy} 0 1,0 ${2*dx},0 a ${dx},${dy} 0 1,0 ${-2*dx},0`;
     });
 }
@@ -303,7 +296,7 @@ selfLoop
         tooltip.transition()
             .duration(200)
             .style("opacity", .9);
-        tooltip.html("Book ID: " + d.bookId)  // 假设d.bookId包含了book id
+        tooltip.html("Book ID: " + d.bookId)
             .style("left", x + "px")
             .style("top", y + "px");
     })
@@ -322,14 +315,14 @@ d3.select('#checkboxes')
     .enter()
     .append('label')
     .style('display', 'flex')
-    .style('align-items', 'center')  // 垂直居中复选框和文本
-    .style('margin', '5px 0')  // 添加一些外边距
+    .style('align-items', 'center')
+    .style('margin', '5px 0')
     .each(function(d) {
         d3.select(this).append('input')
             .attr('type', 'checkbox')
             .attr('name', 'bookId')
             .attr('value', d)
-            .property('checked', true); // 默认所有复选框都被选中
+            .property('checked', true);
 
         d3.select(this).append('span')
             .text(d);
@@ -376,7 +369,6 @@ function updateLinks() {
         }
 
         if (!selectedNodeId) {
-            // 检查是否有任何与此链接关联的书籍ID被选中
             return linkInfo.bookIds.some(id => selectedBookIds.has(id)) ? 1 : 0;
         }
         const isSelectedBookId = selectedBookIds.has(d.bookId);
@@ -393,7 +385,6 @@ function updateLinks() {
 
     selfLoop.style('opacity', d => {
         if (!selectedNodeId) {
-            // 如果没有选择节点，则根据选择的书籍ID显示链接
             return selectedBookIds.has(d.bookId) ? 1 : 0;
         }
         const isSelectedBookId = selectedBookIds.has(d.bookId);
@@ -408,7 +399,6 @@ function updateLinks() {
             return isSelectedBookId && isSelectedNode ? 'all' : 'none';
         });
 
-    // 更新事件处理器，只有在opacity为1时才有效
     const updateMouseEvents = selection => {
         selection
             .on("mouseover", (event, d) => {
@@ -436,10 +426,10 @@ function updateLinks() {
                     return false;
                 }
                 if (showIncoming && linkInfo.targetNodes.has(selectedNodeId)) {
-                    return true; // 显示与选定节点有传入链接的书籍ID
+                    return true;
                 }
                 if (showOutgoing && linkInfo.sourceNodes.has(selectedNodeId)) {
-                    return true; // 显示与选定节点有传出链接的书籍ID
+                    return true;
                 }
                 return false;
             })
@@ -452,37 +442,34 @@ function showLinkDirectionControls(show) {
 }
 
 const zoom = d3.zoom()
-    .scaleExtent([3 / 4, 5])  // 设置缩放大小范围
+    .scaleExtent([3 / 4, 5])
     .on("zoom", zoomed);
 
 svg.call(zoom);
 
-// 重置缩放的函数
 function resetZoom() {
     svg.transition().duration(750).call(
         zoom.transform,
-        d3.zoomIdentity  // 设置为初始缩放状态
+        d3.zoomIdentity
     );
 }
 
-// 绑定重置函数到按钮
 d3.select('#resetZoomButton').on('click', resetZoom);
 
 function zoomed(event) {
-    container.attr("transform", event.transform);  // 缩放和平移容器
+    container.attr("transform", event.transform);
 
-    // 根据缩放级别动态调整链接距离
-    const newDistance = 100 * event.transform.k ** 2;  // 修改这里来调整距离
+    const newDistance = 100 * event.transform.k ** 2;
     linkForce.distance(link => {
         const key = link.source.id + "-" + link.target.id;
         const count = combinedLinkCount[key].count;
-        return newDistance / count;  // 调整链接距离
+        return newDistance / count;
     });
 
     const newStrength = -100 * event.transform.k ** 2;
     chargeForce.strength(newStrength);
 
-    simulation.alpha(0.3).restart();  // 重新启动模拟以应用新的力参数
+    simulation.alpha(0.3).restart();
 }
 
 d3.select('#nodeSelection')
@@ -491,14 +478,13 @@ d3.select('#nodeSelection')
     .enter()
     .append('label')
     .each(function(d) {
-        const nodeId = d.id.replace("Owner ID: ", ""); // 从d.id中提取ownerId
+        const nodeId = d.id.replace("Owner ID: ", "");
         const ownerName = ownerIdNameMap[nodeId] || "Unknown";
         d3.select(this).append('input')
             .attr('type', 'radio')
             .attr('name', 'nodeId')
             .attr('value', d.id);
 
-        // 然后添加文本或span元素显示节点名称
         d3.select(this).append('span')
             .text(`${ownerName} (${d.id})`);
     });
@@ -520,19 +506,16 @@ d3.selectAll('input[name="nodeId"]').on('change', function(event, d) {
         })
         .style('display', 'block');
 
-    // 更新节点样式
     node.classed('selectedNode', n => n.id === selectedNodeId)
         .classed('relatedNode', n => n.id !== selectedNodeId && combinedLinks.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)))
         .classed('unselectedNode', n => n.id !== selectedNodeId && !combinedLinks.some(l => (l.source.id === selectedNodeId && l.target.id === n.id) || (l.target.id === selectedNodeId && l.source.id === n.id)));
 
-    // 更新链接样式
     link.classed('relatedLink', l => l.source.id === selectedNodeId || l.target.id === selectedNodeId)
         .classed('unselectedLink', l => l.source.id !== selectedNodeId && l.target.id !== selectedNodeId);
     selfLoop.classed('relatedLink', l => l.source.id === selectedNodeId || l.target.id === selectedNodeId)
         .classed('unselectedLink', l => l.source.id !== selectedNodeId && l.target.id !== selectedNodeId);
 });
 
-// 为Deselect按钮添加事件处理器
 d3.select('#deselectNodeButton').on('click', () => {
     selectedNodeId = null;
     d3.select('#showIncomingLinks').property('checked', true);
@@ -540,7 +523,6 @@ d3.select('#deselectNodeButton').on('click', () => {
 
     updateLinks();
     showLinkDirectionControls(false);
-    // 取消所有节点和链接的特殊样式
     node.classed('selectedNode', false)
         .classed('relatedNode', false)
         .classed('unselectedNode', false);
@@ -549,14 +531,12 @@ d3.select('#deselectNodeButton').on('click', () => {
     selfLoop.classed('relatedLink', false)
         .classed('unselectedLink', false);
 
-    // 取消选中所有单选按钮
     d3.selectAll('input[name="nodeId"]').property('checked', false);
 
     d3.selectAll('#checkboxes label')
         .style('display', 'block');
 });
 
-// 搜索并过滤 BookIDs
 d3.select('#bookSearch').on('input', function() {
     const searchTerm = this.value.toLowerCase();
     d3.selectAll('#checkboxes label')
@@ -568,7 +548,6 @@ d3.select('#bookSearch').on('input', function() {
         .style('display', 'block');
 });
 
-// 搜索并过滤 Nodes
 d3.select('#nodeSearch').on('input', function() {
     const searchTerm = this.value.toLowerCase();
     d3.selectAll('#nodeSelection label')
@@ -590,29 +569,25 @@ d3.select('#showOwnerType').on('change', function() {
 });
 
 function updateNodeShapes(showType) {
-    // 如果选择显示类型，根据类型改变形状
     if (showType) {
         node.each(function(d) {
             const n = d3.select(this);
-            const size = 20 + d.degree; // 确保大小根据度数调整
+            const size = 20 + d.degree;
 
             if (d.type === 'person') {
-                // 画三角形
                 n.attr('d', d3.symbol().type(d3.symbolCross).size(sizeScale(d.degree)));
             } else if (d.type === 'corporate') {
                 n.attr('d', d3.symbol().type(d3.symbolTriangle).size(sizeScale(d.degree)));
             }
         });
     } else {
-        // 如果不显示类型，恢复到原始的圆形
         node.each(function(d) {
             const n = d3.select(this);
-            const size = 20 + d.degree; // 确保大小根据度数调整
+            const size = 20 + d.degree;
             n.attr('d', d3.symbol().type(d3.symbolCircle).size(sizeScale(d.degree)));
         });
     }
 }
 
-// 当用户选择显示/隐藏传入或传出链接时更新链接
 d3.select('#showIncomingLinks').on('change', updateLinks);
 d3.select('#showOutgoingLinks').on('change', updateLinks);

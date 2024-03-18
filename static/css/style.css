@@ -64,7 +64,6 @@
     margin-bottom: 10px;
 }
 
-/* 设置所有复选框容器的滚动 */
 #checkboxes, #nodeSelection, #checkboxes2, #ownerCheckboxes {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -83,17 +82,16 @@
 }
 
 #checkboxes2, #ownerCheckboxes {
-    max-height: 100px; /* 更小的最大高度 */
+    max-height: 100px;
 }
 
 #nodeSelection label {
-    display: block; /* 确保每个标签单独一行 */
+    display: block;
     margin: 5px 0;
 }
 
-/* 链接方向控制的样式 */
 #linkDirectionControls label {
-    display: block; /* 一上一下排列 */
+    display: block;
     margin: 5px 0;
 }
 
@@ -103,17 +101,16 @@
 }
 
 .zoom-controls button {
-    margin-right: 5px; /* 为按钮添加右边距 */
+    margin-right: 5px;
 }
 
-/* 搜索条样式调整 */
 input[type="text"] {
     padding: 5px;
-    margin-bottom: 10px; /* 与复选框保持一致的底部边距 */
+    margin-bottom: 10px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 270px; /* 与复选框宽度一致 */
+    width: 270px;
 }
 
 .selectedNode, .relatedNode {
@@ -122,19 +119,19 @@ input[type="text"] {
 }
 
 .selectedNode {
-    fill: #5D3A9B; /* 选中节点的颜色 */
+    fill: #5D3A9B;
 }
 
 .relatedNode {
-    fill: #E66100; /* 相关节点的颜色 */
+    fill: #E66100;
 }
 
 .relatedLink {
-    stroke: #E66100; /* 相关链接的颜色 */
+    stroke: #E66100;
 }
 
 .unselectedNode, .unselectedLink {
-    opacity: 0.1; /* 未选中节点和链接的透明度 */
+    opacity: 0.1;
 }
 
 .axis path, .axis line {
@@ -151,8 +148,8 @@ input[type="text"] {
 text {
     font-family: Arial, sans-serif;
     font-size: 8px;
-    pointer-events: none;  /* 确保文本不会干扰鼠标事件 */
-    user-select: none;  /* 防止文本被选中 */
+    pointer-events: none;
+    user-select: none;
 }
 .description{
     font-size: 10px;
@@ -163,7 +160,7 @@ text {
 #nodeTable {
     display: block;
     overflow-y: auto;
-    max-height: 400px; /* 根据需要调整最大高度 */
+    max-height: 400px;
     margin-top: 20px;
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -177,18 +174,18 @@ text {
 #nodeTable th, #nodeTable td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd; /* 行间分隔线 */
+    border-bottom: 1px solid #ddd;
 }
 
 #nodeTable th {
-    background-color: #f2f2f2; /* 表头背景色 */
+    background-color: #f2f2f2;
     position: sticky;
     top: 0;
     z-index: 1;
 }
 
 #nodeTable tr:hover {
-    background-color: #f5f5f5; /* 悬停行背景色 */
+    background-color: #f5f5f5;
 }
 
 #bookDetails {
@@ -215,12 +212,10 @@ button {
     transition: background-color 0.3s, transform 0.2s;
 }
 
-/* 鼠标悬浮效果 */
 button:hover {
     background-color: #0056b3;
 }
 
-/* 鼠标点击效果 */
 button:active {
     transform: scale(0.98);
 }
@@ -245,7 +240,6 @@ button:active {
     text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 .top_bar a:hover {
     background-color: #111;
 }

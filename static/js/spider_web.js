@@ -2,7 +2,6 @@ const sorted_timeline_data = {'02008354': [{'owner_names': ['Owner ID: 3467', 'O
 const bookDetailsMap = {'02008198': {'title': 'De regimine principum. Ed: Oliverius Servius', 'author': 'Aegidius (Columna) Romanus', 'imprint': 'Venice : Simon Bevilaqua, 9 July 1498', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02014753': {'title': 'De re aedificatoria. Ed: Bernardus de Albertis. Add: Angelus Politianus: Epistola ad Laurentium Medicem. Baptista Siculus: Carmen ad lectorem', 'author': 'Alberti, Leo Baptista', 'imprint': 'Florence : Nicolaus Laurentii, Alamanus, 29 Dec. 1485', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02006857': {'title': 'Compendium theologicae veritatis. With shortened ending', 'author': 'Albertus Magnus', 'imprint': 'Venice : Christophorus Arnoldus, 5 Apr. 1476', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02019758': {'title': 'Summa universae theologiae (i.e. Super IV libros sententiarum Petri Lombardi)', 'author': 'Alexander de Ales', 'imprint': 'Nuremberg : Anton Koberger, 1481-82', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02019757': {'title': 'Summa universae theologiae (i.e. Super IV libros sententiarum Petri Lombardi)', 'author': 'Alexander de Ales', 'imprint': 'Nuremberg : Anton Koberger, 1481-82', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02019759': {'title': 'Summa universae theologiae (i.e. Super IV libros sententiarum Petri Lombardi)', 'author': 'Alexander de Ales', 'imprint': 'Nuremberg : Anton Koberger, 1481-82', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02019761': {'title': 'Summa universae theologiae (i.e. Super IV libros sententiarum Petri Lombardi)', 'author': 'Alexander de Ales', 'imprint': 'Nuremberg : Anton Koberger, 1481-82', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02006706': {'title': 'Doctrinale (Partes I-IV) (Comm: Ludovicus de Guaschis)', 'author': 'Alexander de Villa Dei', 'imprint': 'Venice : Thomas de Blavis, de Alexandria, 28 July 1485', 'holdingInstitution': 'Historical Copy'}, '02008341': {'title': 'Summa angelica de casibus conscientiae. With additions by Hieronymus Tornieli', 'author': 'Angelus de Clavasio', 'imprint': 'Venice : Georgius Arrivabenus, 4 June 1492', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008360': {'title': 'Summa theologica (Pars II)', 'author': 'Antoninus Florentinus', 'imprint': 'Venice : Johannes de Colonia and Johannes Manthen, 1477', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02137940': {'title': 'Summa theologica (Partes I-IV) (With Molitoris tabula, i.e., pt. V)', 'author': 'Antoninus Florentinus', 'imprint': 'Strassburg : Johann (Reinhard) Grüninger, 1490', 'holdingInstitution': 'Historical Copy'}, '02011873': {'title': 'Summa theologica (Partes I-IV). Add: Franciscus Moneliensis', 'author': 'Antoninus Florentinus', 'imprint': 'Venice : Nicolaus Jenson, 1477-80', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02127882': {'title': 'Historia Romana (Partes I-II) (Tr: Petrus Candidus Decembrius)', 'author': 'Appianus', 'imprint': 'Venice : Christophorus de Pensis de Mandello, 20 Nov. 1500', 'holdingInstitution': 'Milano, Biblioteca Nazionale Braidense'}, '02006673': {'title': 'Historia Romana (Partes I-II) (Tr: Petrus Candidus Decembrius)', 'author': 'Appianus', 'imprint': 'Venice : Bernhard Maler (Pictor), Erhard Ratdolt and Peter Löslein, 1477', 'holdingInstitution': 'Historical Copy'}, '02008331': {'title': 'Historia Romana (Partes I-II) (Tr: Petrus Candidus Decembrius)', 'author': 'Appianus', 'imprint': 'Venice : Christophorus de Pensis de Mandello, 20 Nov. 1500', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02007041': {'title': 'De homousio contra Arrium. Add: Didymus Alexandrinus: De spiritu sancto (Tr: S. Hieronymus). Cassiodorus: De anima. Dialogus de origine animarum (extract). Definitiones plurimorum praestantium virorum. Pseudo- Cyprianus (i.e. Ernaldus Bonavallensis): De cardinalibus Christi operibus. Ed: Simon Radin and Cyprianus Beneti. With collective title: Illustrium virorum opuscula', 'author': 'Athanasius', 'imprint': '[Paris] : André Bocard, for Jean Petit, [after 5 Aug.] 1500', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008348': {'title': 'De civitate dei', 'author': 'Augustinus, Aurelius', 'imprint': 'Venice : Nicolaus Jenson, 2 Oct. 1475', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02108478': {'title': "De civitate dei [Italian] De la cita d'dio", 'author': 'Augustinus, Aurelius', 'imprint': '[Venice? : Antonio di Bartolommeo Miscomini, about 1476-78]', 'holdingInstitution': 'Historical Copy'}, '02125177': {'title': 'Sermones ad heremitas', 'author': 'Augustinus, Aurelius', 'imprint': 'Venice : Vincentius Benalius, 26 Jan. 1492/93', 'holdingInstitution': 'Roma, Biblioteca Casanatense'}, '02018099': {'title': 'Sermones ad heremitas', 'author': 'Augustinus, Aurelius', 'imprint': 'Venice : Simon Bevilaqua, 4 Nov. 1495', 'holdingInstitution': 'Historical Copy'}, '02006674': {'title': 'Canon medicinae [Latin] (Lib. I-V) (Tr: Gerardus Cremonensis). Add: De viribus cordis (Tr: Arnoldus de Villa Nova); Tabula', 'author': 'Avicenna', 'imprint': 'Venice : [Bonetus Locatellus], for Octavianus Scotus, 24 Mar. 1490', 'holdingInstitution': 'Historical Copy'}, '02018162': {'title': 'Canon medicinae [Latin] (Lib. I-V) (Tr: Gerardus Cremonensis). Ed: Petrus Rochabonella. Corr: Prosdocimus Mutius. Add: De viribus cordis (Tr: Arnoldus de Villa Nova), Tabula', 'author': 'Avicenna', 'imprint': 'Venice : Petrus Maufer de Maliferis, Nicolaus de Contugo et Socii, 1482-83', 'holdingInstitution': 'Historical Copy'}, '02108479': {'title': 'Castigationes Plinianae et Pomponii Melae', 'author': 'Barbarus, Hermolaus', 'imprint': 'Rome : Eucharius Silber, 24 Nov. 1492, 13 Feb. 1493', 'holdingInstitution': 'Historical Copy'}, '02018176': {'title': 'Apparatus libri sexti decretalium', 'author': 'Baysio, Guido de', 'imprint': 'Milan : Jacobus de Sancto Nazario, de Ripa, and Bernardinus de Castelliono, 23 Dec. 1490', 'holdingInstitution': 'Historical Copy'}, '02018166': {'title': 'Rosarium decretorum. Ed: Franciscus Moneliensis', 'author': 'Baysio, Guido de', 'imprint': '[Venice] : Johannes Herbort, de Seligenstadt, for Johannes de Colonia, Nicolaus Jenson et Socii, 3 Apr. 1481', 'holdingInstitution': 'Historical Copy'}, '02018102': {'title': 'Modus bene vivendi in christianam religionem', 'author': 'Bernardus Claravallensis', 'imprint': 'Venice : Bernardinus Benalius, 30 May 1494', 'holdingInstitution': 'Historical Copy'}, '02125145': {'title': 'Modus bene vivendi in christianam religionem', 'author': 'Bernardus Claravallensis', 'imprint': 'Venice : Bernardinus Benalius, 30 May 1492', 'holdingInstitution': 'Roma, Biblioteca Casanatense'}, '02003644': {'title': 'Sermones super Cantica canticorum', 'author': 'Bernardus Claravallensis', 'imprint': 'Brescia : Angelus Britannicus, 28 Jan. 1500', 'holdingInstitution': 'Brescia, Biblioteca Queriniana'}, '02008343': {'title': 'Annotationes centum. Annotationes in commentarios Servii Vergilianos. Annotationes in Plinium. In enarrationes Suetonii. Corr: Domitius Calderinus and Ugerius Pontremolensis. Add: Angelus Politianus: Miscellanea; Panepistemon; Lamia (Praelectio in Priora Aristotelis Analytica). Domitius Calderinus: Observationes. Johannes Baptista Pius: Annotamenta', 'author': 'Beroaldus, Philippus', 'imprint': 'Brescia : Bernardinus de Misintis, for Angelus Britannicus, [17 Dec.] 1496', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02018106': {'title': 'De felicitate', 'author': 'Beroaldus, Philippus', 'imprint': 'Bologna : Franciscus (Plato) de Benedictis, 1 Apr. 1495', 'holdingInstitution': 'Historical Copy'}, '02008359': {'title': 'Super logicam Pauli Veneti expositio et quaestiones', 'author': 'Blanchellus, Menghus', 'imprint': 'Venice : Antonius de Strata, de Cremona, 27 Aug. 1483', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008611': {'title': 'Historiarum ab inclinatione Romanorum imperii decades. Add: Pius II: Abbreviatio supra Decades Blondi', 'author': 'Blondus, Flavius', 'imprint': 'Venice : Thomas de Blavis, de Alexandria, 28 June 1484', 'holdingInstitution': 'Milano, Biblioteca Trivulziana'}, '02108480': {'title': 'De montibus, silvis, fontibus', 'author': 'Boccaccio, Giovanni', 'imprint': 'Venice : [Vindelinus de Spira], 13 Jan. 1473', 'holdingInstitution': 'Historical Copy'}, '02017432': {'title': 'De consolatione philosophiae (with commentary ascribed in the text to Thomas Aquinas)', 'author': 'Boethius', 'imprint': 'Nuremberg : Anton Koberger, 8 June 1495', 'holdingInstitution': 'Cambridge, University Library'}, '02008246': {'title': 'Opera', 'author': 'Boethius', 'imprint': 'Venice : Johannes and Gregorius de Gregoriis, de Forlivio, 1497/98-99', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006700': {'title': 'Syllogianthon', 'author': 'Bologninus, Ludovicus', 'imprint': 'Bologna : Ugo Rugerius, 10 Jan. 1486', 'holdingInstitution': 'Historical Copy'}, '02008353': {'title': 'Liber sextus Decretalium (with gloss of Johannes Andreae). Ed: Alexander de Nevo. Add: Johannes Andreae: Super arboribus consanguinitatis et affinitatis', 'author': 'Bonifacius VIII, Pont. Max. (formerly Benedetto Gaetano)', 'imprint': 'Venice : Nicolaus Jenson, 1476', 'holdingInstitution': 'Manchester, University of Manchester, John Rylands Research Institute and Library'}, '02108481': {'title': 'Chronica. Series episcoporum et archiepiscoporum Mediolanensium', 'author': 'Bossius, Donatus', 'imprint': 'Milan : Antonius Zarotus, for the author, 1 Mar. 1492', 'holdingInstitution': 'Historical Copy'}, '02019417': {'title': 'De bello Italico adversus Gothos gesto', 'author': 'Brunus Aretinus, Leonardus', 'imprint': '[Venice] : Nicolaus Jenson, [before July] 1471', 'holdingInstitution': 'Historical Copy'}, '02008197': {'title': 'Corona aurea', 'author': 'Brutus, Jacobus', 'imprint': 'Venice : Johannes Tacuinus, de Tridino, 15 Jan. 1496/97', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008218': {'title': 'Expositio in Aristotelis Ethica Nicomachea (with text)', 'author': 'Burlaeus, Gualtherus', 'imprint': 'Venice : Octavianus Scotus, 10 May 1481', 'holdingInstitution': 'Historical Copy'}, '02018170': {'title': 'Super primo libro Decretalium (7-28)', 'author': 'Butrio, Antonius de', 'imprint': 'Venice : Bernardinus Rizus, Novariensis, 1485', 'holdingInstitution': 'Historical Copy'}, '02108482': {'title': 'Commentarii', 'author': 'Caesar, Gaius Julius', 'imprint': 'Venice : Nicolaus Jenson, 1471', 'holdingInstitution': 'Historical Copy'}, '02008350': {'title': 'Sermones de adventu, Sermo de S. Joseph, Sermo de Beatitudine, Sermones de divina caritate, Sermones de immortalitate animae. Add: Dominicus Bollanus: De conceptione B.V.M.', 'author': 'Caracciolus, Robertus', 'imprint': '[Venice : Johannes de Colonia and Johannes Manthen, about 1477-78]', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008264': {'title': 'Specchio della fede. Corr: Stephanus de Capua', 'author': 'Caracciolus, Robertus', 'imprint': 'Venice : [Johannes Rubeus Vercellensis, for] Giovanni da Bergamo, [after 11 Apr. 1495]', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006705': {'title': 'Sermonarium de decem praeceptis per quadragesimam', 'author': 'Carcano, Michael de', 'imprint': 'Venice : Johannes and Gregorius de Gregoriis, de Forlivio, [for Alexander Calcedonius, between 18 Jan. and 1 Mar.] 1492/93', 'holdingInstitution': 'Historical Copy'}, '02145483': {'title': 'De institutis coenobiorum. Add: Collationes patrum XXIV', 'author': 'Cassianus, Johannes', 'imprint': 'Venice : [Dionysius Bertochus], 1491', 'holdingInstitution': 'Historical Copy'}, '00202002': {'title': 'De institutis coenobiorum. Add: Collationes patrum XXIV', 'author': 'Cassianus, Johannes', 'imprint': 'Basel : [Johann Amerbach, after 24 Sept.] 1485', 'holdingInstitution': 'Mantova, Biblioteca Comunale Teresiana'}, '02018218': {'title': 'De medicina', 'author': 'Celsus, A. Cornelius', 'imprint': 'Venice : Johannes Rubeus Vercellensis, 8 July 1493', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008328': {'title': 'De oratore. Comm: Omnibonus Leonicenus. Add: Topica; Partitiones oratoriae; Brutus; De optimo genere oratorum. Omnibonus Leonicenus: Oratio de laudibus eloquentiae. Q. Tullius Cicero: Commentariolum petitionis. Aeschines: In Ctesiphontem; Epistola XII [Latin]. Tr: Leonardus Brunus Aretinus. Demosthenes: De corona [Latin]. Tr: Leonardus Brunus Aretinus. Ed: Hieronymus Squarzaficus', 'author': 'Cicero, Marcus Tullius', 'imprint': 'Venice : Thomas de Blavis, de Alexandria, 16 May 1488', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008329': {'title': 'Orator. Comm: Victor Pisanus. Add: De fato; Topica; Timaeus. Comm: Georgius Valla', 'author': 'Cicero, Marcus Tullius', 'imprint': 'Venice : Bonetus Locatellus, for Octavianus Scotus, 16 July 1492', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02011875': {'title': 'Rhetorica ad C. Herennium', 'author': 'Cicero, Marcus Tullius', 'imprint': 'Milan : Antonius Zarotus [for Marco Roma], 12 Aug. 1474', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02008354': {'title': 'Constitutiones (cum apparatu Joannis Andreae) Add: Decretales extravagantes Johannis XXII', 'author': 'Clemens V, Pont. Max. (formerly Raimundus Bertrandi del Goth)', 'imprint': 'Venice : Nicolaus Jenson, 1476', 'holdingInstitution': 'Manchester, University of Manchester, John Rylands Research Institute and Library'}, '02008355': {'title': 'Constitutiones (cum apparatu Joannis Andreae) Add: Decretales extravagantes Johannis XXII', 'author': 'Clemens V, Pont. Max. (formerly Raimundus Bertrandi del Goth)', 'imprint': 'Venice : Nicolaus Jenson, 1476', 'holdingInstitution': 'Chantilly, Musée Condé'}, '02006835': {'title': 'De contemplatione orbium excelsorum. Add: Aelius Aristides: Ad Rhodienses de concordia oratio; Dio Chrysostomus: Ad Nicomedenses oratio; De concordia oratio; Plutarchus: De virtute morali; Coniugalia praecepta. Tr: Carolus Valgulius', 'author': 'Cleomedes', 'imprint': 'Brescia : Bernardinus de Misintis, for Angelus Britannicus, 3 Apr. 1497', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02108483': {'title': 'Hypnerotomachia Poliphili. Add: Leonardus Crassus, Johannes Baptista Scytha and Andreas Maro', 'author': 'Columna, Franciscus', 'imprint': 'Venice : Aldus Manutius, Romanus, for Leonardus Crassus, Dec. 1499', 'holdingInstitution': 'Historical Copy'}, '02006694': {'title': 'Concordantiae bibliorum', 'author': 'Conradus de Alemania', 'imprint': 'Nuremberg : Anton Koberger, 27 June 1485', 'holdingInstitution': 'Historical Copy'}, '00214233': {'title': 'Lexicon Graeco-latinum', 'author': 'Crastonus, Johannes', 'imprint': '[Milan] : Bonus Accursius, [not after 28 Mar. 1478]', 'holdingInstitution': 'Oxford, Bodleian Library'}, '02011876': {'title': 'La Commedia (Comm: Christophorus Landinus). Add: Marsilius Ficinus:  Ad Dantem gratulatio [Latin & Italian]', 'author': 'Dante Alighieri', 'imprint': 'Florence : Nicolaus Laurentii, Alamanus, 30 Aug. 1481', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02108484': {'title': 'La Commedia . Comm: Jacopo della Lana. Ed: Christofal Berardi. Add: Jacopo della Lana: Credo; Bosone de Gubbio: Sopra la Commedia; Jacopo Alighieri: Sopra la Commedia; Pseudo- Dante Alighieri: Il Credo; Prelim: Giovanni Boccacio: Vita di Dante', 'author': 'Dante Alighieri', 'imprint': '[Venice] : Vindelinus de Spira, 1477', 'holdingInstitution': 'Historical Copy'}, '02018188': {'title': 'De regulis iuris', 'author': 'Dinus de Mugello', 'imprint': 'Venice : Andreas Calabrensis, Papiensis, 10 June 1484', 'holdingInstitution': 'Historical Copy'}, '02016845': {'title': 'De regno.Tr: Publius Gregorius Tiphernas. Ed: Pius III (Franciscus de Piccolomineis)', 'author': 'Dio Chrysostomus', 'imprint': '[Venice : Christophorus Valdarfer, not after 9 Nov. 1471]', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02018214': {'title': 'Super prima et secunda parte sexti libri Decretalium', 'author': 'Dominicus de Sancto Geminiano', 'imprint': 'Milan : Johannes Antonius de Honate, for Petrus Antonius de Castelliono and Ambrosius de Caymis, 1480-81', 'holdingInstitution': 'Historical Copy'}, '02008361': {'title': 'Super sexto Decretalium (I)', 'author': 'Dominicus de Sancto Geminiano', 'imprint': 'Venice : Jacobus Rubeus, 10 Sept. 1476', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006698': {'title': 'Quaestiones in quattuor libros Sententiarum Petri Lombardi. Ed: Philippus Bagnacavallus', 'author': 'Duns Scotus, Johannes', 'imprint': 'Venice : Bonetus Locatellus, for Octavianus Scotus, 18 Dec. 1497', 'holdingInstitution': 'Historical Copy'}, '02011878': {'title': 'Rationale divinorum officiorum', 'author': 'Duranti, Guillelmus', 'imprint': '[Mainz] : Johann Fust and Peter Schoeffer, 6 Oct. 1459', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02006764': {'title': 'Rationale divinorum officiorum. Ed: Johannes Aloisius Tuscanus', 'author': 'Duranti, Guillelmus', 'imprint': 'Venice : Bonetus Locatellus, for Octavianus Scotus, 7 Apr. 1491', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006685': {'title': 'Speculum judiciale. With the additions of Johannes Andreae and Baldus de Ubaldis. Add: Berengarius Fredoli: Inventarium Speculi judicialis. Ed: Bernardinus Landrianus', 'author': 'Duranti, Guillelmus', 'imprint': 'Venice : Baptista de Tortis, 1493/94-94', 'holdingInstitution': 'Historical Copy'}, '02006683': {'title': 'Elementa geometriae. Tr: Adelardus Bathoniensis. Ed: Johannes Campanus', 'author': 'Euclides', 'imprint': 'Venice : Erhard Ratdolt, 25 May 1482', 'holdingInstitution': 'Austin TX, University of Texas, Harry Ransom Center'}, '02018229': {'title': 'Chronicon (Tr: Hieronymus). With the continuations of Prosper Aquitanus and Matthaeus Palmerius Florentinus. Prelim: Boninus Mombritius: Epigrammata tria ad lectorem', 'author': 'Eusebius Caesariensis', 'imprint': '[Milan] : Philippus de Lavagnia, [about 1474-75]', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02006747': {'title': 'De evangelica praeparatione. Tr: Georgius Trapezuntius. With additions by Antonio Cornazzano', 'author': 'Eusebius Caesariensis', 'imprint': 'Venice : Nicolaus Jenson, 1470', 'holdingInstitution': 'London, British Library'}, '02018221': {'title': 'Sermones medicinales septem. Con: I) De conservatione sanitatis; II) De febribus; III) De membris capitis; IV) De membris spiritualibus; V) De membris naturalibus; VI) De membris generationis; VII) De cirurgia et de decoratione. Add: Utiliora quaedam remedia', 'author': 'Falcutius, Nicolaus', 'imprint': 'Venice : Bernardinus Stagninus, de Tridino, 1490-91', 'holdingInstitution': 'Historical Copy'}, '02018108': {'title': 'De elegantia linguae latinae', 'author': 'Ferettus, Nicolaus', 'imprint': 'Forlì : Hieronymus Medesanus, 25 May 1495', 'holdingInstitution': 'Historical Copy'}, '02018180': {'title': 'Practica moderna iudicialis. Ed: Franciscus Gardensis', 'author': 'Ferrariis, Johannes Petrus de', 'imprint': 'Venice : Andreas de Bonetis, 25 Oct. 1484', 'holdingInstitution': 'Historical Copy'}, '02017463': {'title': 'De christiana religione', 'author': 'Ficinus, Marsilius', 'imprint': 'Venice : Otinus de Luna, Papiensis, 1500', 'holdingInstitution': 'Copenhagen, Det Kongelige Bibliotek'}, '02006695': {'title': 'Super titulo "De regulis iuris in sexto libro Decretalium"', 'author': 'Franchis, Philippus de', 'imprint': 'Venice : Bernardinus Benalius, for Francesco Cartolari da Perugia and Bernardinus Benalius, [after 30 July] 1499', 'holdingInstitution': 'Historical Copy'}, '02017555': {'title': 'Practica musicae', 'author': 'Gafurius, Franchinus', 'imprint': 'Milan : Guillermus Le Signerre, for Johannes Petrus de Lomatio, 30 Sept. 1496', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02006702': {'title': 'Grammatica introductiva [Greek]. Add: Gaza: De mensibus [Greek]; Apollonius Dyscolus: De constructione [Greek]; Herodianus: De numeris [Greek]', 'author': 'Gaza, Theodorus', 'imprint': 'Venice : Aldus Manutius, Romanus, 25 Dec. 1495', 'holdingInstitution': 'Historical Copy'}, '02015857': {'title': 'Noctes Atticae', 'author': 'Gellius, Aulus', 'imprint': 'Venice : Nicolaus Jenson, 1472', 'holdingInstitution': 'Milano, Biblioteca Nazionale Braidense'}, '02017597': {'title': 'Noctes Atticae', 'author': 'Gellius, Aulus', 'imprint': 'Brescia : Boninus de Boninis, de Ragusia, 3 Mar. 1485', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02108485': {'title': 'Rhetorica', 'author': 'Georgius Trapezuntius', 'imprint': 'Venice : Vindelinus de Spira, [not before 1472]', 'holdingInstitution': 'Historical Copy'}, '02018192': {'title': 'Opera. Ed: Johannes Geiler von Kaisersberg', 'author': 'Gerson, Johannes', 'imprint': '[Strassburg : Johann (Reinhard) Grüninger, partly with the types of Johann Prüss and Martin Flach], 1488', 'holdingInstitution': 'Historical Copy'}, '02018168': {'title': 'Decretum (cum apparatu Bartholomaei Brixiensis)', 'author': 'Gratianus', 'imprint': 'Venice : Andreas Calabrensis, Papiensis, 24 Aug. 1491', 'holdingInstitution': 'Historical Copy'}, '02006704': {'title': 'Dialogorum libri quattuor', 'author': 'Gregorius I, Pont. Max', 'imprint': 'Venice : Hieronymus de Paganinis, 13 Nov. 1492', 'holdingInstitution': 'Historical Copy'}, '02003446': {'title': 'Moralia, sive Expositio in Job', 'author': 'Gregorius I, Pont. Max', 'imprint': 'Brescia : Angelus Britannicus, 2 June 1498', 'holdingInstitution': 'Brescia, Biblioteca Queriniana'}, '02003447': {'title': 'Moralia, sive Expositio in Job', 'author': 'Gregorius I, Pont. Max', 'imprint': 'Brescia : Angelus Britannicus, 2 June 1498', 'holdingInstitution': 'Brescia, Biblioteca Queriniana'}, '02008356': {'title': 'Decretales, cum glossa. Ed: Alexander de Nevo and Petrus Albinianus Trecius', 'author': 'Gregorius IX, Pont. Max. (formerly Ugolino, Count of Segni)', 'imprint': 'Venice : Nicolaus Jenson, [not before 8 Mar.] 1475', 'holdingInstitution': 'Chantilly, Musée Condé'}, '02008239': {'title': 'Manipulus florum, seu Sententiae Patrum', 'author': 'Hibernia, Thomas de', 'imprint': 'Piacenza : Jacobus de Tyela, 5 Sept. 1483', 'holdingInstitution': 'Historical Copy'}, '02017398': {'title': 'Opera [Greek]. Ed: Demetrius Chalcondylas', 'author': 'Homerus', 'imprint': 'Florence : [Printer of Vergilius (C 6061)], for Bernardus and Nerius Nerlius and Demetrius Damilas, [not before 13 Jan. 1488/89]', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02006707': {'title': 'Opera. Comm: Antonius Mancinellus; (Pseudo-) Acron; Pomponius Porphyrio; Christophorus Landinus. Ed: Antonius Mancinellus', 'author': 'Horatius Flaccus, Quintus', 'imprint': 'Venice : Johannes Alvisius, 23 July 1498', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02018104': {'title': 'Chronicon [Italian] La cronica', 'author': 'Isidorus Hispalensis', 'imprint': 'Cividale : [Gerardus de Lisa, de Flandria], 24 Nov. 1480', 'holdingInstitution': 'Historical Copy'}, '02020126': {'title': 'Etymologiae. Add: De summo bono', 'author': 'Isidorus Hispalensis', 'imprint': 'Venice : Peter Löslein, 1483', 'holdingInstitution': 'Venezia, Fondazione Cini'}, '02108486': {'title': 'De claris mulieribus. Ed: Albertus de Placentia and Augustinus de Casali Maiori', 'author': 'Jacobus Philippus de Bergamo', 'imprint': 'Ferrara : Laurentius de Rubeis, de Valentia, 29 Apr. 1497', 'holdingInstitution': 'Historical Copy'}, '02006697': {'title': 'Legenda aurea sanctorum, sive Lombardica historia', 'author': 'Jacobus de Voragine', 'imprint': 'Venice : Antonius de Strata, de Cremona and Marcus Catanellus, 1 July 1480', 'holdingInstitution': 'Historical Copy'}, '02018230': {'title': 'Nosce te. Add: Corona senum. De immensa caritate Dei. De humilitate interiori et patientia vera. Flos vitae', 'author': 'Johannes Carthusiensis', 'imprint': 'Venice : Nicolaus Jenson, 1480', 'holdingInstitution': 'Historical Copy'}, '02006689': {'title': 'Summulae logicales. Comm: Johannes de Magistris', 'author': 'Johannes XXI, Pont. Max. (formerly Petrus Hispanus)', 'imprint': 'Venice : [Bonetus Locatellus], for Octavianus Scotus, 9 Sept. 1490', 'holdingInstitution': 'Historical Copy'}, '02008344': {'title': 'In Clementinas opus', 'author': 'Johannes de Imola', 'imprint': 'Venice : Jacobus Rubeus, 1475', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02018215': {'title': 'Lectura in III librum Decretalium', 'author': 'Johannes de Imola', 'imprint': '[Milan : Printer of Baldus (H 2289) (Leonardus Pachel and Uldericus Scinzenzeler?)], 1 Feb. 1489', 'holdingInstitution': 'Historical Copy'}, '02139823': {'title': 'Epitomae in Trogi Pompeii historias', 'author': 'Justinus, Marcus Junianus', 'imprint': 'Milan : Christophorus Valdarfer, 1 June 1476', 'holdingInstitution': 'Historical Copy'}, '02008266': {'title': 'Satyrae (Comm: Antonius Mancinellus; Domitius Calderinus; Georgius Merula; Georgius Valla)', 'author': 'Juvenalis, Decimus Junius', 'imprint': 'Venice : Johannes Tacuinus, de Tridino, 24 July 1498', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02017486': {'title': 'Opera. Add: S. Venantius Honorius Clementianus Fortunatus: De Resurrectione Christi carmen', 'author': 'Lactantius, Lucius Coelius Firmianus', 'imprint': '[Venice] : Vindelinus de Spira, 1472', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02139822': {'title': 'Grammaticae compendium', 'author': 'Laetus, Pomponius', 'imprint': 'Venice : Baptista de Tortis, 31 Mar. 1484', 'holdingInstitution': 'Historical Copy'}, '02006856': {'title': 'Sermones de sanctis', 'author': 'Leonardus de Utino', 'imprint': 'Venice : Johannes de Colonia and Johannes Manthen, 1475', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02137942': {'title': 'Orbis breviarium', 'author': 'Lilius, Zacharias', 'imprint': '[Venice : Johannes and Gregorius de Gregoriis, de Forlivio, about 1505]', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '00200404': {'title': 'Historiae Romanae decades. Ed: Johannes Andreas, bishop of Aleria', 'author': 'Livius, Titus', 'imprint': '[Venice] : Vindelinus de Spira, 1470', 'holdingInstitution': 'Trade Copy'}, '02008265': {'title': "Cesariano (Libro dell' origine e dei fatti di Giulio Cesare) [Italian]", 'author': 'Lucanus, Marcus Annaeus', 'imprint': 'Venice : Alovisius de Sancta Lucia, 1 Mar. 1492', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006703': {'title': 'Somma di arithmetica, geometria, proporzioni e proporzionalità . Prelim: Fa. Pompilius: Epigramma ad lectorem. Giorgio Sommariva: Epigramma ad auctorem (I, II)', 'author': 'Lucas de Burgo S. Sepulchri', 'imprint': 'Venice : Paganinus de Paganinis, 10-20 Nov. 14[9]4', 'holdingInstitution': 'Historical Copy'}, '02018220': {'title': 'Vera historia [Latin]. Tr: Lilius (Tifernas) Castellanus. Add: De asino aureo; Philosophorum vitae; Scipio; Tyrannus; Scaphidium (Dialogus de funerali pompa); Palinurus; Charon; Diogenes; Terpsion; Hercules; Virtus dea; In amorem; Timon; Sermo de calumnia; Laus muscae. Ed: Benedictus Bordonus; Maephus Vegius: De Felicitate et miseria', 'author': 'Lucianus Samosatensis', 'imprint': 'Venice : Simon Bevilaqua, for Benedetto Bordon, 25 Aug. 1494', 'holdingInstitution': 'Historical Copy'}, '02008330': {'title': 'Vera historia [Latin]. Tr: Lilius (Tifernas) Castellanus. Add: Diodorus Siculus: Bibliothecae historicae libri VI [Latin]. Tr: Poggius Florentinus', 'author': 'Lucianus Samosatensis', 'imprint': 'Venice : Philippus Pincius, 20 Nov. 1493', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02139835': {'title': 'Epistolae magni Turci. Add: Diogenes Cynicus: Epistolae (Tr: Franciscus Griffolinus Aretinus). Brutus: Epistolae; Hippocrates: Epistolae (Tr: Rinucius Aretinus)', 'author': 'Mahomet II', 'imprint': '[Venice : Otinus de Luna, Papiensis, about 1500]', 'holdingInstitution': 'Historical Copy'}, '02008346': {'title': 'Mammotrectus super Bibliam', 'author': 'Marchesinus, Johannes', 'imprint': 'Venice : Franciscus Renner, de Heilbronn, and Petrus de Bartua, 1478', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02127999': {'title': 'Index locorum in commentario Caesaris Belli gallici descriptorum (Rev: Bonus Accursius)', 'author': 'Marlianus, Raimundus', 'imprint': '[Milan : Bonus Accursius, about 1478]', 'holdingInstitution': 'Berlin, Staatsbibliothek'}, '02139836': {'title': 'Margarita decreti seu Tabula Martiniana', 'author': 'Martinus Polonus', 'imprint': '[Bologna : Johannes de Nördlingen and Henricus de Harlem, not after 28 Feb. 1482]', 'holdingInstitution': 'Historical Copy'}, '02014160': {'title': 'Commentum super quarto libro Sententiarum Petri Lombardi. (Ed: Franciscus Gregorius)', 'author': 'Mediavilla, Richardus de', 'imprint': '[Venice] : Bonetus Locatellus, for the heirs of Octavianus Scotus, 17 Dec. 1499', 'holdingInstitution': 'Mantova, Biblioteca Comunale Teresiana'}, '02015563': {'title': 'Opera medicinalia. Petrus de Abano: Additiones ad practicam', 'author': 'Mesue, Johannes', 'imprint': '[Padua : Laurentius Canozius de Lendenaria], 9 June 1471', 'holdingInstitution': 'Paris, Bibliothèque interuniversitaire de santé (Pharmacie)'}, '02006688': {'title': 'Repertorium utriusque iuris. Ed: Comes de Alvarotis', 'author': 'Monte, Petrus de', 'imprint': 'Padua : Johannes Herbort, de Seligenstadt, 16 Nov. 1480', 'holdingInstitution': 'Historical Copy'}, '02008332': {'title': 'Supplementum Summae Pisanellae. Add: Alexander de Nevo: Consilia contra Judaeos foenerantes; Astesanus de Ast: Canones poenitentiales', 'author': 'Nicolaus de Ausmo', 'imprint': "Venice : Leonardus Wild, '1489' [i.e. 1479]", 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006855': {'title': 'Postilla super Epistolas et Evangelia quadragesimalia (cum Quaestionibus Antonii de Bitonto et Alexandri de Ales)', 'author': 'Nicolaus de Lyra', 'imprint': '[Lyons] : Nicolaus Wolf, 10 Feb. 1500/01', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02008357': {'title': 'De proprietate latini sermonis', 'author': 'Nonius Marcellus', 'imprint': 'Venice : Nicolaus Jenson, 1476', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02017598': {'title': 'Expositio in Aristotelis Ethicam', 'author': 'Odonis, Geraldus', 'imprint': 'Venice : Simon de Luere, for Andreas Torresanus, de Asula, 14 July 1500', 'holdingInstitution': 'Edinburgh, University Library'}, '02137941': {'title': 'Consilia (cum Ludovici Bolognini tabula)', 'author': 'Panormitanus de Tudeschis, Nicolaus', 'imprint': 'Venice : Peregrinus de Pasqualibus, Bononiensis and Dominicus Bertochus, 14 Dec. 1486', 'holdingInstitution': 'Historical Copy'}, '02126740': {'title': 'Vocabularium. Ed: Boninus Mombritius', 'author': 'Papias', 'imprint': 'Venice : Andreas de Bonetis, 30 June 1485', 'holdingInstitution': 'Milano, Biblioteca dei Servi'}, '02006679': {'title': 'Cornucopiae linguae latinae. Ed: Pyrrhus Perottus et Ludovicus Odaxius', 'author': 'Perottus, Nicolaus', 'imprint': 'Venice : Paganinus de Paganinis, 14 May 1489', 'holdingInstitution': 'Uppsala, Universitetsbibliotek'}, '02017605': {'title': 'Rudimenta grammatices', 'author': 'Perottus, Nicolaus', 'imprint': 'Venice : [Jacobus de Fivizzano, Lunensis], for Marcus de Comitibus and Gerardus Alexandrinus, 17 Jan. 1476', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02008268': {'title': 'Satyrae. Comm: Johannes Britannicus and Bartholomaeus Fontius', 'author': 'Persius Flaccus, Aulus', 'imprint': 'Venice : Petrus de Quarengiis, Bergomensis, 13 Apr. 1495', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006699': {'title': 'In quartum librum Sententiarum Petri Lombardi. Ed: Paulus Soncinas', 'author': 'Petrus de Palude', 'imprint': 'Venice : Bonetus Locatellus, for Octavianus Scotus, 20 Sept. 1493', 'holdingInstitution': 'Historical Copy'}, '02108487': {'title': "Mediolanensia convivia duo. With 'Errores notati in toto volumine'", 'author': 'Philelphus, Franciscus', 'imprint': '[Milan : Simon Magniagus, 1483-84]', 'holdingInstitution': 'Historical Copy'}, '02018225': {'title': 'Novum epistolarium (Ed: Ludovicus Mondellus)', 'author': 'Philelphus, Johannes Marius', 'imprint': "Venice : Johannes Tacuinus, de Tridino, '20 Oct. 1492'", 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02017608': {'title': 'Opera. Ed: Johannes Franciscus Picus Mirandulanus', 'author': 'Picus de Mirandula, Johannes', 'imprint': 'Venice : Bernardinus Venetus, de Vitalibus, 1498', 'holdingInstitution': 'Jerusalem, National Library of Israel'}, '02006676': {'title': 'Opus restitutionum, usurarum, excommunicationum', 'author': 'Platea, Franciscus de', 'imprint': '[Venice] : Bartholomaeus Cremonensis, 1472', 'holdingInstitution': 'Oxford, Bodleian Library'}, '02017609': {'title': 'Vitae pontificum', 'author': 'Platina, Bartholomaeus', 'imprint': '[Venice] : Johannes de Colonia and Johannes Manthen, 11 June 1479', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02017610': {'title': 'Opera [Latin]. Tr: Marsilius Ficinus', 'author': 'Plato', 'imprint': 'Venice : Bernardinus de Choris, de Cremona and Simon de Luere, for Andreas Torresanus, de Asula, 13 Aug. 1491', 'holdingInstitution': 'Historical Copy'}, '00209908': {'title': 'Comoediae. Comm: Joannes Petrus Valla and Bernardinus Saracenus', 'author': 'Plautus, Titus Maccius', 'imprint': 'Venice : Simon Bevilaqua, for Marco Firmiano, 17 Sept. 1499', 'holdingInstitution': 'Oxford, Bodleian Library'}, '02008207': {'title': 'Historia naturalis', 'author': 'Plinius Secundus, Gaius (Pliny, the Elder)', 'imprint': 'Venice : Johannes de Spira, [before 18 Sept.] 1469', 'holdingInstitution': 'Padova, Biblioteca del Seminario Vescovile'}, '02018222': {'title': 'Historia naturalis [Italian] (Tr: Christophorus Landinus)', 'author': 'Plinius Secundus, Gaius (Pliny, the Elder)', 'imprint': 'Venice : Bartholomaeus de Zanis, 12 Sept. 1489', 'holdingInstitution': 'Historical Copy'}, '02017611': {'title': 'Historia naturalis. Ed: Philippus Beroaldus', 'author': 'Plinius Secundus, Gaius (Pliny, the Elder)', 'imprint': 'Parma : Stephanus Corallus, 1476', 'holdingInstitution': 'Cambridge MA, Harvard University, Houghton Library'}, '02018231': {'title': 'Opera. Tr. & comm: Marsilius Ficinus', 'author': 'Plotinus', 'imprint': 'Florence : Antonio di Bartolommeo Miscomini, 7 May 1492', 'holdingInstitution': 'Historical Copy'}, '02017613': {'title': 'Opera. Ed: Benedictus Brognolus', 'author': 'Priscianus', 'imprint': "[Milan : Printer of Servius, 'Commentarius in Vergilium', 1475 (Dominicus de Vespolate), for Boninus Mombritius, after 24 Feb. 1476]", 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02108488': {'title': 'Institutiones oratoriae. Ed: Omnibonus Leonicenus', 'author': 'Quintilianus, Marcus Fabius', 'imprint': '[Venice] : Nicolaus Jenson, 21 May 1471', 'holdingInstitution': 'Historical Copy'}, '02006693': {'title': 'Pantheologia, sive Summa universae theologiae. Ed: Jacobus Florentinus', 'author': 'Rainerius de Pisis', 'imprint': 'Venice : Hermannus Liechtenstein, 12 Sept. 1486', 'holdingInstitution': 'Historical Copy'}, '02008349': {'title': 'Epitoma in Almagestum Ptolemaei. Ed: Johannes Baptista Abiosus. With additions by Johannes Lucilius Santritter', 'author': 'Regiomontanus, Johannes (Müller, Johann, of Königsberg)', 'imprint': 'Venice : Johannes Hamman for Kaspar Grossch and Stephan Roemer, 31 Aug. 1496', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02108490': {'title': 'Speculum vitae humanae', 'author': 'Rodericus Zamorensis', 'imprint': 'Rome : Conradus Sweynheym and Arnoldus Pannartz, 1468', 'holdingInstitution': 'Historical Copy'}, '02018103': {'title': 'Fasciculus temporum', 'author': 'Rolewinck, Werner', 'imprint': '[Venice] : Erhard Ratdolt, 21 Dec. 1481', 'holdingInstitution': 'Historical Copy'}, '02007068': {'title': 'Fasciculus temporum', 'author': 'Rolewinck, Werner', 'imprint': 'Venice : Erhard Ratdolt, 8 Sept. 1485', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02006687': {'title': 'Enneades ab orbe condito', 'author': 'Sabellicus, Marcus Antonius', 'imprint': 'Venice : Bernardinus Venetus, de Vitalibus and Matthaeus Venetus, 31 Mar. 1498', 'holdingInstitution': 'Historical Copy'}, '02006696': {'title': 'Commentaria super Decreto', 'author': 'Sancto Georgio, Johannes Antonius de', 'imprint': 'Pavia : Leonardus Gerla, 12 Mar. 1497', 'holdingInstitution': 'Historical Copy'}, '02139534': {'title': 'Triumphus crucis seu de veritate fidei', 'author': 'Savonarola, Hieronymus', 'imprint': '[Florence : Bartolommeo di Libri, after Aug. 1497]', 'holdingInstitution': 'Cesena, Biblioteca Comunale Malatestiana'}, '02108491': {'title': 'Commentarii rerum gestarum Francisci Sfortiae. Ed: Franciscus Puteolanus', 'author': 'Simoneta, Johannes', 'imprint': "Milan : Antonius Zarotus, '23 Jan.' [between 6 July 1481 and 3 Feb. 1482]", 'holdingInstitution': 'Historical Copy'}, '02006701': {'title': 'Quadragesimale de floribus sapientiae. Ed: Marcus Venetus', 'author': 'Spiera, Ambrosius de', 'imprint': 'Venice : Antonius de Stanchis de Valentia, Jacobus Britannicus et socii, 24 Mar. 1481', 'holdingInstitution': 'Historical Copy'}, '02008269': {'title': 'Opera', 'author': 'Statius, Publius Papinius', 'imprint': 'Venice : Petrus de Quarengiis, Bergomensis, 1498/99', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02017614': {'title': 'Geographia, libri XVI (Tr: Guarinus Veronensis and Gregorius Tiphernas). Ed: Johannes Andreas, bishop of Aleria', 'author': 'Strabo', 'imprint': '[Venice] : Vindelinus de Spira, 1472', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02002784': {'title': 'Horologium aeternae sapientiae; Cursus seu officium de aeterna sapientia; Hundert Betrachtungen [Latin] Centum meditationes. Add: Jordanus de Quedlinburg: Oratio ad sanctum Dominicum', 'author': 'Suso, Henricus', 'imprint': 'Venice : Petrus de Quarengiis, Bergomensis, 24 Jan. 1492/93', 'holdingInstitution': 'Brescia, Biblioteca Queriniana'}, '02008199': {'title': 'Apologeticus contra gentes', 'author': 'Tertullianus, Quintus Septimus Florentius', 'imprint': 'Venice : Bernardinus Benalius, [not after 1494]', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '00200283': {'title': 'Commentaria in omnes epistolas Sancti Pauli', 'author': 'Thomas Aquinas', 'imprint': 'Venice : Bonetus Locatellus, for Octavianus Scotus, 22 Dec. 1498', 'holdingInstitution': 'Treviso, Biblioteca Capitolare'}, '02122654': {'title': 'Opuscula (71). Ed: Antonius Pizamanus, with a life of St. Thomas', 'author': 'Thomas Aquinas', 'imprint': 'Venice : Hermannus Liechtenstein, 7 Sept. 1490', 'holdingInstitution': 'Venezia, Biblioteca Nazionale Marciana'}, '02128491': {'title': 'Opuscula (73). Ed: Antonius Pizamanus, with a life of St. Thomas', 'author': 'Thomas Aquinas', 'imprint': 'Venice : Bonetus Locatellus, for Octavianus Scotus, 31 Dec. 1498', 'holdingInstitution': 'Historical Copy'}, '02108493': {'title': 'Chronica Hungarorum. Add: Rogerius: Carmen miserabile super destrucione regni Hungariae per Tartaros facta', 'author': 'Thwrocz, Johannes de', 'imprint': 'Brünn : [Conrad Stahel and Mathias Preunlein], 20 Mar. 1488', 'holdingInstitution': 'Historical Copy'}, '02008347': {'title': 'Orthographia', 'author': 'Tortellius, Johannes', 'imprint': 'Venice : Nicolaus Jenson, 1471', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02139533': {'title': 'Summa de ecclesia contra impugnatores potestatis summi pontificis et LXXIII quaestiones super potestate et auctoritate Papali ex sententiis sancti Thomae Aquinatis', 'author': 'Turrecremata, Johannes de', 'imprint': 'Lyons : Johannes Trechsel, 20 Sept. 1496', 'holdingInstitution': 'Cesena, Biblioteca Comunale Malatestiana'}, '02019418': {'title': 'Dittamondo [Italian verse]', 'author': 'Uberti, Fazio degli', 'imprint': 'Vicenza : Leonardus Achates de Basilea, [Nov.] 1474', 'holdingInstitution': 'Historical Copy'}, '02008335': {'title': 'Expositio commentarii Averrois super Physica Aristotelis. Ed: Defendinus Januensis, and Jacobus Philippus, Ferrariensis. With letters and poems of Hieronymus Chrysaeus, Johannes Mangonius, Antonius Persona, Vicentius Tuscus, Philippus Cavacia, Antonius Alabantus, Evangelista Fossa. Add: Nicolettus Vernia: Epistola Antonio Alabanto; Quaestio an dentur universalia realia', 'author': 'Urbanus Averroista', 'imprint': 'Venice : Bernardinus Stagninus, de Tridino, 15 Nov. 1492', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02108495': {'title': 'Facta et dicta memorabilia', 'author': 'Valerius Maximus, Gaius', 'imprint': '[Venice] : Vindelinus de Spira, 1471', 'holdingInstitution': 'Historical Copy'}, '02017615': {'title': 'Elegantiae linguae latinae. Add: De pronomine sui', 'author': 'Valla, Laurentius', 'imprint': 'Venice : Nicolaus Jenson, [before July] 1471', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02141391': {'title': 'De lingua latina. Add: Analogia. Ed: Pomponius Laetus. Prelim: Pomponius Laetus: Epistola Bartholomaeo Platinae', 'author': 'Varro, Marcus Terentius', 'imprint': "[Venice : Printer of Basilius, 'De vita solitaria', about 1471-72]", 'holdingInstitution': 'Historical Copy'}, '02018105': {'title': 'De ingenuis moribus ac liberalibus studiis. Ed: Johannes Calphurnius. Comm: Johannes Bonardus. Add: Basilius Magnus: De legendis antiquorum libris (Tr: Leonardus Brunus Aretinus). Xenophon: Hiero de tyrannide (Tr: Leonardus Brunus Aretinus). Plutarchus: De liberis educandis (Tr: Guarinus Veronensis). S. Hieronymus: De officiis liberorum erga parentes admonitio', 'author': 'Vergerius, Petrus Paulus', 'imprint': 'Venice : Johannes Tacuinus, de Tridino, 22 Sept. 1497', 'holdingInstitution': 'Historical Copy'}, '02108496': {'title': 'Bucolica', 'author': 'Vergilius Maro, Publius', 'imprint': '[Naples : Jodocus Hohenstein], 11 Sept. 1476', 'holdingInstitution': 'Historical Copy'}, '02019400': {'title': 'Quaestiones metaphysicae', 'author': 'Zerbus, Gabriel', 'imprint': 'Bologna : Johannes de Nördlingen and Henricus de Harlem, 1 Dec. 1482', 'holdingInstitution': 'Venezia, Biblioteca del Museo Correr'}, '02107193': {'title': 'Biblia [Italian] (Tr: Niccolò Malermi). Add: Aristeas: Ad Philocratem de lxx interpretibus (Tr: Bartolomeo Pontio). Leggenda di San Joseph', 'author': 'Unknown', 'imprint': 'Venice : Octavianus Scotus, 1481', 'holdingInstitution': 'Wien, Österreichische  Nationalbibliothek'}, '02017632': {'title': 'Biblia latina', 'author': 'Unknown', 'imprint': 'Venice : Johannes Herbort, de Seligenstadt, 30 Apr. 1484', 'holdingInstitution': 'Lucca, Statale'}, '02107092': {'title': 'Biblia latina', 'author': 'Unknown', 'imprint': 'Venice : Nicolaus Jenson, 1479', 'holdingInstitution': 'Wien, Österreichische  Nationalbibliothek'}, '02011874': {'title': 'Biblia latina', 'author': 'Unknown', 'imprint': 'Venice : Nicolaus Jenson, 1476', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '00206141': {'title': 'Biblia latina', 'author': 'Unknown', 'imprint': 'Venice : Franciscus Renner, de Heilbronn, 1480', 'holdingInstitution': 'Oxford, Bodleian Library'}, '02009688': {'title': 'Biblia latina (cum postillis Nicolai de Lyra et expositionibus Guillelmi Britonis in omnes prologos S. Hieronymi et additionibus Pauli Burgensis replicisque Matthiae Doering). Ed: Paulus a Mercatello. With additions by Franciscus Moneliensis. Add: Nicolaus de Lyra, Contra perfidiam Judaeorum', 'author': 'Unknown', 'imprint': 'Venice : [Johannes Herbort, de Seligenstadt], for Johannes de Colonia, Nicolaus Jenson et Socii, 31 July 1481', 'holdingInstitution': 'Locarno, Biblioteca Madonna del Sasso'}, '02018224': {'title': 'Biblia latina. With the table of Gabriel Brunus', 'author': 'Unknown', 'imprint': 'Venice : Simon Bevilaqua, 22 Nov. 1494', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02018101': {'title': 'Imitatio Christi. Add: Johannes Gerson: De meditatione cordis', 'author': 'Unknown', 'imprint': 'Venice : Bernardinus Benalius, 1488', 'holdingInstitution': 'Historical Copy'}, '02125175': {'title': 'Imitatio Christi. Add: Johannes Gerson: De meditatione cordis', 'author': 'Unknown', 'imprint': 'Venice : Petrus de Quarengiis, Bergomensis, and Giovanni Maria di Occimiano, 23 Apr. 1493', 'holdingInstitution': 'Roma, Biblioteca Casanatense'}, '02008352': {'title': 'Missale Romanum. (Ed: Petrus Arrivabenus?)', 'author': 'Unknown', 'imprint': 'Venice : Georgius Arrivabenus, 29 May 1499', 'holdingInstitution': 'Paris, Bibliothèque nationale de France'}, '02006771': {'title': 'Psalterium. Ed: Bruno, Episcopus Herbipolensis (Würzburg)', 'author': 'Unknown', 'imprint': '[Nuremberg] : Anton Koberger, 1497', 'holdingInstitution': 'Padova, Biblioteca Universitaria'}, '02108489': {'title': 'Regulae monasticorum: Regulae SS. Benedicti, Basilii, Augustini, Francisci. Ed: Joannes Franciscus Brixianus', 'author': 'Unknown', 'imprint': 'Venice : Johannes Emericus, de Spira, for Lucantonio Giunta, 13 Apr. 1500', 'holdingInstitution': 'Bergamo, Biblioteca Civica Angelo Mai'}, '02126715': {'title': 'Scriptores rei rusticae', 'author': 'Unknown', 'imprint': 'Venice : Nicolaus Jenson, 1472', 'holdingInstitution': 'Milano, Biblioteca Nazionale Braidense'}, '02108492': {'title': 'Statuta Venetiae [Latin and Italian] Ed & Tr: Franciscus Gibertus', 'author': 'Unknown', 'imprint': '[Venice] : Dionysius Bertochus, 31 Oct. 1492', 'holdingInstitution': 'Historical Copy'}};
 const showOwnersCheckbox = document.getElementById('showOwnersCheckbox');
 
-// 准备一个颜色映射
 const ownerColorScale = d3.scaleOrdinal(d3.schemeCategory10);
 const ownerSet = new Set();
 Object.values(sorted_timeline_data).forEach(events => {
@@ -12,16 +11,13 @@ Object.values(sorted_timeline_data).forEach(events => {
 });
 ownerColorScale.domain(Array.from(ownerSet));
 
-// 为复选框添加事件监听器
 showOwnersCheckbox.addEventListener('change', function() {
     if (this.checked) {
-        // 如果复选框被勾选，根据所有者设置圆圈的颜色
         webSvg.selectAll('circle')
             .attr('fill', function(d) {
                 return ownerColorScale(d.owner_names[0]);
             });
     } else {
-        // 如果复选框未被勾选，恢复圆圈的默认颜色
         webSvg.selectAll('circle')
             .attr('fill', function(d) {
                 return d.owner_names.includes('Owner ID: 3467') ? 'red' : 'blue';
@@ -36,16 +32,13 @@ const ownerSearchBar = document.getElementById('ownerSearchBar');
 const selectAllButton = document.getElementById('webSelectAll');
 const deselectAllButton = document.getElementById('webDeselectAll');
 
-// 初始化函数
 function initialize() {
-
-    // 根据 showSameOwnersCheckbox 的状态设置 ownerCheckboxes 的显示
     ownerCheckboxesContainer.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
 
     Array.from(ownerSet).forEach(ownerIdWithPrefix => {
         const ownerId = ownerIdWithPrefix.replace('Owner ID: ', '');
 
-        const ownerName = ownerIdNameMap[ownerId]; // 从映射中获取名称
+        const ownerName = ownerIdNameMap[ownerId];
         const displayName = ownerName ? `${ownerIdWithPrefix} (${ownerName})` : ownerIdWithPrefix;
         const checkboxDiv = document.createElement('div');
 
@@ -70,7 +63,6 @@ function initialize() {
             const owner = event.target.getAttribute('data-owner');
             const isChecked = event.target.checked;
 
-            // 更新对应所有者连线的透明度
             d3.selectAll('.linkSameOwner')
                 .filter(function() { return this.getAttribute('data-owner') === owner; })
                 .style('opacity', isChecked ? 0.5 : 0)
@@ -84,7 +76,6 @@ function initialize() {
         selectAllButton.style.display = this.checked ? 'block' : 'none';
         deselectAllButton.style.display = this.checked ? 'block' : 'none';
 
-        // 在隐藏复选框时重置所有连线的透明度
         if (!this.checked) {
             d3.selectAll('.linkSameOwner')
                 .style('opacity', 0)
@@ -96,7 +87,6 @@ function initialize() {
     ownerSearchBar.addEventListener('input', function() {
         const searchText = this.value.toLowerCase();
         Array.from(ownerCheckboxesContainer.children).forEach(div => {
-            // 假设每个 div 包含一个复选框和一个 label
             if (div.querySelector('label').textContent.toLowerCase().includes(searchText)) {
                 div.style.display = 'block';
             } else {
@@ -106,24 +96,20 @@ function initialize() {
     });
 
     selectAllButton.addEventListener('click', () => {
-        // 全选所有复选框
         Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
             checkbox.checked = true;
         });
 
-        // 显示所有相关连线
         if (showSameOwnersCheckbox.checked) {
             d3.selectAll('.linkSameOwner').style('opacity', 0.5);
         }
     });
 
     deselectAllButton.addEventListener('click', () => {
-        // 取消全选所有复选框
         Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
             checkbox.checked = false;
         });
 
-        // 隐藏所有相关连线
         if (showSameOwnersCheckbox.checked) {
             d3.selectAll('.linkSameOwner').style('opacity', 0);
         }
@@ -134,17 +120,13 @@ function initialize() {
     drawTimelines(sorted_timeline_data);
     toggleDataCheckbox.addEventListener('change', function() {
         if (this.checked) {
-            // 如果复选框被勾选，显示排列好的数据
             drawTimelines(sorted_timeline_data);
         } else {
-            // 如果复选框未被勾选，显示原始数据
             drawTimelines(timeline_data);
         }
     });
 }
 
-
-// 添加事件监听器以响应复选框的变化
 showSameOwnersCheckbox.addEventListener('change', function() {
     if (this.checked) {
         d3.selectAll('.linkSameOwner').style('opacity', 0.5);
@@ -153,15 +135,13 @@ showSameOwnersCheckbox.addEventListener('change', function() {
     }
 });
 
-// 获取复选框元素
 const showYearsCheckbox = document.getElementById('showYearsCheckbox');
 
-// 添加事件监听器以响应复选框的变化
 showYearsCheckbox.addEventListener('change', function() {
     if (this.checked) {
-        d3.selectAll('.timeline-text').style('opacity', 1); // 显示所有年份
+        d3.selectAll('.timeline-text').style('opacity', 1);
     } else {
-        d3.selectAll('.timeline-text').style('opacity', 0); // 隐藏所有年份
+        d3.selectAll('.timeline-text').style('opacity', 0);
     }
 });
 
@@ -197,8 +177,6 @@ const center = { x: webWidth / 2, y: webHeight / 2 };
 const centerPadding = 50;
 
 
-
-// 计算两点之间的距离
 function distance(a, b) {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
@@ -207,14 +185,14 @@ let relatedTimelinesMap = {};
 
 Object.keys(sorted_timeline_data).forEach(bookId => {
     let ownerNames = new Set(sorted_timeline_data[bookId].map(entry => entry.owner_names).flat());
-    ownerNames.delete('Owner ID: 3467'); // 排除 "Owner ID: 3467"
+    ownerNames.delete('Owner ID: 3467');
     relatedTimelinesMap[bookId] = [];
     relatedTimelinesMap[bookId].push(sorted_timeline_data[bookId]);
 
     Object.keys(sorted_timeline_data).forEach(otherBookId => {
         if (bookId !== otherBookId) {
             let otherOwnerNames = new Set(sorted_timeline_data[otherBookId].map(entry => entry.owner_names).flat());
-            otherOwnerNames.delete('Owner ID: 3467'); // 同样排除 "Owner ID: 3467"
+            otherOwnerNames.delete('Owner ID: 3467');
             let intersection = new Set([...ownerNames].filter(x => otherOwnerNames.has(x)));
             if (intersection.size > 0) {
                 relatedTimelinesMap[bookId].push(sorted_timeline_data[otherBookId]);
@@ -235,7 +213,6 @@ function drawTimelines(data) {
         let lengthBefore = 0;
         let lengthAfter = 0;
 
-        // 计算 "Owner ID: 3467" 点之前的长度
         for (let i = 0; i < centerIndex; i++) {
             const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
                 ? yearScale(events[i + 1].start_time - events[i].start_time)
@@ -243,7 +220,6 @@ function drawTimelines(data) {
             lengthBefore += yearDiff;
         }
 
-        // 计算 "Owner ID: 3467" 点之后的长度
         for (let i = centerIndex; i < events.length - 1; i++) {
             const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
                 ? yearScale(events[i + 1].start_time - events[i].start_time)
@@ -263,24 +239,20 @@ function drawTimelines(data) {
     const angleStep = (2 * Math.PI) / timelines.length;
 
     timelines.forEach((timeline, index) => {
-        // 计算时间线的角度
         const angle = angleStep * index;
         const timelineClass = `class-timeline-${timeline.bookId}`;
         const textClass = `text-timeline-${timeline.bookId}`;
 
-        // 计算左侧部分的起始点（从中心向左）
         const startLeftOffsetX = Math.cos(angle) * (timeline.lengthBefore + centerPadding);
         const startLeftOffsetY = Math.sin(angle) * (timeline.lengthBefore + centerPadding);
         const startLeftX = center.x - startLeftOffsetX;
         const startLeftY = center.y - startLeftOffsetY;
 
-        // 计算右侧部分的结束点（从中心向右）
         const endRightOffsetX = Math.cos(angle) * (timeline.lengthAfter + centerPadding);
         const endRightOffsetY = Math.sin(angle) * (timeline.lengthAfter + centerPadding);
         const endRightX = center.x + endRightOffsetX;
         const endRightY = center.y + endRightOffsetY;
 
-        // 绘制左侧部分的线段
         if (timeline.lengthBefore > 0) {
             const lineLeft = d3.line()([[startLeftX, startLeftY], [center.x, center.y]]);
             webSvg.append('path')
@@ -291,7 +263,6 @@ function drawTimelines(data) {
                 .attr('fill', 'none');
         }
 
-        // 绘制右侧部分的线段
         const lineRight = d3.line()([[center.x, center.y], [endRightX, endRightY]]);
         webSvg.append('path')
             .attr('d', lineRight)
@@ -319,8 +290,8 @@ function drawTimelines(data) {
                 ownerLocations[owner].push({ x, y });
             });
 
-            webSvg.selectAll(null) // 使用selectAll(null)来创建新的元素
-                .data([timeline.events[i]]) // 绑定事件数据
+            webSvg.selectAll(null)
+                .data([timeline.events[i]])
                 .enter()
                 .append('circle')
                 .attr('cx', x)
@@ -352,7 +323,6 @@ function drawTimelines(data) {
                         .remove();
                 });
 
-            // 添加文本
             if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
                 webSvg.append('text')
                     .attr('class', `timeline-text ${textClass}`)
@@ -382,7 +352,7 @@ function drawTimelines(data) {
             });
 
             webSvg.selectAll(null)
-                .data([timeline.events[i]]) // 绑定事件数据
+                .data([timeline.events[i]])
                 .enter()
                 .append('circle')
                 .attr('cx', x)
@@ -395,7 +365,7 @@ function drawTimelines(data) {
                         const ownerIdNum = ownerId.replace('Owner ID: ', '');
                         const ownerName = ownerIdNameMap[ownerIdNum];
                         return `${ownerId} (${ownerName})`;
-                    }).join('\n'); // 将所有所有者信息合并为一个字符串，每个信息占一行
+                    }).join('\n');
                     const tooltip = d3.select("body").append("div")
                         .attr("class", "tooltip")
                         .style("opacity", 0);
@@ -414,7 +384,6 @@ function drawTimelines(data) {
                         .remove();
                 });
 
-            // 添加文本
             if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
                 webSvg.append('text')
                     .attr('class', `timeline-text ${textClass}`)
@@ -465,7 +434,6 @@ function drawTimelines(data) {
 
     });
 
-    // 在中心点添加共同所有者的标记
     webSvg.append('circle')
         .attr('cx', center.x)
         .attr('cy', center.y)
@@ -491,7 +459,6 @@ function drawTimelines(data) {
                 .remove();
         });
 
-    // 遍历每个所有者，连接最近的点
     Object.keys(ownerLocations).forEach(owner => {
         const locations = ownerLocations[owner];
         if (locations.length > 1) {
@@ -499,7 +466,6 @@ function drawTimelines(data) {
                 let closest = null;
                 let closestDistance = Infinity;
 
-                // 找到最近的点
                 locations.forEach((otherLocation, otherIndex) => {
                     if (index !== otherIndex) {
                         const dist = distance(location, otherLocation);
@@ -510,7 +476,6 @@ function drawTimelines(data) {
                     }
                 });
 
-                // 绘制连接最近点的虚线
                 if (closest) {
                     webSvg.append('path')
                         .attr('class', 'linkSameOwner')
@@ -546,7 +511,7 @@ function drawTimelines(data) {
     showSameOwnersCheckbox.checked = true;
     showYearsCheckbox.checked = true;
     Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
-        checkbox.checked = true; // 设置所有所有者复选框为勾选状态
+        checkbox.checked = true;
     });
     ownerCheckboxesContainer.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
     ownerSearchBar.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
@@ -554,7 +519,6 @@ function drawTimelines(data) {
     deselectAllButton.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
 }
 
-// 当页面加载完成时执行初始化函数
 document.addEventListener('DOMContentLoaded', initialize);
 
 const focusUnknownLength = 80;
@@ -580,7 +544,6 @@ function drawFocusTimelines(data) {
         let lengthBefore = 0;
         let lengthAfter = 0;
 
-        // 计算 "Owner ID: 3467" 点之前的长度
         for (let i = 0; i < centerIndex; i++) {
             const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
                 ? focusYearScale(events[i + 1].start_time - events[i].start_time)
@@ -588,7 +551,6 @@ function drawFocusTimelines(data) {
             lengthBefore += yearDiff;
         }
 
-        // 计算 "Owner ID: 3467" 点之后的长度
         for (let i = centerIndex; i < events.length - 1; i++) {
             const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
                 ? focusYearScale(events[i + 1].start_time - events[i].start_time)
@@ -613,24 +575,20 @@ function drawFocusTimelines(data) {
 
 
     timelines.forEach((timeline, index) => {
-        // 计算时间线的角度
         const angle = angleStep * index;
         const timelineClass = `class-timeline-${timeline.bookId}`;
         const textClass = `text-timeline-${timeline.bookId}`;
 
-        // 计算左侧部分的起始点（从中心向左）
         const startLeftOffsetX = Math.cos(angle) * (timeline.lengthBefore + focusCenterPadding);
         const startLeftOffsetY = Math.sin(angle) * (timeline.lengthBefore + focusCenterPadding);
         const startLeftX = focusCenter.x - startLeftOffsetX;
         const startLeftY = focusCenter.y - startLeftOffsetY;
 
-        // 计算右侧部分的结束点（从中心向右）
         const endRightOffsetX = Math.cos(angle) * (timeline.lengthAfter + focusCenterPadding);
         const endRightOffsetY = Math.sin(angle) * (timeline.lengthAfter + focusCenterPadding);
         const endRightX = focusCenter.x + endRightOffsetX;
         const endRightY = focusCenter.y + endRightOffsetY;
 
-        // 绘制左侧部分的线段
         if (timeline.lengthBefore > 0) {
             const lineLeft = d3.line()([[startLeftX, startLeftY], [focusCenter.x, focusCenter.y]]);
             focusedWebSvg.append('path')
@@ -641,7 +599,6 @@ function drawFocusTimelines(data) {
                 .attr('fill', 'none');
         }
 
-        // 绘制右侧部分的线段
         const lineRight = d3.line()([[focusCenter.x, focusCenter.y], [endRightX, endRightY]]);
         focusedWebSvg.append('path')
             .attr('d', lineRight)
@@ -667,8 +624,8 @@ function drawFocusTimelines(data) {
                 ownerLocations[owner].push({ x, y });
             });
 
-            focusedWebSvg.selectAll(null) // 使用selectAll(null)来创建新的元素
-                .data([timeline.events[i]]) // 绑定事件数据
+            focusedWebSvg.selectAll(null)
+                .data([timeline.events[i]])
                 .enter()
                 .append('circle')
                 .attr('cx', x)
@@ -700,7 +657,6 @@ function drawFocusTimelines(data) {
                         .remove();
                 });
 
-            // 添加文本
             if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
                 focusedWebSvg.append('text')
                     .attr('class', `timeline-text ${textClass}`)
@@ -730,7 +686,7 @@ function drawFocusTimelines(data) {
             });
 
             focusedWebSvg.selectAll(null)
-                .data([timeline.events[i]]) // 绑定事件数据
+                .data([timeline.events[i]])
                 .enter()
                 .append('circle')
                 .attr('cx', x)
@@ -762,7 +718,6 @@ function drawFocusTimelines(data) {
                         .remove();
                 });
 
-            // 添加文本
             if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
                 focusedWebSvg.append('text')
                     .attr('class', `timeline-text ${textClass}`)
@@ -775,14 +730,12 @@ function drawFocusTimelines(data) {
 
     });
 
-    // 在中心点添加共同所有者的标记
     focusedWebSvg.append('circle')
         .attr('cx', focusCenter.x)
         .attr('cy', focusCenter.y)
         .attr('r', 5)
         .attr('fill', 'red');
 
-    // 遍历每个所有者，连接最近的点
     Object.keys(ownerLocations).forEach(owner => {
         const locations = ownerLocations[owner];
         if (locations.length > 1) {
@@ -790,7 +743,6 @@ function drawFocusTimelines(data) {
                 let closest = null;
                 let closestDistance = Infinity;
 
-                // 找到最近的点
                 locations.forEach((otherLocation, otherIndex) => {
                     if (index !== otherIndex) {
                         const dist = distance(location, otherLocation);
@@ -801,7 +753,6 @@ function drawFocusTimelines(data) {
                     }
                 });
 
-                // 绘制连接最近点的虚线
                 if (closest) {
                     focusedWebSvg.append('path')
                         .attr('data-owner', owner)
@@ -838,14 +789,12 @@ function drawFocusTimelines(data) {
 function updateBookDetails(bookId) {
     const details = bookDetailsMap[bookId];
     if (details) {
-        // 构造显示的详情信息
         const content = `
             <strong>Title:</strong> ${details.title}<br>
             <strong>Author:</strong> ${details.author}<br>
             <strong>Imprint:</strong> ${details.imprint}<br>
             <strong>Holding Institution:</strong> ${details.holdingInstitution}
         `;
-        // 更新信息框的内容并显示
         const bookDetailsDiv = document.getElementById('bookDetails');
         bookDetailsDiv.innerHTML = content;
         bookDetailsDiv.style.display = 'block';
