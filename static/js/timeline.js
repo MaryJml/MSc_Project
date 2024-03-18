@@ -51,16 +51,6 @@ function initialSelection() {
 
 initialSelection();
 
-const tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .style("background", "#fff")
-    .style("border", "1px solid #000")
-    .style("border-radius", "5px")
-    .style("padding", "10px")
-    .text("");
 
 function updateTimeline() {
     // Clear the previous timeline
@@ -115,13 +105,22 @@ function updateTimeline() {
                 .style("fill", isLastPeriod ? "#FEFE62" : "#D35FB7")
                 .on("mouseover", function(event, d) {
                     const ownerName = ownerNames.join("; ").replace(/Owner ID: /g, "").split("; ").map(id => ownerIdNameMap[id.trim()] || `Owner ID: ${id}`).join(", ");
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0);
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
                     tooltip.html(ownerName)
                         .style("visibility", "visible")
                         .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY - 10) + "px");
+                        .style("top", (event.pageY + 30) + "px");
                 })
                 .on("mouseout", function() {
-                    tooltip.style("visibility", "hidden");
+                    d3.select(".tooltip").transition()
+                        .duration(0)
+                        .style("opacity", 0)
+                        .remove();
                 });
 
             // Add label for the owner name

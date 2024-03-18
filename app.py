@@ -28,9 +28,22 @@ def euler():
 def intro():
     return
 
-@app.route('/guide')
-def guide():
-    return
+@app.route('/guide/network')
+def network_guide():
+    return render_template('network_guide.html', active_page=['network_guide','guide'])
+
+@app.route('/guide/spiderweb')
+def spiderweb_guide():
+    return render_template('spiderweb_guide.html', active_page=['spiderweb_guide','guide'])
+
+@app.route('/guide/chord')
+def chord_guide():
+    return render_template('chord_guide.html', active_page=['chord_guide','guide'])
+
+@app.route('/guide/euler')
+def euler_guide():
+    return render_template('euler_guide.html', active_page=['euler_guide','guide'])
+
 
 
 if __name__ == '__main__':

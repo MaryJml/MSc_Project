@@ -14,11 +14,8 @@
 <nav>
     <ul id="top">
         <li class="top_bar"><a href="{{ url_for('network') }}" class="{{ 'active' if 'home' in active_page }}">Home</a></li>
-{#        <li class="top_bar"><a href="{{ url_for('hold_institution') }}" class="{{ 'active' if active_page == 'holding_institution' }}">Holding institution</a></li>#}
-{#        <li class="top_bar"><a href="{{ url_for('imprint') }}" class="{{ 'active' if active_page == 'imprint' }}">Imprint place</a></li>#}
-{#        <li class="top_bar"><a href="{{ url_for('other') }}" class="{{ 'active' if active_page == 'other' }}">Sankey</a></li>#}
-        <li class="top_bar" style="float:right"><a href="{{ url_for('intro') }}">About</a></li>
-        <li class="top_bar" style="float:right"><a href="{{ url_for('guide') }}">User Guide</a></li>
+        <li class="top_bar" style="float:right"><a href="#">About</a></li>
+        <li class="top_bar" style="float:right"><a href="{{ url_for('network_guide') }}" class="{{ 'active' if 'guide' in active_page }}">User Guide</a></li>
     </ul>
 </nav>
 <div id="main">

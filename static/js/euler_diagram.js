@@ -16,21 +16,26 @@ var vennData = sets.concat(overlaps);
 var chart = venn.VennDiagram();
 var div = d3.select("#venn").datum(vennData).call(chart);
 
-// 创建Tooltip
-var tooltip = d3.select("#euler").append("div")
-    .attr("class", "venntooltip");
-
 div.selectAll("text").style("opacity", 0);
 
 div.selectAll("g")
     .on("mouseover", function(event, d) {
-        tooltip.transition().duration(200).style("opacity", .9);
-        // 确保d.sets存在且是一个数组
+        d3.select(".tooltip").remove();
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
         var sets = d.sets ? d.sets.join(", ") : '';
         tooltip.html(d.size + " books<br>" + sets)
-            .style("left", (event.pageX) + "px")
-            .style("top", (event.pageY - 28) + "px");
+            .style("visibility", "visible")
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY + 20) + "px");
     })
     .on("mouseout", function() {
-        tooltip.transition().duration(500).style("opacity", 0);
+        d3.select(".tooltip").transition()
+            .duration(0)
+            .style("opacity", 0)
+            .remove();
     });

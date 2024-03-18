@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block chart %}
+    <div id="main">
+        <div id="sidebar">
+            <ul id="side">
+                <li>
+                    <a href="{{ url_for('network_guide') }}" class="{{ 'active' if 'network_guide' in active_page }}">
+                        <span class="item">Network graph and Timeline Guide</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('spiderweb_guide') }}" class="{{ 'active' if 'spiderweb_guide' in active_page }}">
+                        <span class="item">Spiderweb-like Graph Guide</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('chord_guide') }}" class="{{ 'active' if 'chord_guide' in active_page }}">
+                        <span class="item">Chord diagram Guide</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('euler_guide') }}" class="{{ 'active' if 'euler_guide' in active_page }}">
+                        <span class="item">Euler diagram Guide</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'sidebar.html' %}
 {% block content %}
-    <div>
-        <div class="container">
+    <div >
+        <div class="container" style="margin-top: 20px">
             <div class="left-panel">
                 <div class="description" style="width: 750px">
                     <p>This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.</p>
@@ -61,6 +61,6 @@
         </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
-<script src="{{ url_for('serve_js', filename='timeline.js') }}"></script>
+    <script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
+    <script src="{{ url_for('serve_js', filename='timeline.js') }}"></script>
 {% endblock %}

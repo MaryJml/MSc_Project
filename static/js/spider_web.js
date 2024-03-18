@@ -193,14 +193,6 @@ const webSvg = d3.select('#web')
 
 const center = { x: webWidth / 2, y: webHeight / 2 };
 
-const webTooltip = d3.select('body').append('div')
-    .attr('class', 'tooltip')
-    .style('position', 'absolute')
-    .style('visibility', 'hidden')
-    .style('background-color', 'white')
-    .style('padding', '5px')
-    .style('border-radius', '5px')
-    .style('border', '1px solid black');
 
 const centerPadding = 50;
 
@@ -336,18 +328,28 @@ function drawTimelines(data) {
                 .attr('r', 2)
                 .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
                 .on('mouseover', function() {
+                    d3.select(".tooltip").remove();
                     const ownerNamesText = timeline.events[i].owner_names.map(ownerId => {
                         const ownerIdNum = ownerId.replace('Owner ID: ', '');
                         const ownerName = ownerIdNameMap[ownerIdNum];
                         return `${ownerId} (${ownerName})`;
-                    }).join('\n'); // 将所有所有者信息合并为一个字符串，每个信息占一行
-                    webTooltip.style('visibility', 'visible').text(ownerNamesText);
-                })
-                .on('mousemove', function(event) {
-                    webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                    }).join('\n');
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0);
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html(ownerNamesText)
+                        .style("visibility", "visible")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY + 30) + "px");
                 })
                 .on('mouseout', function() {
-                    webTooltip.style('visibility', 'hidden');
+                    d3.select(".tooltip").transition()
+                        .duration(0)
+                        .style("opacity", 0)
+                        .remove();
                 });
 
             // 添加文本
@@ -388,18 +390,28 @@ function drawTimelines(data) {
                 .attr('r', 2)
                 .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
                 .on('mouseover', function() {
+                    d3.select(".tooltip").remove();
                     const ownerNamesText = timeline.events[i].owner_names.map(ownerId => {
                         const ownerIdNum = ownerId.replace('Owner ID: ', '');
                         const ownerName = ownerIdNameMap[ownerIdNum];
                         return `${ownerId} (${ownerName})`;
                     }).join('\n'); // 将所有所有者信息合并为一个字符串，每个信息占一行
-                    webTooltip.style('visibility', 'visible').text(ownerNamesText);
-                })
-                .on('mousemove', function(event) {
-                    webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0);
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html(ownerNamesText)
+                        .style("visibility", "visible")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY + 20) + "px");
                 })
                 .on('mouseout', function() {
-                    webTooltip.style('visibility', 'hidden');
+                    d3.select(".tooltip").transition()
+                        .duration(0)
+                        .style("opacity", 0)
+                        .remove();
                 });
 
             // 添加文本
@@ -416,8 +428,18 @@ function drawTimelines(data) {
 
         webSvg.selectAll(`.${timelineClass}`)
             .on('mouseover', function() {
+                d3.select(".tooltip").remove();
                 d3.selectAll(`.${timelineClass}`).attr('stroke', 'orange').attr('stroke-width', '2').attr('opacity', 1);
-                webTooltip.style('visibility', 'visible').text(timeline.bookId);
+                const tooltip = d3.select("body").append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(timeline.bookId)
+                    .style("visibility", "visible")
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY + 20) + "px");
                 const isCheckboxChecked = showYearsCheckbox.checked;
                 d3.selectAll('.timeline-text').style('opacity', function() {
                     if (isCheckboxChecked) {
@@ -431,12 +453,12 @@ function drawTimelines(data) {
                 drawFocusTimelines(relatedTimelines);
                 updateBookDetails(timeline.bookId);
             })
-            .on('mousemove', function(event) {
-                webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
-            })
             .on('mouseout', function() {
                 d3.selectAll(`.${timelineClass}`).attr('stroke', 'black').attr('stroke-width', '1').attr('opacity', 0.6);
-                webTooltip.style('visibility', 'hidden');
+                d3.select(".tooltip").transition()
+                    .duration(0)
+                    .style("opacity", 0)
+                    .remove();
                 const isCheckboxChecked = showYearsCheckbox.checked;
                 d3.selectAll('.timeline-text').style('opacity', isCheckboxChecked ? 1 : 0);
             });
@@ -450,13 +472,23 @@ function drawTimelines(data) {
         .attr('r', 5)
         .attr('fill', 'red')
         .on('mouseover', function() {
-            webTooltip.style('visibility', 'visible').text("Owner ID: 3467");
-        })
-        .on('mousemove', function(event) {
-            webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+            d3.select(".tooltip").remove();
+            const tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tooltip.html("Owner ID: 3467")
+                .style("visibility", "visible")
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY + 20) + "px");
         })
         .on('mouseout', function() {
-            webTooltip.style('visibility', 'hidden');
+            d3.select(".tooltip").transition()
+                .duration(0)
+                .style("opacity", 0)
+                .remove();
         });
 
     // 遍历每个所有者，连接最近的点
@@ -488,13 +520,23 @@ function drawTimelines(data) {
                         .attr('stroke', ownerColorScale(owner))
                         .attr('fill', 'none')
                         .on('mouseover', function() {
-                            webTooltip.style('visibility', 'visible').text(`${owner}`);
-                        })
-                        .on('mousemove', function(event) {
-                            webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                            d3.select(".tooltip").remove();
+                            const tooltip = d3.select("body").append("div")
+                                .attr("class", "tooltip")
+                                .style("opacity", 0);
+                            tooltip.transition()
+                                .duration(200)
+                                .style("opacity", .9);
+                            tooltip.html(`${owner}`)
+                                .style("visibility", "visible")
+                                .style("left", (event.pageX + 10) + "px")
+                                .style("top", (event.pageY + 20) + "px");
                         })
                         .on('mouseout', function() {
-                            webTooltip.style('visibility', 'hidden');
+                            d3.select(".tooltip").transition()
+                                .duration(0)
+                                .style("opacity", 0)
+                                .remove();
                         });
                 }
             });
@@ -634,18 +676,28 @@ function drawFocusTimelines(data) {
                 .attr('r', 2)
                 .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
                 .on('mouseover', function() {
+                    d3.select(".tooltip").remove();
                     const ownerNamesText = timeline.events[i].owner_names.map(ownerId => {
                         const ownerIdNum = ownerId.replace('Owner ID: ', '');
                         const ownerName = ownerIdNameMap[ownerIdNum];
                         return `${ownerId} (${ownerName})`;
                     }).join('\n');
-                    webTooltip.style('visibility', 'visible').text(ownerNamesText);
-                })
-                .on('mousemove', function(event) {
-                    webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0);
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html(ownerNamesText)
+                        .style("visibility", "visible")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY + 20) + "px");
                 })
                 .on('mouseout', function() {
-                    webTooltip.style('visibility', 'hidden');
+                    d3.select(".tooltip").transition()
+                        .duration(0)
+                        .style("opacity", 0)
+                        .remove();
                 });
 
             // 添加文本
@@ -686,18 +738,28 @@ function drawFocusTimelines(data) {
                 .attr('r', 2)
                 .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
                 .on('mouseover', function() {
+                    d3.select(".tooltip").remove();
                     const ownerNamesText = timeline.events[i].owner_names.map(ownerId => {
                         const ownerIdNum = ownerId.replace('Owner ID: ', '');
                         const ownerName = ownerIdNameMap[ownerIdNum];
                         return `${ownerId} (${ownerName})`;
                     }).join('\n');
-                    webTooltip.style('visibility', 'visible').text(ownerNamesText);
-                })
-                .on('mousemove', function(event) {
-                    webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0);
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html(ownerNamesText)
+                        .style("visibility", "visible")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY + 20) + "px");
                 })
                 .on('mouseout', function() {
-                    webTooltip.style('visibility', 'hidden');
+                    d3.select(".tooltip").transition()
+                        .duration(0)
+                        .style("opacity", 0)
+                        .remove();
                 });
 
             // 添加文本
@@ -748,13 +810,23 @@ function drawFocusTimelines(data) {
                         .attr('stroke', ownerColorScale(owner))
                         .attr('fill', 'none')
                         .on('mouseover', function() {
-                            webTooltip.style('visibility', 'visible').text(`${owner}`);
-                        })
-                        .on('mousemove', function(event) {
-                            webTooltip.style('top', (event.pageY - 10) + 'px').style('left',(event.pageX + 10) + 'px');
+                            d3.select(".tooltip").remove();
+                            const tooltip = d3.select("body").append("div")
+                                .attr("class", "tooltip")
+                                .style("opacity", 0);
+                            tooltip.transition()
+                                .duration(200)
+                                .style("opacity", .9);
+                            tooltip.html(`${owner}`)
+                                .style("visibility", "visible")
+                                .style("left", (event.pageX + 10) + "px")
+                                .style("top", (event.pageY + 20) + "px");
                         })
                         .on('mouseout', function() {
-                            webTooltip.style('visibility', 'hidden');
+                            d3.select(".tooltip").transition()
+                                .duration(0)
+                                .style("opacity", 0)
+                                .remove();
                         });
                 }
             });
