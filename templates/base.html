@@ -14,6 +14,7 @@
 <nav>
     <ul id="top">
         <li class="top_bar"><a href="{{ url_for('network') }}" class="{{ 'active' if 'home' in active_page }}">Home</a></li>
+        <li class="top_bar"><a href="{{ url_for('inter_spiderweb') }}" class="{{ 'active' if 'inter' in active_page }}">Interconnection diagram</a></li>
         <li class="top_bar" style="float:right"><a href="#">About</a></li>
         <li class="top_bar" style="float:right"><a href="{{ url_for('network_guide') }}" class="{{ 'active' if 'guide' in active_page }}">User Guide</a></li>
     </ul>

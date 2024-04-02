@@ -69,7 +69,7 @@ var positions = [{"ownerId":"43","cx":550.6036071777344,"cy":200.3267364501953,"
 positions.sort((a, b) => {
     var areaA = Math.PI * Math.pow(a.r, 2);
     var areaB = Math.PI * Math.pow(b.r, 2);
-    return areaB - areaA; // 降序排序
+    return areaB - areaA;
 });
 var svg = d3.select("#venn").append("svg")
     .attr("width", 900)
@@ -87,7 +87,6 @@ svg.selectAll("circle")
     .style("fill-opacity", 0.3)
     .style("stroke", "none");
 
-// 添加交互（例如，鼠标悬停）
 svg.selectAll("circle")
     .on("mouseover", function(event, d) {
         d3.select(".tooltip").remove();

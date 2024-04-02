@@ -12,17 +12,21 @@ def serve_js(filename):
 def network():
     return render_template('network.html', active_page=['network','home'])
 
-@app.route('/spiderweb')
+@app.route('/home/spiderweb')
 def spiderweb():
     return render_template('spiderweb.html', active_page=['spiderweb','home'])
 
-@app.route('/chord')
+@app.route('/home/chord')
 def chord():
     return render_template('chord.html', active_page=['chord','home'])
 
-@app.route('/euler')
+@app.route('/home/euler')
 def euler():
     return render_template('euler.html', active_page=['euler','home'])
+
+@app.route('/interconnection/spiderweb')
+def inter_spiderweb():
+    return render_template('spider_inter.html', active_page=['spider_inter', 'inter'])
 
 @app.route('/intro')
 def intro():
