@@ -1,9 +1,9 @@
 {% extends 'sidebar.html' %}
 {% block content %}
-    <div class="container" style="margin-top: 20px">
+    <div class="container" style="margin-top: 20px; margin-left: 20px">
         <div class="left-panel">
-            <div class="description" style="width: 600px; justify-content: flex-start;">
-                <p>The Chord Diagram serves as a powerful visualization tool for illustrating the inter-relationships between entities, in this case, the exchange of books between owners. Unlike the network graph where the distance between nodes may be influenced by the size of the nodes, causing larger nodes to appear closer, the Chord Diagram provides a more precise representation of the relationships.</p>
+            <div class="hover-description"  style="width: 400px" data-fulltext="The Chord Diagram serves as a powerful visualization tool for illustrating the inter-relationships between entities, in this case, the exchange of books between owners. Unlike the network graph where the distance between nodes may be influenced by the size of the nodes, causing larger nodes to appear closer, the Chord Diagram provides a more precise representation of the relationships.">
+                <p>The Chord Diagram serves as a powerful visualization tool... <span class="moreText">Hover to read more</span></p>
             </div>
             <svg id="chordSvg" width="600" height="600"></svg>
         </div>
@@ -16,4 +16,5 @@
     <script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='chord_graph.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='table.js') }}"></script>
+    <script src="{{ url_for('serve_js', filename='description.js') }}"></script>
 {% endblock %}

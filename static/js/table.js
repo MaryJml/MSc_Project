@@ -8,7 +8,6 @@ thead.append("tr")
     .enter()
     .append("th")
     .text(d => d);
-
 const rows = tbody.selectAll("tr")
     .data(nodes.map(node => {
         return {

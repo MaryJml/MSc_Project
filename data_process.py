@@ -83,8 +83,6 @@ def get_ownerId():
                     #     pass
                     try:
                         agent_dic['ownerId'] = agent['ownerId']
-                        if agent['ownerId'] not in id_to_name_dic:
-                            id_to_name_dic[agent['ownerId']] = ""
                         add = True
                     except KeyError:
                         pass
@@ -92,8 +90,6 @@ def get_ownerId():
                     try:
                         agent_dic['name'] = find_agent_name(agent['name'])
                         add = True
-                        if id_to_name_dic[agent['ownerId']] == "":
-                            id_to_name_dic[agent['ownerId']] = agent['name']
                     # institution_set.add(find_agent_name(agent['name']))
                     except KeyError:
                         pass
@@ -108,11 +104,7 @@ def get_ownerId():
             if len(agents_list) != 0:
                 agent_path.append(agents_list)
         processed_data[book['id']] = agent_path
-
-        # data = list(id_to_name_dic.items())
-        # df = pd.DataFrame(data, columns=['ID', 'Name'])
-        # df.to_csv('my_dataframe.csv', index=False)
-    print(id_to_name_dic)
+    print(processed_data)
 
 
 def get_ownerId_timeperiod():
@@ -315,7 +307,30 @@ def euler_process():
                     else:
                         overlaps_list.append({"pair": pair, "count": 1})
 
-    print("var counts = ", counts)
-    print("var overlapsList = ", overlaps_list)
+    print("var counts = ", counts,";")
+    print("var overlapsList = ", overlaps_list,";")
 
-book_detail()
+def ownerId_name():
+    data = load_data()
+    id_to_name_dic = {}
+    for book in data:
+        provenances = book.get('provenance', [])  # 使用 get 方法安全访问键，如果键不存在则返回空列表
+        for provenance in provenances:
+            agents = provenance.get('agent', [])
+            for agent in agents:
+                ownerId = agent.get('ownerId')
+                if ownerId and str(ownerId) not in id_to_name_dic:
+                    # 只有当 ownerId 存在且不在字典中时，才添加
+                    # 这确保了即使之后遇到相同的 ownerId 也不会更改其映射的 name
+                    id_to_name_dic[str(ownerId)] = agent.get('name', '')  # 如果 name 不存在，使用空字符串作为默认值
+
+    # 将结果转换为列表并创建 DataFrame
+    data_list = list(id_to_name_dic.items())
+    df = pd.DataFrame(data_list, columns=['ID', 'Name'])
+    df.to_csv('dataframe.csv', index=False)
+    print(id_to_name_dic)
+
+df = pd.read_csv('dataframe.csv', dtype={'ID': str})
+
+id_name_dict = pd.Series(df.Name.values,index=df.ID).to_dict()
+print(id_name_dict)

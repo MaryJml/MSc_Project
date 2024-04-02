@@ -3,20 +3,17 @@
     <div >
         <div class="container" style="margin-top: 20px">
             <div class="left-panel">
-                <div class="description" style="width: 750px">
-                    <p>This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.</p>
+                <div class="hover-description"  style="width: 400px" data-fulltext="This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.">
+                    <p>This network graph represents book ownership and transfers... <span class="moreText">Hover to read more</span></p>
                 </div>
                 <label><input type="checkbox" id="showOwnerType"> Show Owner Type</label>
+
                 <svg id="network"></svg>
-                <div class="zoom-controls">
-                    <button id="zoomInButton">Zoom In</button>
-                    <button id="zoomOutButton">Zoom Out</button>
-                    <button id="resetZoomButton">Reset Zoom</button>
-                </div>
+
             </div>
             <div class="right-panel" id="controls">
-                <div  class="description" style="width: 270px">
-                    <p>Users can filter the books they wish to view using BookID checkboxes, and select the nodes they want to view using Node checkboxes, which also display related nodes and links.</p>
+                <div class="hover-description"  style="width: 240px" data-fulltext="Users can filter the books they wish to view using BookID checkboxes, and select the nodes they want to view using Node checkboxes, which also display related nodes and links.">
+                    <p>Users can filter the books ... <span class="moreText">Hover to read more</span></p>
                 </div>
                 <div class="buttons">
                     <button id="selectAll">Select All</button>
@@ -26,9 +23,10 @@
                 <div id="checkboxes">
 
                 </div>
-                <div class="description" style="width: 270px">
-                    <p>Upon selecting an owner, the node becomes purple, connected nodes orange, and non-relevant links vanish. Users can toggle to display "Incoming" or "Outgoing" links for that owner. BookID checkboxes will then filter to show only the books associated with the selected node.</p>
+                <div class="hover-description" data-fulltext="Upon selecting an owner, the node becomes purple, connected nodes orange, and non-relevant links vanish. Users can toggle to display "Incoming" or "Outgoing" links for that owner. BookID checkboxes will then filter to show only the books associated with the selected node.">
+                    <p>Upon selecting an owner,... <span class="moreText">Hover to read more</span></p>
                 </div>
+
                 <button id="deselectNodeButton">Deselect Node</button>
                 <input type="text" id="nodeSearch" placeholder="Search Node">
                 <div id="nodeSelection">
@@ -38,13 +36,18 @@
                     <label><input type="checkbox" id="showIncomingLinks" checked> Show Incoming Links</label>
                     <label><input type="checkbox" id="showOutgoingLinks" checked> Show Outgoing Links</label>
                 </div>
+            <div class="zoom-controls">
+                <button id="zoomInButton">Zoom In</button>
+                <button id="zoomOutButton">Zoom Out</button>
+                <button id="resetZoomButton">Reset Zoom</button>
+            </div>
             </div>
         </div>
 
         <div class="container">
             <div class="left-panel">
-                <div class="description" style="width: 790px; margin-top: 20px; margin-left: 5px">
-                    <p>The timeline shows book ownership over time, with colors marking the final owner and past holders. Owners are labeled by year for clarity. </p>
+                <div class="hover-description"  style="width: 370px" data-fulltext="The timeline shows book ownership over time, with colors marking the final owner and past holders. Owners are labeled by year for clarity.">
+                    <p>The timeline shows book ownership over time,... <span class="moreText">Hover to read more</span></p>
                 </div>
                 <div id="timeline">
 
@@ -62,5 +65,6 @@
     </div>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
+    <script src="{{ url_for('serve_js', filename='description.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='timeline.js') }}"></script>
 {% endblock %}

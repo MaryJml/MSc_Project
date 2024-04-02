@@ -1,6 +1,9 @@
 {% extends 'sidebar.html' %}
 {% block content %}
-    <div id="euler">
+    <div id="euler" style="margin-left: 20px; margin-top: 20px">
+        <div class="hover-description"  style="width: 340px" data-fulltext="This Euler diagram visualizes the relationships between different book owners using circles of varying sizes, where each circle represents an owner, and its size reflects the number of books they once owned. The overlapping areas between circles reveal the books that were commonly owned by two or more owners, with the size of the overlap directly representing the number of shared books. This visualization method not only shows the quantity of books each owner had but also intuitively displays the relationships of shared ownership among different owners.|Notably, the circle for the owner with ID 3467 is the largest and overlaps with all other circles, highlighting a significant historical fact: every book has passed through the hands of this owner (a library) at some point in its circulation. Thus, this owner acts as a central node in the diagram, connecting all other owners and occupying a central position in the network of shared books.">
+            <p>This Euler diagram visualizes the relationships ... <span class="moreText">Hover to read more</span></p>
+        </div>
         <div id="venn"></div>
     </div>
 
@@ -8,4 +11,5 @@
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="https://cdn.jsdelivr.net/npm/venn.js"></script>
     <script src="{{ url_for('serve_js', filename='euler_diagram.js') }}"></script>
+    <script src="{{ url_for('serve_js', filename='description.js') }}"></script>
 {% endblock %}

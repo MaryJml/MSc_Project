@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 90%;
     margin: 0 auto;
 }
@@ -151,11 +151,6 @@ text {
     pointer-events: none;
     user-select: none;
 }
-.description{
-    font-size: 10px;
-    color: gray;
-    text-align: left;
-}
 
 #nodeTable {
     display: block;
@@ -289,4 +284,45 @@ button:active {
     width: 100%;
     padding-right: 20px;
     padding-top: 0;
+}
+
+.hover-description p {
+    white-space: nowrap;
+    font-size: 10px;
+    color: gray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 750px;
+}
+
+.hover-description .moreText {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.full-description {
+    font-size: 17px;
+    color: black;
+    text-align: left;
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 10px;
+    z-index: 1000;
+    max-width: 450px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.checkbox-container label {
+    margin-right: 20px;
 }
