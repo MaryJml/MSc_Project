@@ -71,12 +71,12 @@ positions.sort((a, b) => {
     var areaB = Math.PI * Math.pow(b.r, 2);
     return areaB - areaA;
 });
-var svg = d3.select("#venn").append("svg")
+var euler_svg = d3.select("#venn").append("svg")
     .attr("width", 900)
     .attr("height", 900);
 
 // 绘制圆
-svg.selectAll("circle")
+euler_svg.selectAll("circle")
     .data(positions)
     .enter()
     .append("circle")
@@ -87,7 +87,7 @@ svg.selectAll("circle")
     .style("fill-opacity", 0.3)
     .style("stroke", "none");
 
-svg.selectAll("circle")
+euler_svg.selectAll("circle")
     .on("mouseover", function(event, d) {
         d3.select(".tooltip").remove();
         const tooltip = d3.select("body").append("div")

@@ -19,11 +19,9 @@
         <li class="top_bar" style="float:right"><a href="{{ url_for('network_guide') }}" class="{{ 'active' if 'guide' in active_page }}">User Guide</a></li>
     </ul>
 </nav>
-<div id="main">
-
     {% block chart %}
 
     {% endblock %}
-</div>
+
 </body>
 </html>

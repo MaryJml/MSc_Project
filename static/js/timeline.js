@@ -61,7 +61,7 @@ function updateTimeline() {
 
     const margin = { top: 20, right: 30, bottom: 20, left: 0 },
         width = 790 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+        height = 300 - margin.top - margin.bottom;
 
     const timeline_svg = d3.select("#timeline").append("svg")
         .attr("width", width + margin.left + margin.right)

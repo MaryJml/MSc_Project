@@ -419,7 +419,7 @@ function drawTimelines(data) {
                     }
                 });
                 let relatedTimelines = relatedTimelinesMap[timeline.bookId];
-                drawFocusTimelines(relatedTimelines);
+                drawFocusTimelines(relatedTimelines, timeline.bookId);
                 updateBookDetails(timeline.bookId);
             })
             .on('mouseout', function() {
@@ -533,9 +533,16 @@ const focusedWebSvg = d3.select('#focusedWeb')
     .attr('height', focusedWebHeight);
 const focusCenter = { x: focusedWebWidth / 2, y: focusedWebHeight / 2 };
 const focusCenterPadding = 30;
-function drawFocusTimelines(data) {
+function drawFocusTimelines(data, bookId) {
     const ownerLocations = {};
     focusedWebSvg.selectAll("*").remove();
+    focusedWebSvg.append("text")
+        .attr("x", 10)
+        .attr("y", 20)
+        .text(`Focus for Book ID: ${bookId}`)
+        .attr("class", "timeline-title")
+        .style("font-size", "15px")
+        .style("font-weight", "bold");
 
     const timelines = Object.keys(data).map(bookId => {
         const events = data[bookId];

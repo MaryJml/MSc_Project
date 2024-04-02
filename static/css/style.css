@@ -1,7 +1,6 @@
 .container {
     display: flex;
     justify-content: flex-start;
-    width: 90%;
     margin: 0 auto;
 }
 
@@ -17,6 +16,19 @@
 
 .right-panel {
     flex: 1;
+}
+
+.left-panel_inter, .right-panel_inter {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-panel_inter {
+    flex: 1;
+}
+
+.right-panel_inter {
+    flex: 4;
 }
 
 
@@ -192,6 +204,7 @@ text {
     width: 430px;
     max-height: 200px;
     overflow-y: auto;
+    margin-bottom: 20px;
 }
 
 button {
