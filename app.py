@@ -28,6 +28,10 @@ def euler():
 def inter_spiderweb():
     return render_template('spider_inter.html', active_page=['spider_inter', 'inter'])
 
+@app.route('/interconnection/network')
+def inter_network():
+    return render_template('network_inter.html', active_page=['inter_network', 'inter'])
+
 @app.route('/intro')
 def intro():
     return

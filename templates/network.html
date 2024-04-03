@@ -1,6 +1,6 @@
 {% extends 'sidebar.html' %}
 {% block content %}
-    <div >
+    <div>
         <div class="container" style="margin-top: 20px">
             <div class="left-panel">
                 <div class="hover-description"  style="width: 400px" data-fulltext="This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.">
@@ -23,7 +23,7 @@
                 <div id="checkboxes">
 
                 </div>
-                <div class="hover-description" data-fulltext="Upon selecting an owner, the node becomes purple, connected nodes orange, and non-relevant links vanish. Users can toggle to display "Incoming" or "Outgoing" links for that owner. BookID checkboxes will then filter to show only the books associated with the selected node.">
+                <div class="hover-description" data-fulltext="Upon selecting an owner, the node becomes purple, connected nodes orange, and non-relevant links vanish. Users can toggle to display 'Incoming' or 'Outgoing' links for that owner. BookID checkboxes will then filter to show only the books associated with the selected node.">
                     <p>Upon selecting an owner,... <span class="moreText">Hover to read more</span></p>
                 </div>
 
@@ -36,13 +36,14 @@
                     <label><input type="checkbox" id="showIncomingLinks" checked> Show Incoming Links</label>
                     <label><input type="checkbox" id="showOutgoingLinks" checked> Show Outgoing Links</label>
                 </div>
-            <div class="zoom-controls">
-                <button id="zoomInButton">Zoom In</button>
-                <button id="zoomOutButton">Zoom Out</button>
-                <button id="resetZoomButton">Reset Zoom</button>
-            </div>
+                <div class="zoom-controls">
+                    <button id="zoomInButton">Zoom In</button>
+                    <button id="zoomOutButton">Zoom Out</button>
+                    <button id="resetZoomButton">Reset Zoom</button>
+                </div>
             </div>
         </div>
+
 
         <div class="container">
             <div class="left-panel">

@@ -27,55 +27,11 @@ showOwnersCheckbox.addEventListener('change', function() {
 });
 
 const showSameOwnersCheckbox = document.getElementById('showSameOwnersCheckbox');
-const ownerCheckboxesContainer = document.getElementById('ownerCheckboxes');
-const ownerSearchBar = document.getElementById('ownerSearchBar');
-const selectAllButton = document.getElementById('webSelectAll');
-const deselectAllButton = document.getElementById('webDeselectAll');
 
 function initialize() {
-    ownerCheckboxesContainer.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
 
-    Array.from(ownerSet).forEach(ownerIdWithPrefix => {
-        const ownerId = ownerIdWithPrefix.replace('Owner ID: ', '');
-
-        const ownerName = ownerIdNameMap[ownerId];
-        const displayName = ownerName ? `${ownerIdWithPrefix} (${ownerName})` : ownerIdWithPrefix;
-        const checkboxDiv = document.createElement('div');
-
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = `checkbox-${ownerId}`;
-        checkbox.checked = true;
-        checkbox.setAttribute('data-owner', displayName);
-
-        const label = document.createElement('label');
-        label.htmlFor = `checkbox-${ownerId}`;
-        label.textContent = displayName;
-
-        checkboxDiv.appendChild(checkbox);
-        checkboxDiv.appendChild(label);
-        ownerCheckboxesContainer.appendChild(checkboxDiv);
-    });
-
-
-    ownerCheckboxesContainer.addEventListener('change', function(event) {
-        if (event.target.type === 'checkbox') {
-            const owner = event.target.getAttribute('data-owner');
-            const isChecked = event.target.checked;
-
-            d3.selectAll('.linkSameOwner')
-                .filter(function() { return this.getAttribute('data-owner') === owner; })
-                .style('opacity', isChecked ? 0.5 : 0)
-                .style('pointer-events', this.checked ? 'all' : 'none');
-        }
-    });
 
     showSameOwnersCheckbox.addEventListener('change', function() {
-        ownerCheckboxesContainer.style.display = this.checked ? 'block' : 'none';
-        ownerSearchBar.style.display = this.checked ? 'block' : 'none';
-        selectAllButton.style.display = this.checked ? 'block' : 'none';
-        deselectAllButton.style.display = this.checked ? 'block' : 'none';
-
         if (!this.checked) {
             d3.selectAll('.linkSameOwner')
                 .style('opacity', 0)
@@ -84,47 +40,19 @@ function initialize() {
     });
 
 
-    ownerSearchBar.addEventListener('input', function() {
-        const searchText = this.value.toLowerCase();
-        Array.from(ownerCheckboxesContainer.children).forEach(div => {
-            if (div.querySelector('label').textContent.toLowerCase().includes(searchText)) {
-                div.style.display = 'block';
-            } else {
-                div.style.display = 'none';
-            }
-        });
-    });
-
-    selectAllButton.addEventListener('click', () => {
-        Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
-            checkbox.checked = true;
-        });
-
-        if (showSameOwnersCheckbox.checked) {
-            d3.selectAll('.linkSameOwner').style('opacity', 0.5);
-        }
-    });
-
-    deselectAllButton.addEventListener('click', () => {
-        Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
-            checkbox.checked = false;
-        });
-
-        if (showSameOwnersCheckbox.checked) {
-            d3.selectAll('.linkSameOwner').style('opacity', 0);
-        }
-    });
-
-    const toggleDataCheckbox = document.getElementById('toggleArrangedDataCheckbox');
-
     drawTimelines(sorted_timeline_data);
-    toggleDataCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            drawTimelines(sorted_timeline_data);
-        } else {
-            drawTimelines(timeline_data);
+
+
+}
+
+function processDataDraw(set, node_id){
+    let bookDic = {};
+    set.forEach((key) => {
+        if (key in sorted_timeline_data) {
+            bookDic[key] = sorted_timeline_data[key];
         }
     });
+    drawTimelines(bookDic, node_id);
 }
 
 showSameOwnersCheckbox.addEventListener('change', function() {
@@ -158,14 +86,14 @@ Object.values(sorted_timeline_data).forEach(events => {
 const minYearDiff = d3.min(yearDiffs);
 const maxYearDiff = d3.max(yearDiffs);
 
-const UnknownLength = 80;
+const UnknownLength = 50;
 
 const yearScale = d3.scaleLinear()
     .domain([minYearDiff, maxYearDiff])
-    .range([80, 200]);
+    .range([50, 160]);
 
-const webWidth = 1000;
-const webHeight = 1000;
+const webWidth = 800;
+const webHeight = 800;
 
 const webSvg = d3.select('#web')
     .attr('width', webWidth)
@@ -174,7 +102,7 @@ const webSvg = d3.select('#web')
 const center = { x: webWidth / 2, y: webHeight / 2 };
 
 
-const centerPadding = 50;
+const centerPadding = 30;
 
 
 function distance(a, b) {
@@ -202,7 +130,7 @@ Object.keys(sorted_timeline_data).forEach(bookId => {
 });
 
 
-function drawTimelines(data) {
+function drawTimelines(data, node_id) {
     const ownerLocations = {};
     webSvg.selectAll("*").remove();
 
@@ -235,7 +163,6 @@ function drawTimelines(data) {
             lengthAfter
         };
     });
-
     let len = timelines.length;
     if(timelines.length % 2 === 0){
         len += 1
@@ -300,7 +227,7 @@ function drawTimelines(data) {
                 .append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', 2)
+                .attr('r', timeline.events[i].owner_names.includes(node_id) ? 3 : 1.5)
                 .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
                 .on('mouseover', function() {
                     d3.select(".tooltip").remove();
@@ -361,7 +288,7 @@ function drawTimelines(data) {
                 .append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', 2)
+                .attr('r', timeline.events[i].owner_names.includes(node_id) ? 3 : 1.5)
                 .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
                 .on('mouseover', function() {
                     d3.select(".tooltip").remove();
@@ -488,6 +415,7 @@ function drawTimelines(data) {
                         .attr('d', d3.line()([[location.x, location.y], [closest.x, closest.y]]))
                         .attr('stroke', ownerColorScale(owner))
                         .attr('fill', 'none')
+                        .attr('stroke-width', owner === node_id ? '3px' : '1px')
                         .on('mouseover', function() {
                             d3.select(".tooltip").remove();
                             const tooltip = d3.select("body").append("div")
@@ -514,300 +442,6 @@ function drawTimelines(data) {
     showOwnersCheckbox.checked = false;
     showSameOwnersCheckbox.checked = true;
     showYearsCheckbox.checked = true;
-    Array.from(ownerCheckboxesContainer.querySelectorAll('input[type="checkbox"]')).forEach(checkbox => {
-        checkbox.checked = true;
-    });
-    ownerCheckboxesContainer.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
-    ownerSearchBar.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
-    selectAllButton.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
-    deselectAllButton.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
 }
 
 document.addEventListener('DOMContentLoaded', initialize);
-
-const focusUnknownLength = 80;
-
-const focusYearScale = d3.scaleLinear()
-    .domain([minYearDiff, maxYearDiff])
-    .range([30, 70]);
-const focusedWebWidth = 450;
-const focusedWebHeight = 450;
-const focusedWebSvg = d3.select('#focusedWeb')
-    .attr('width', focusedWebWidth)
-    .attr('height', focusedWebHeight);
-const focusCenter = { x: focusedWebWidth / 2, y: focusedWebHeight / 2 };
-const focusCenterPadding = 30;
-function drawFocusTimelines(data, bookId) {
-    const ownerLocations = {};
-    focusedWebSvg.selectAll("*").remove();
-    focusedWebSvg.append("text")
-        .attr("x", 10)
-        .attr("y", 20)
-        .text(`Focus for Book ID: ${bookId}`)
-        .attr("class", "timeline-title")
-        .style("font-size", "15px")
-        .style("font-weight", "bold");
-
-    const timelines = Object.keys(data).map(bookId => {
-        const events = data[bookId];
-        const centerIndex = events.findIndex(event => event.owner_names.includes('Owner ID: 3467'));
-
-        let lengthBefore = 0;
-        let lengthAfter = 0;
-
-        for (let i = 0; i < centerIndex; i++) {
-            const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
-                ? focusYearScale(events[i + 1].start_time - events[i].start_time)
-                : focusUnknownLength;
-            lengthBefore += yearDiff;
-        }
-
-        for (let i = centerIndex; i < events.length - 1; i++) {
-            const yearDiff = events[i + 1].start_time !== 'Unknown' && events[i].start_time !== 'Unknown'
-                ? focusYearScale(events[i + 1].start_time - events[i].start_time)
-                : focusUnknownLength;
-            lengthAfter += yearDiff;
-        }
-
-        return {
-            bookId,
-            events,
-            centerIndex,
-            lengthBefore,
-            lengthAfter
-        };
-    });
-
-    let len = timelines.length;
-    if(timelines.length % 2 === 0){
-        len += 1
-    }
-    const angleStep = (2 * Math.PI) / len;
-
-
-    timelines.forEach((timeline, index) => {
-        const angle = angleStep * index;
-        const timelineClass = `class-timeline-${timeline.bookId}`;
-        const textClass = `text-timeline-${timeline.bookId}`;
-
-        const startLeftOffsetX = Math.cos(angle) * (timeline.lengthBefore + focusCenterPadding);
-        const startLeftOffsetY = Math.sin(angle) * (timeline.lengthBefore + focusCenterPadding);
-        const startLeftX = focusCenter.x - startLeftOffsetX;
-        const startLeftY = focusCenter.y - startLeftOffsetY;
-
-        const endRightOffsetX = Math.cos(angle) * (timeline.lengthAfter + focusCenterPadding);
-        const endRightOffsetY = Math.sin(angle) * (timeline.lengthAfter + focusCenterPadding);
-        const endRightX = focusCenter.x + endRightOffsetX;
-        const endRightY = focusCenter.y + endRightOffsetY;
-
-        if (timeline.lengthBefore > 0) {
-            const lineLeft = d3.line()([[startLeftX, startLeftY], [focusCenter.x, focusCenter.y]]);
-            focusedWebSvg.append('path')
-                .attr('d', lineLeft)
-                .attr('class', timelineClass)
-                .attr('opacity', 0.6)
-                .attr('stroke', 'black')
-                .attr('fill', 'none');
-        }
-
-        const lineRight = d3.line()([[focusCenter.x, focusCenter.y], [endRightX, endRightY]]);
-        focusedWebSvg.append('path')
-            .attr('d', lineRight)
-            .attr('class', timelineClass)
-            .attr('opacity', 0.6)
-            .attr('stroke', 'black')
-            .attr('fill', 'none');
-
-
-        let accumulatedLengthLeft = 0;
-        for (let i = timeline.centerIndex - 1; i >= 0; i--) {
-            accumulatedLengthLeft -= (timeline.events[i].start_time !== 'Unknown' && timeline.events[i + 1].start_time !== 'Unknown'
-                ? focusYearScale(timeline.events[i + 1].start_time - timeline.events[i].start_time)
-                : focusUnknownLength);
-
-            const x = focusCenter.x + Math.cos(angle) * accumulatedLengthLeft;
-            const y = focusCenter.y + Math.sin(angle) * accumulatedLengthLeft;
-
-            timeline.events[i].owner_names.forEach(owner => {
-                if (!ownerLocations[owner]) {
-                    ownerLocations[owner] = [];
-                }
-                ownerLocations[owner].push({ x, y });
-            });
-
-            focusedWebSvg.selectAll(null)
-                .data([timeline.events[i]])
-                .enter()
-                .append('circle')
-                .attr('cx', x)
-                .attr('cy', y)
-                .attr('r', 2)
-                .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
-                .on('mouseover', function() {
-                    d3.select(".tooltip").remove();
-                    const ownerNamesText = timeline.events[i].owner_names.map(ownerId => {
-                        const ownerIdNum = ownerId.replace('Owner ID: ', '');
-                        const ownerName = ownerIdNameMap[ownerIdNum];
-                        return `${ownerId} (${ownerName})`;
-                    }).join('\n');
-                    const tooltip = d3.select("body").append("div")
-                        .attr("class", "tooltip")
-                        .style("opacity", 0);
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    tooltip.html(ownerNamesText)
-                        .style("visibility", "visible")
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY + 20) + "px");
-                })
-                .on('mouseout', function() {
-                    d3.select(".tooltip").transition()
-                        .duration(0)
-                        .style("opacity", 0)
-                        .remove();
-                });
-
-            if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
-                focusedWebSvg.append('text')
-                    .attr('class', `timeline-text ${textClass}`)
-                    .attr('x', x)
-                    .attr('y', y - 10)
-                    .attr('text-anchor', 'middle')
-                    .text(timeline.events[i].start_time);
-            }
-        }
-
-        let accumulatedLengthRight = 0;
-        for (let i = timeline.centerIndex; i < timeline.events.length; i++) {
-            if (i !== timeline.centerIndex) {
-                accumulatedLengthRight += (timeline.events[i].start_time !== 'Unknown' && timeline.events[i - 1].start_time !== 'Unknown'
-                    ? focusYearScale(timeline.events[i].start_time - timeline.events[i - 1].start_time)
-                    : focusUnknownLength);
-            }
-
-            const x = focusCenter.x + Math.cos(angle) * accumulatedLengthRight;
-            const y = focusCenter.y + Math.sin(angle) * accumulatedLengthRight;
-
-            timeline.events[i].owner_names.forEach(owner => {
-                if (!ownerLocations[owner]) {
-                    ownerLocations[owner] = [];
-                }
-                ownerLocations[owner].push({ x, y });
-            });
-
-            focusedWebSvg.selectAll(null)
-                .data([timeline.events[i]])
-                .enter()
-                .append('circle')
-                .attr('cx', x)
-                .attr('cy', y)
-                .attr('r', 2)
-                .attr('fill', timeline.events[i].owner_names.includes('Owner ID: 3467') ? 'red' : 'blue')
-                .on('mouseover', function() {
-                    d3.select(".tooltip").remove();
-                    const ownerNamesText = timeline.events[i].owner_names.map(ownerId => {
-                        const ownerIdNum = ownerId.replace('Owner ID: ', '');
-                        const ownerName = ownerIdNameMap[ownerIdNum];
-                        return `${ownerId} (${ownerName})`;
-                    }).join('\n');
-                    const tooltip = d3.select("body").append("div")
-                        .attr("class", "tooltip")
-                        .style("opacity", 0);
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    tooltip.html(ownerNamesText)
-                        .style("visibility", "visible")
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY + 20) + "px");
-                })
-                .on('mouseout', function() {
-                    d3.select(".tooltip").transition()
-                        .duration(0)
-                        .style("opacity", 0)
-                        .remove();
-                });
-
-            if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
-                focusedWebSvg.append('text')
-                    .attr('class', `timeline-text ${textClass}`)
-                    .attr('x', x)
-                    .attr('y', y - 10)
-                    .attr('text-anchor', 'middle')
-                    .text(timeline.events[i].start_time);
-            }
-        }
-
-    });
-
-    focusedWebSvg.append('circle')
-        .attr('cx', focusCenter.x)
-        .attr('cy', focusCenter.y)
-        .attr('r', 5)
-        .attr('fill', 'red');
-
-    Object.keys(ownerLocations).forEach(owner => {
-        const locations = ownerLocations[owner];
-        if (locations.length > 1) {
-            locations.forEach((location, index) => {
-                let closest = null;
-                let closestDistance = Infinity;
-
-                locations.forEach((otherLocation, otherIndex) => {
-                    if (index !== otherIndex) {
-                        const dist = distance(location, otherLocation);
-                        if (dist < closestDistance) {
-                            closest = otherLocation;
-                            closestDistance = dist;
-                        }
-                    }
-                });
-
-                if (closest) {
-                    focusedWebSvg.append('path')
-                        .attr('data-owner', owner)
-                        .attr('opacity', 0.5)
-                        .attr('d', d3.line()([[location.x, location.y], [closest.x, closest.y]]))
-                        .attr('stroke', ownerColorScale(owner))
-                        .attr('fill', 'none')
-                        .on('mouseover', function() {
-                            d3.select(".tooltip").remove();
-                            const tooltip = d3.select("body").append("div")
-                                .attr("class", "tooltip")
-                                .style("opacity", 0);
-                            tooltip.transition()
-                                .duration(200)
-                                .style("opacity", .9);
-                            tooltip.html(`${owner}`)
-                                .style("visibility", "visible")
-                                .style("left", (event.pageX + 10) + "px")
-                                .style("top", (event.pageY + 20) + "px");
-                        })
-                        .on('mouseout', function() {
-                            d3.select(".tooltip").transition()
-                                .duration(0)
-                                .style("opacity", 0)
-                                .remove();
-                        });
-                }
-            });
-        }
-    });
-
-}
-
-function updateBookDetails(bookId) {
-    const details = bookDetailsMap[bookId];
-    if (details) {
-        const content = `
-            <strong>Title:</strong> ${details.title}<br>
-            <strong>Author:</strong> ${details.author}<br>
-            <strong>Imprint:</strong> ${details.imprint}<br>
-            <strong>Holding Institution:</strong> ${details.holdingInstitution}
-        `;
-        const bookDetailsDiv = document.getElementById('bookDetails');
-        bookDetailsDiv.innerHTML = content;
-        bookDetailsDiv.style.display = 'block';
-    }
-}

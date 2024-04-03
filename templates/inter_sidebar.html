@@ -6,10 +6,14 @@
             <ul id="side">
                 <li>
                     <a href="{{ url_for('inter_spiderweb') }}" class="{{ 'active' if 'spider_inter' in active_page }}">
-                        <span class="item">Spiderweb as the main view</span>
+                        <span class="item">Spiderweb-like diagram as the main view</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{ url_for('inter_network') }}" class="{{ 'active' if 'inter_network' in active_page }}">
+                        <span class="item">Network diagram as the main view</span>
+                    </a>
+                </li>
             </ul>
         </div>
         {% block content %}
