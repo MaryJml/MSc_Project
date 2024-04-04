@@ -7,17 +7,47 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <title>BookOwnershipTracker</title>
 </head>
 <body>
-<nav>
-    <ul id="top">
-        <li class="top_bar"><a href="{{ url_for('network') }}" class="{{ 'active' if 'home' in active_page }}">Home</a></li>
-        <li class="top_bar"><a href="{{ url_for('inter_spiderweb') }}" class="{{ 'active' if 'inter' in active_page }}">Interconnection diagram</a></li>
-        <li class="top_bar" style="float:right"><a href="#">About</a></li>
-        <li class="top_bar" style="float:right"><a href="{{ url_for('network_guide') }}" class="{{ 'active' if 'guide' in active_page }}">User Guide</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('network') }}">BookOwnershipTracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown" >
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Single Diagram
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{{ url_for('network') }}">Network graph and Timeline</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('spiderweb') }}">Spiderweb-like Graph</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('chord') }}">Chord diagram</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('euler') }}">Euler diagram</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="interDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Interconnection Diagram
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="interDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{{ url_for('inter_spiderweb') }}">Spiderweb-like diagram as the main view</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('inter_network') }}">Network diagram as the main view</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('network_guide') }}">User Guide</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
     {% block chart %}
 

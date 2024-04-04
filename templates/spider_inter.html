@@ -1,6 +1,6 @@
-{% extends 'inter_sidebar.html' %}
-{% block content %}
-    <div class="container" style="margin-top: 20px; margin-left:20px;overflow-y: auto;overflow-x: auto">
+{% extends 'base.html' %}
+{% block chart %}
+    <div class="container" style="margin-top: 20px; margin-left:20px">
         <div class="left-panel_inter">
             <div class="hover-description" style="width: 230px" data-fulltext="'Show Start Year': Toggles the display of start years on nodes. Unchecking this makes the timelines cleaner and less cluttered. |'Show Different Owner': Allows for color differentiation of nodes based on different owners. If unchecked, all nodes appear in blue, providing a uniform view. |'Show Link': Controls the visibility of connections between nodes of the same owner across different timelines. Checking this box reveals a list of all owners, enabling users to select specific owners to view their links. Unchecking it hides both the checkbox list and the links on the diagram.">
                 <p>Show Start Year': Toggles... <span class="moreText">Hover to read more</span></p>

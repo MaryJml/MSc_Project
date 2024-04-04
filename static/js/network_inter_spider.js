@@ -378,7 +378,7 @@ function drawTimelines(data, node_id) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", .9);
-            tooltip.html("Owner ID: 3467")
+            tooltip.html("Owner ID: 3467 (Venezia OSB S. Georgius Maior)")
                 .style("visibility", "visible")
                 .style("left", (event.pageX + 10) + "px")
                 .style("top", (event.pageY + 20) + "px");

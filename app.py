@@ -52,6 +52,14 @@ def chord_guide():
 def euler_guide():
     return render_template('euler_guide.html', active_page=['euler_guide','guide'])
 
+@app.route('/guide/inter_network')
+def inter_network_guide():
+    return render_template('inter_network_guide.html', active_page=['inter_network_guide','guide'])
+
+@app.route('/guide/inter_spiderweb')
+def inter_spider_guide():
+    return render_template('inter_spider_guide.html', active_page=['inter_spider_guide','guide'])
+
 
 
 if __name__ == '__main__':
