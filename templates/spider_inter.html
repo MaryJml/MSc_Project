@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block chart %}
-    <div class="container" style="margin-top: 20px; margin-left:20px">
-        <div class="left-panel_inter">
-            <div class="hover-description" style="width: 230px" data-fulltext="'Show Start Year': Toggles the display of start years on nodes. Unchecking this makes the timelines cleaner and less cluttered. |'Show Different Owner': Allows for color differentiation of nodes based on different owners. If unchecked, all nodes appear in blue, providing a uniform view. |'Show Link': Controls the visibility of connections between nodes of the same owner across different timelines. Checking this box reveals a list of all owners, enabling users to select specific owners to view their links. Unchecking it hides both the checkbox list and the links on the diagram.">
+    <button class="toggle-sidebar">≡</button>
+    <div class="bar" style="width: 400px">
+        <div class="left-panel_inter" style="margin-left: 20px; margin-bottom: 20px; margin-top: 20px">
+            <div class="hover-description" style="width: 230px; margin-left: 20px" data-fulltext="'Show Start Year': Toggles the display of start years on nodes. Unchecking this makes the timelines cleaner and less cluttered. |'Show Different Owner': Allows for color differentiation of nodes based on different owners. If unchecked, all nodes appear in blue, providing a uniform view. |'Show Link': Controls the visibility of connections between nodes of the same owner across different timelines. Checking this box reveals a list of all owners, enabling users to select specific owners to view their links. Unchecking it hides both the checkbox list and the links on the diagram.">
                 <p>Show Start Year': Toggles... <span class="moreText">Hover to read more</span></p>
             </div>
 
-            <div class="buttons">
+            <div class="buttons" style="margin-left: 20px">
                 <button id="webSelectAll">Select All</button>
                 <button id="webDeselectAll">Deselect All</button>
             </div>
@@ -14,51 +15,49 @@
             <div id="ownerCheckboxes">
 
             </div>
-            <div id="bookDetails" style="width: 300px;"></div>
+            <div id="bookDetails" style="width: 350px;"></div>
 
             <svg id="focusedWeb" style="border: 1px solid black;"></svg>
         </div>
-        <div class="right-panel_inter" >
-            <div class="container">
-                <div>
-                    <div class="hover-description" style="width: 400px" data-fulltext="This graph shows the timeline of the ownership of 181 books. Each book's timeline has multiple nodes representing different owners. Each node is labelled with the start year and owner ID, and the timelines of all the books converge at a red centre point, indicating that the books were once owned by the same owner (ID 3467). Different nodes of the same owner are connected by coloured lines, making it easy to trace the common history between different books. Hover to see more details such as book ID and owner ID.">
-                        <p>This graph shows the timeline of the ownership of 181 books... <span class="moreText">Hover to read more</span></p>
-                    </div>
-                    <div class="checkbox-container">
-                        <label>
-                            <input type="checkbox" id="toggleArrangedDataCheckbox" checked>
-                            Display data after cluster
-                        </label>
-                        <label>
-                            <input type="checkbox" id="showYearsCheckbox" checked>
-                            Show start year
-                        </label>
-                        <label>
-                            <input type="checkbox" id="showOwnersCheckbox">
-                            Show different Owner
-                        </label>
-                        <label>
-                            <input type="checkbox" id="showSameOwnersCheckbox" checked>
-                            Show link
-                        </label>
-                    </div>
-                    <svg id="web"></svg>
-                </div>
-                <div>
-                    <div class="hover-description"  style="width: 400px" data-fulltext="This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.">
-                        <p>This network graph represents book ownership and transfers... <span class="moreText">Hover to read more</span></p>
-                    </div>
-                    <label><input type="checkbox" id="showOwnerType"> Show Owner Type</label>
-                    <button id="resetZoomButton" style="margin-left: 30px">Reset Zoom</button>
-                    <svg id="network"></svg>
-                </div>
-
+    </div>
+    <div class="container" style="margin-left: 50px; margin-top: 20px">
+        <div>
+            <div class="hover-description" style="width: 400px" data-fulltext="This graph shows the timeline of the ownership of 181 books. Each book's timeline has multiple nodes representing different owners. Each node is labelled with the start year and owner ID, and the timelines of all the books converge at a red centre point, indicating that the books were once owned by the same owner (ID 3467). Different nodes of the same owner are connected by coloured lines, making it easy to trace the common history between different books. Hover to see more details such as book ID and owner ID.">
+                <p>This graph shows the timeline of the ownership of 181 books... <span class="moreText">Hover to read more</span></p>
             </div>
+            <div class="checkbox-container">
+                <label>
+                    <input type="checkbox" id="toggleArrangedDataCheckbox" checked>
+                    Display data after cluster
+                </label>
+                <label>
+                    <input type="checkbox" id="showYearsCheckbox" checked>
+                    Show start year
+                </label>
+                <label>
+                    <input type="checkbox" id="showOwnersCheckbox">
+                    Show different Owner
+                </label>
+                <label>
+                    <input type="checkbox" id="showSameOwnersCheckbox" checked>
+                    Show link
+                </label>
+            </div>
+            <svg id="web"></svg>
         </div>
+        <div>
+            <div class="hover-description"  style="width: 400px" data-fulltext="This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.">
+                <p>This network graph represents book ownership and transfers... <span class="moreText">Hover to read more</span></p>
+            </div>
+            <label><input type="checkbox" id="showOwnerType"> Show Owner Type</label>
+            <button id="resetZoomButton" style="margin-left: 30px">Reset Zoom</button>
+            <svg id="network"></svg>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-
+    <script src="{{ url_for('serve_js', filename='controlBar.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='description.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='spider_inter_main.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='spider_inter_network.js') }}"></script>

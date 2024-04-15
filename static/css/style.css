@@ -94,7 +94,7 @@
 }
 
 #checkboxes2, #ownerCheckboxes {
-    max-height: 200px;
+    max-height: 150px;
 }
 
 #nodeSelection label {
@@ -202,7 +202,7 @@ text {
     display: none;
     z-index: 100;
     width: 430px;
-    max-height: 200px;
+    max-height: 150px;
     overflow-y: auto;
     margin-bottom: 20px;
 }
@@ -340,4 +340,32 @@ nav, .nav-parent {
     overflow: visible;
 }
 
+
+.bar {
+    position: fixed;
+    left: 0;
+    top: 55px;
+    background: white;
+    border: 1px solid #ccc;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+    overflow-y: auto;
+}
+
+.bar.active {
+    transform: translateX(0);
+}
+
+.toggle-sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    z-index: 1000;
+    cursor: pointer;
+    background: blue;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 40px;
+}
 
