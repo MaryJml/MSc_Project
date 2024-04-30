@@ -49,7 +49,7 @@ function initialize() {
         checkbox.type = 'checkbox';
         checkbox.id = `checkbox-${ownerId}`;
         checkbox.checked = true;
-        checkbox.setAttribute('data-owner', displayName);
+        checkbox.setAttribute('data-owner', `Owner ID: ${ownerId}`);
 
         const label = document.createElement('label');
         label.htmlFor = `checkbox-${ownerId}`;
