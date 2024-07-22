@@ -508,6 +508,7 @@ d3.selectAll('input[name="nodeId"]').on('change', function(event, d) {
     d3.select('#showOutgoingLinks').property('checked', true);
 
     updateLinks();
+    showLinkDirectionControls(true);
 
 
     const relatedBooks = nodeBookMap.get(selectedNodeId);
@@ -539,6 +540,7 @@ d3.select('#deselectNodeButton').on('click', () => {
     d3.select('#showOutgoingLinks').property('checked', true);
 
     updateLinks();
+    showLinkDirectionControls(false);
     node.classed('selectedNode', false)
         .classed('relatedNode', false)
         .classed('unselectedNode', false);
@@ -548,6 +550,13 @@ d3.select('#deselectNodeButton').on('click', () => {
         .classed('unselectedLink', false);
 
     d3.selectAll('input[name="nodeId"]').property('checked', false);
+
+    d3.selectAll('#checkboxes label')
+        .style('display', 'none')
+        .filter(function(bookId) {
+            d3.select(this).select('input').property('checked', true).dispatch('change');
+        })
+        .style('display', 'block');
 
     d3.selectAll('#checkboxes label')
         .style('display', 'block');
@@ -607,3 +616,6 @@ function updateNodeShapes(showType) {
 
 d3.select('#showIncomingLinks').on('change', updateLinks);
 d3.select('#showOutgoingLinks').on('change', updateLinks);
+function showLinkDirectionControls(show) {
+    d3.select('#linkDirectionControls').style('display', show ? 'block' : 'none');
+}
