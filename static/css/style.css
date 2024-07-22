@@ -132,10 +132,19 @@ input[type="text"] {
 
 .selectedNode {
     fill: #5D3A9B;
+    opacity: 1;
 }
 
 .relatedNode {
     fill: #E66100;
+}
+
+.bookRelatedNode {
+    opacity: 1;
+}
+
+.bookUnrelatedNode {
+    opacity: 0.2;
 }
 
 .relatedLink {

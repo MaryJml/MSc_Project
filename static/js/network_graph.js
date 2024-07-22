@@ -328,14 +328,29 @@ d3.select('#checkboxes')
             .text(d);
     });
 
-d3.selectAll('input[name="bookId"]').on('change', updateLinks);
+d3.selectAll('input[name="bookId"]').on('change', function(event, d) {
+    updateLinks();
+    const selectedBookIds = new Set(d3.selectAll('input[name="bookId"]:checked').data());
+    node.classed('bookRelatedNode', n => {
+        const relatedBooks = nodeBookMap.get(n.id) || new Set();
+        return Array.from(relatedBooks).some(bookId => selectedBookIds.has(bookId));
+    })
+        .classed('bookUnrelatedNode', n => {
+            const relatedBooks = nodeBookMap.get(n.id) || new Set();
+            return !Array.from(relatedBooks).some(bookId => selectedBookIds.has(bookId));
+        });
+});
 d3.select('#selectAll').on('click', () => {
     d3.selectAll('input[name="bookId"]').property('checked', true);
     updateLinks();
+    node.classed('bookRelatedNode', false)
+        .classed('bookUnrelatedNode',false);
 });
 d3.select('#deselectAll').on('click', () => {
     d3.selectAll('input[name="bookId"]').property('checked', false);
     updateLinks();
+    node.classed('bookRelatedNode', false)
+        .classed('bookUnrelatedNode',false);
 });
 
 const zoomStep = 0.5;
@@ -398,6 +413,7 @@ function updateLinks() {
             const isSelectedNode = !selectedNodeId || d.source.id === selectedNodeId || d.target.id === selectedNodeId;
             return isSelectedBookId && isSelectedNode ? 'all' : 'none';
         });
+
 
     const updateMouseEvents = selection => {
         selection
@@ -495,10 +511,15 @@ d3.selectAll('input[name="nodeId"]').on('change', function(event, d) {
 
 
     const relatedBooks = nodeBookMap.get(selectedNodeId);
+    d3.selectAll('input[name="bookId"]').property('checked', false);
     d3.selectAll('#checkboxes label')
         .style('display', 'none')
         .filter(function(bookId) {
-            return relatedBooks.has(bookId);
+            const related = relatedBooks.has(bookId);
+            if (related) {
+                d3.select(this).select('input').property('checked', true).dispatch('change');
+            }
+            return related;
         })
         .style('display', 'block');
 
