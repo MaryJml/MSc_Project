@@ -8,6 +8,9 @@ function getNodeKey(owner) {
     return `Owner ID: ${owner.ownerId}`;
 }
 
+function generateValidId(id) {
+    return id.replace(/[^a-zA-Z0-9]/g, "_");
+}
 
 const processOwners = (owners, bookId) => {
     owners.forEach(owner => {
@@ -197,6 +200,7 @@ const node = container.append("g")
     .attr("fill", d => color(d.group))
     .attr("stroke", "#fff")
     .attr("stroke-width", 1.5)
+    .attr("id", d => generateValidId(d.id))
     .call(drag(simulation));
 
 
@@ -248,12 +252,14 @@ node.on("mouseover", (event, d) => {
     tooltip.html(displayText)
         .style("left", x + "px")
         .style("top", y + "px");
+    d3.select(event.currentTarget).classed('highlighted-node', true);
 })
     .on("mouseout", () => {
         d3.select(".tooltip").transition()
             .duration(0)
             .style("opacity", 0)
             .remove();
+        d3.select(event.currentTarget).classed('highlighted-node', false);
     });
 
 function showTooltip(x, y, html) {
@@ -281,8 +287,18 @@ link.on("mouseover", (event, d) => {
     const linkKey = d.source.id + "-" + d.target.id;
     const bookIds = combinedLinkCount[linkKey].bookIds.join(", ");
     showTooltip(event.pageX, event.pageY, "Book IDs: " + bookIds);
+
+    d3.select(event.currentTarget).classed('highlighted-link', true);
+    d3.select(`#${generateValidId(d.source.id)}`).classed('highlighted-node', true);
+    d3.select(`#${generateValidId(d.target.id)}`).classed('highlighted-node', true);
 })
-    .on("mouseout", hideTooltip);
+    .on("mouseout", (event, d) => {
+        hideTooltip();
+
+        d3.select(event.currentTarget).classed('highlighted-link', false);
+        d3.select(`#${generateValidId(d.source.id)}`).classed('highlighted-node', false);
+        d3.select(`#${generateValidId(d.target.id)}`).classed('highlighted-node', false);
+    });
 
 selfLoop
     .on("mouseover", (event, d) => {
@@ -299,12 +315,14 @@ selfLoop
         tooltip.html("Book ID: " + d.bookId)
             .style("left", x + "px")
             .style("top", y + "px");
+        d3.select(event.currentTarget).classed('highlighted-link', true);
     })
     .on("mouseout", () => {
         d3.select(".tooltip").transition()
             .duration(0)
             .style("opacity", 0)
             .remove();
+        d3.select(event.currentTarget).classed('highlighted-link', false);
     });
 
 const allBookIds = new Set(links.map(link => link.bookId));
@@ -340,9 +358,8 @@ d3.selectAll('input[name="bookId"]').on('change', function(event, d) {
             return !Array.from(relatedBooks).some(bookId => selectedBookIds.has(bookId));
         });
 
-    // 更新 checkboxes2
 
-    checkboxes2.selectAll('label').remove(); // 移除所有现有的选项
+    checkboxes2.selectAll('label').remove();
 
     if (selectedBookIds.size > 0) {
         const labels = checkboxes2.selectAll('label')
@@ -357,16 +374,15 @@ d3.selectAll('input[name="bookId"]').on('change', function(event, d) {
             .attr('type', 'radio')
             .attr('name', 'bookCheckbox')
             .attr('value', d => d)
-            .property('checked', (d, i) => i === 0) // 选择第一个选项
+            .property('checked', (d, i) => i === 0)
             .on('change', function() {
-                selectedBookId = this.value; // 存储所选书籍ID
+                selectedBookId = this.value;
                 updateTimeline();
             });
 
         labels.append('span')
             .text(d => d);
     } else {
-        // 没有选择任何书本时，显示所有书本
         const allLabels = checkboxes2.selectAll('label')
             .data(Array.from(allBookIds))
             .enter()
@@ -381,7 +397,7 @@ d3.selectAll('input[name="bookId"]').on('change', function(event, d) {
             .attr('value', d => d)
             .property('checked', (d, i) => i === 0)
             .on('change', function() {
-                selectedBookId = this.value; // 存储所选书籍ID
+                selectedBookId = this.value;
                 updateTimeline();
             });
 

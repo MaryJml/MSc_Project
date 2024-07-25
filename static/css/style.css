@@ -378,3 +378,18 @@ nav, .nav-parent {
     height: 40px;
 }
 
+.highlighted-node {
+    stroke: #D85E12;
+    stroke-width: 3px;
+}
+
+.highlighted-link {
+    stroke: #D85E12;
+    stroke-width: 3px;
+}
+
+#ownerTypeExplanation {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}

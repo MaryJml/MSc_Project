@@ -6,7 +6,10 @@
                 <div class="hover-description"  style="width: 480px" data-fulltext="This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.">
                     <p>This network graph represents book ownership and transfers... <span class="moreText">Hover to read more</span></p>
                 </div>
-                <label><input type="checkbox" id="showOwnerType"> Show Owner Type</label>
+                <label>
+                    <input type="checkbox" id="showOwnerType"> Show Owner Type
+                </label>
+                <p id="ownerTypeExplanation" style="display: none;">This will display the type of the owner as either a triangle (institutions) or a cross (individual).</p>
 
                 <svg id="network"></svg>
 
@@ -28,7 +31,7 @@
                 </div>
 
                 <button id="deselectNodeButton">Deselect Node</button>
-                <input type="text" id="nodeSearch" placeholder="Search Node">
+                <input type="text" id="nodeSearch" placeholder="Search Owner">
                 <div id="nodeSelection">
 
                 </div>
@@ -56,7 +59,7 @@
             </div>
             <div  class="right-panel" >
                 <div id="searchBar">
-                    <input type="text" id="bookFilter" placeholder="Search for book IDs...">
+                    <input type="text" id="bookFilter" placeholder="Search for Book IDs...">
                 </div>
                 <div id="checkboxes2">
 
@@ -68,4 +71,14 @@
     <script src="{{ url_for('serve_js', filename='network_graph.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='description.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='timeline.js') }}"></script>
+    <script>
+        document.getElementById('showOwnerType').addEventListener('change', function() {
+            const explanation = document.getElementById('ownerTypeExplanation');
+            if (this.checked) {
+                explanation.style.display = 'block';
+            } else {
+                explanation.style.display = 'none';
+            }
+        });
+    </script>
 {% endblock %}

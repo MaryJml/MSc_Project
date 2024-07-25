@@ -8,6 +8,9 @@ function getNodeKey(owner) {
     return `Owner ID: ${owner.ownerId}`;
 }
 
+function generateValidId(id) {
+    return id.replace(/[^a-zA-Z0-9]/g, "_");
+}
 
 const processOwners = (owners, bookId) => {
     owners.forEach(owner => {
@@ -197,6 +200,7 @@ const node = container.append("g")
     .attr("fill", d => color(d.group))
     .attr("stroke", "#fff")
     .attr("stroke-width", 1.5)
+    .attr("id", d => generateValidId(d.id))
     .call(drag(simulation));
 
 
@@ -248,12 +252,14 @@ node.on("mouseover", (event, d) => {
     tooltip.html(displayText)
         .style("left", x + "px")
         .style("top", y + "px");
+    d3.select(event.currentTarget).classed('highlighted-node', true);
 })
     .on("mouseout", () => {
         d3.select(".tooltip").transition()
             .duration(0)
             .style("opacity", 0)
             .remove();
+        d3.select(event.currentTarget).classed('highlighted-node', false);
     });
 
 function showTooltip(x, y, html) {
@@ -281,8 +287,17 @@ link.on("mouseover", (event, d) => {
     const linkKey = d.source.id + "-" + d.target.id;
     const bookIds = combinedLinkCount[linkKey].bookIds.join(", ");
     showTooltip(event.pageX, event.pageY, "Book IDs: " + bookIds);
+    d3.select(event.currentTarget).classed('highlighted-link', true);
+    d3.select(`#${generateValidId(d.source.id)}`).classed('highlighted-node', true);
+    d3.select(`#${generateValidId(d.target.id)}`).classed('highlighted-node', true);
 })
-    .on("mouseout", hideTooltip);
+    .on("mouseout", (event, d) => {
+        hideTooltip();
+
+        d3.select(event.currentTarget).classed('highlighted-link', false);
+        d3.select(`#${generateValidId(d.source.id)}`).classed('highlighted-node', false);
+        d3.select(`#${generateValidId(d.target.id)}`).classed('highlighted-node', false);
+    });
 
 selfLoop
     .on("mouseover", (event, d) => {
@@ -299,12 +314,14 @@ selfLoop
         tooltip.html("Book ID: " + d.bookId)
             .style("left", x + "px")
             .style("top", y + "px");
+        d3.select(event.currentTarget).classed('highlighted-link', true);
     })
     .on("mouseout", () => {
         d3.select(".tooltip").transition()
             .duration(0)
             .style("opacity", 0)
             .remove();
+        d3.select(event.currentTarget).classed('highlighted-link', false);
     });
 
 const allBookIds = new Set(links.map(link => link.bookId));

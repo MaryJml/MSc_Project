@@ -3,29 +3,23 @@ let selectedBookId = books[0];
 
 function updateBookCheckboxes(filterText) {
     const checkboxDiv = d3.select("#checkboxes2");
-    checkboxDiv.selectAll("*").remove(); // Clear existing checkboxes
+    checkboxDiv.selectAll("*").remove();
 
-    // 获取当前网络图中的所有书籍和选中书籍
     const allBookIds = Array.from(bookLinkMap.keys());
     const selectedBookIds = new Set(d3.selectAll('input[name="bookId"]:checked').data());
 
-    // 判断是否全选或未选
     const isAllSelected = selectedBookIds.size === allBookIds.length;
     const isNoneSelected = selectedBookIds.size === 0;
 
     let filteredBooks;
     if (filterText) {
-        // 获取与 filterText 匹配的书籍列表
         filteredBooks = allBookIds.filter(bookId => bookId.includes(filterText));
     } else if (isAllSelected || isNoneSelected) {
-        // 如果是全选或未选，则显示所有书籍
         filteredBooks = allBookIds;
     } else {
-        // 否则，仅显示当前选中的书籍
         filteredBooks = Array.from(selectedBookIds);
     }
 
-    // 创建复选框
     const labels = checkboxDiv.selectAll('label')
         .data(filteredBooks)
         .enter()
@@ -115,7 +109,7 @@ function updateTimeline() {
                 .attr("cx", xPosition)
                 .attr("cy", yPosition)
                 .attr("r", 5)
-                .style("fill", isfirstPeriod ? "#FEFE62" : "#D35FB7")
+                .style("fill", isfirstPeriod ? "#D35FB7" : "#FEFE62")
                 .on("mouseover", function(event, d) {
                     const ownerName = ownerNames.join("; ").replace(/Owner ID: /g, "").split("; ").map(id => ownerIdNameMap[id.trim()] || `Owner ID: ${id}`).join(", ");
                     const tooltip = d3.select("body").append("div")
@@ -136,14 +130,38 @@ function updateTimeline() {
                         .remove();
                 });
 
-            timeline_svg.append("text")
+            const maxLineLength = 20;
+            const textContent = ownerNames.join("; ");
+
+            const textLines = [];
+            let currentLine = "";
+            textContent.split(" ").forEach(word => {
+                if ((currentLine + word).length > maxLineLength) {
+                    textLines.push(currentLine);
+                    currentLine = word + " ";
+                } else {
+                    currentLine += word + " ";
+                }
+            });
+            if (currentLine) {
+                textLines.push(currentLine.trim());
+            }
+
+            const textElement = timeline_svg.append("text")
                 .attr("x", xPosition)
                 .attr("y", yPosition - 10)
-                .text(ownerNames.join("; "))
                 .attr("text-anchor", "start")
                 .attr("dominant-baseline", "hanging")
                 .attr("transform", `translate(0, -10) rotate(-25, ${xPosition}, ${yPosition - 10})`)
-                .style("font-size", "10px");
+                .style("font-size", "12px");
+
+            textLines.forEach((line, i) => {
+                textElement.append("tspan")
+                    .attr("x", xPosition)
+                    .attr("y", yPosition - 25 + i * 14)
+                    .text(line);
+            });
+
 
 
             timeline_svg.append("text")
@@ -160,7 +178,7 @@ function updateTimeline() {
                     .attr("y", yPosition + 20)
                     .text(period.start_time)
                     .attr("text-anchor", "middle")
-                    .style("font-size", "10px");
+                    .style("font-size", "12px");
 
             }
         });
