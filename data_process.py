@@ -332,17 +332,14 @@ def ownerId_name():
     data = load_data()
     id_to_name_dic = {}
     for book in data:
-        provenances = book.get('provenance', [])  # 使用 get 方法安全访问键，如果键不存在则返回空列表
+        provenances = book.get('provenance', [])
         for provenance in provenances:
             agents = provenance.get('agent', [])
             for agent in agents:
                 ownerId = agent.get('ownerId')
                 if ownerId and str(ownerId) not in id_to_name_dic:
-                    # 只有当 ownerId 存在且不在字典中时，才添加
-                    # 这确保了即使之后遇到相同的 ownerId 也不会更改其映射的 name
-                    id_to_name_dic[str(ownerId)] = agent.get('name', '')  # 如果 name 不存在，使用空字符串作为默认值
+                    id_to_name_dic[str(ownerId)] = agent.get('name', '')
 
-    # 将结果转换为列表并创建 DataFrame
     data_list = list(id_to_name_dic.items())
     df = pd.DataFrame(data_list, columns=['ID', 'Name'])
     df.to_csv('dataframe.csv', index=False)

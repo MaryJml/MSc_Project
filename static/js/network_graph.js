@@ -327,7 +327,7 @@ d3.select('#checkboxes')
         d3.select(this).append('span')
             .text(d);
     });
-
+const checkboxes2 = d3.select('#checkboxes2');
 d3.selectAll('input[name="bookId"]').on('change', function(event, d) {
     updateLinks();
     const selectedBookIds = new Set(d3.selectAll('input[name="bookId"]:checked').data());
@@ -339,18 +339,155 @@ d3.selectAll('input[name="bookId"]').on('change', function(event, d) {
             const relatedBooks = nodeBookMap.get(n.id) || new Set();
             return !Array.from(relatedBooks).some(bookId => selectedBookIds.has(bookId));
         });
+
+    // 更新 checkboxes2
+
+    checkboxes2.selectAll('label').remove(); // 移除所有现有的选项
+
+    if (selectedBookIds.size > 0) {
+        const labels = checkboxes2.selectAll('label')
+            .data(Array.from(selectedBookIds))
+            .enter()
+            .append('label')
+            .style('display', 'flex')
+            .style('align-items', 'center')
+            .style('margin', '5px 0');
+
+        labels.append('input')
+            .attr('type', 'radio')
+            .attr('name', 'bookCheckbox')
+            .attr('value', d => d)
+            .property('checked', (d, i) => i === 0) // 选择第一个选项
+            .on('change', function() {
+                selectedBookId = this.value; // 存储所选书籍ID
+                updateTimeline();
+            });
+
+        labels.append('span')
+            .text(d => d);
+    } else {
+        // 没有选择任何书本时，显示所有书本
+        const allLabels = checkboxes2.selectAll('label')
+            .data(Array.from(allBookIds))
+            .enter()
+            .append('label')
+            .style('display', 'flex')
+            .style('align-items', 'center')
+            .style('margin', '5px 0');
+
+        allLabels.append('input')
+            .attr('type', 'radio')
+            .attr('name', 'bookCheckbox')
+            .attr('value', d => d)
+            .property('checked', (d, i) => i === 0)
+            .on('change', function() {
+                selectedBookId = this.value; // 存储所选书籍ID
+                updateTimeline();
+            });
+
+        allLabels.append('span')
+            .text(d => d);
+    }
+
+    updateTimeline();
 });
 d3.select('#selectAll').on('click', () => {
     d3.selectAll('input[name="bookId"]').property('checked', true);
     updateLinks();
     node.classed('bookRelatedNode', false)
         .classed('bookUnrelatedNode',false);
+    // Reset book checkboxes in checkboxes2
+    const allBookIds = Array.from(bookLinkMap.keys());
+
+    const checkboxDiv = d3.select("#checkboxes2");
+    checkboxDiv.selectAll("*").remove(); // Clear existing checkboxes
+
+    // Create checkboxes for all books
+    const labels = checkboxDiv.selectAll('label')
+        .data(allBookIds)
+        .enter()
+        .append('label')
+        .style('display', 'flex')
+        .style('align-items', 'center')
+        .style('margin', '5px 0');
+
+    labels.append('input')
+        .attr('type', 'radio')
+        .attr('name', 'bookCheckbox')
+        .attr('value', d => d)
+        .on('change', function() {
+            selectedBookId = this.value;
+            updateTimeline();
+        });
+
+    labels.append('span')
+        .text(d => d);
+
+    // If there are books, check the first one
+    if (allBookIds.length > 0) {
+        selectedBookId = allBookIds[0];
+        d3.select(`input[name="bookCheckbox"][value="${selectedBookId}"]`).property("checked", true);
+        updateTimeline();
+    } else {
+        selectedBookId = null; // No books available
+    }
+
+    // Ensure all nodes are visible
+    node.classed('bookRelatedNode', false)
+        .classed('bookUnrelatedNode', false);
+
+    // Update the node selection controls
+    d3.selectAll('#checkboxes label')
+        .style('display', 'block');
 });
 d3.select('#deselectAll').on('click', () => {
     d3.selectAll('input[name="bookId"]').property('checked', false);
     updateLinks();
     node.classed('bookRelatedNode', false)
         .classed('bookUnrelatedNode',false);
+    // Reset book checkboxes in checkboxes2
+    const allBookIds = Array.from(bookLinkMap.keys());
+
+    const checkboxDiv = d3.select("#checkboxes2");
+    checkboxDiv.selectAll("*").remove(); // Clear existing checkboxes
+
+    // Create checkboxes for all books
+    const labels = checkboxDiv.selectAll('label')
+        .data(allBookIds)
+        .enter()
+        .append('label')
+        .style('display', 'flex')
+        .style('align-items', 'center')
+        .style('margin', '5px 0');
+
+    labels.append('input')
+        .attr('type', 'radio')
+        .attr('name', 'bookCheckbox')
+        .attr('value', d => d)
+        .on('change', function() {
+            selectedBookId = this.value;
+            updateTimeline();
+        });
+
+    labels.append('span')
+        .text(d => d);
+
+    // If there are books, check the first one
+    if (allBookIds.length > 0) {
+        selectedBookId = allBookIds[0];
+        d3.select(`input[name="bookCheckbox"][value="${selectedBookId}"]`).property("checked", true);
+        updateTimeline();
+    } else {
+        selectedBookId = null; // No books available
+    }
+
+    // Ensure all nodes are visible
+    node.classed('bookRelatedNode', false)
+        .classed('bookUnrelatedNode', false);
+
+    // Update the node selection controls
+    d3.selectAll('#checkboxes label')
+        .style('display', 'block');
 });
 
 const zoomStep = 0.5;
