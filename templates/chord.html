@@ -5,10 +5,12 @@
             <div class="hover-description"  style="width: 400px" data-fulltext="The Chord Diagram serves as a powerful visualization tool for illustrating the inter-relationships between entities, in this case, the exchange of books between owners. Unlike the network graph where the distance between nodes may be influenced by the size of the nodes, causing larger nodes to appear closer, the Chord Diagram provides a more precise representation of the relationships.">
                 <p>The Chord Diagram serves as a powerful visualization tool... <span class="moreText">Hover to read more</span></p>
             </div>
-            <svg id="chordSvg" width="600" height="600"></svg>
+            <svg id="chordSvg" width="800" height="800"></svg>
         </div>
         <div class="right-panel">
-            <div id="nodeTable"></div>
+            <button id="deselectButton" style="margin-bottom: 10px; width: 300px">Deselect</button>
+            <input type="text" id="ownerSearch" style="width: 300px" placeholder="Search Owner">
+            <div id="ownerCheckboxes" style="width: 300px; height: 300px"></div>
         </div>
     </div>
 
