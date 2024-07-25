@@ -42,24 +42,29 @@ function initialize() {
     Array.from(ownerSet).forEach(ownerIdWithPrefix => {
         const ownerId = ownerIdWithPrefix.replace('Owner ID: ', '');
 
-        const ownerName = ownerIdNameMap[ownerId];
-        const displayName = ownerName ? `${ownerIdWithPrefix} (${ownerName})` : ownerIdWithPrefix;
-        const checkboxDiv = document.createElement('div');
+        if (!Object.values(timeline_data).some(events =>
+            events.some(event => event.owner_names.includes(ownerIdWithPrefix) && event.start_time === "Imprint"))) {
 
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = `checkbox-${ownerId}`;
-        checkbox.checked = true;
-        checkbox.setAttribute('data-owner', `Owner ID: ${ownerId}`);
+            const ownerName = ownerIdNameMap[ownerId]; // 从映射中获取名称
+            const displayName = ownerName ? `${ownerIdWithPrefix} (${ownerName})` : ownerIdWithPrefix;
 
-        const label = document.createElement('label');
-        label.htmlFor = `checkbox-${ownerId}`;
-        label.textContent = displayName;
+            const checkboxDiv = document.createElement('div');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = `checkbox-${ownerId}`;
+            checkbox.checked = true;
+            checkbox.setAttribute('data-owner', `Owner ID: ${ownerId}`); // 保证 data-owner 只有 ID
 
-        checkboxDiv.appendChild(checkbox);
-        checkboxDiv.appendChild(label);
-        ownerCheckboxesContainer.appendChild(checkboxDiv);
+            const label = document.createElement('label');
+            label.htmlFor = `checkbox-${ownerId}`;
+            label.textContent = displayName;
+
+            checkboxDiv.appendChild(checkbox);
+            checkboxDiv.appendChild(label);
+            ownerCheckboxesContainer.appendChild(checkboxDiv);
+        }
     });
+
 
 
     ownerCheckboxesContainer.addEventListener('change', function(event) {
@@ -167,10 +172,10 @@ const ImprintLength = 20;
 
 const yearScale = d3.scaleLinear()
     .domain([minYearDiff, maxYearDiff])
-    .range([100, 200]);
+    .range([70, 200]);
 
 const webWidth = 1000;
-const webHeight = 1000;
+const webHeight = 800;
 
 const webSvg = d3.select('#web')
     .attr('width', webWidth)
@@ -189,15 +194,27 @@ function distance(a, b) {
 let relatedTimelinesMap = {};
 
 Object.keys(sorted_timeline_data).forEach(bookId => {
-    let ownerNames = new Set(sorted_timeline_data[bookId].map(entry => entry.owner_names).flat());
+    let ownerNames = new Set(
+        sorted_timeline_data[bookId]
+            .filter(entry => entry.start_time !== "Imprint")
+            .map(entry => entry.owner_names)
+            .flat()
+    );
     ownerNames.delete('Owner ID: 3467');
+
     relatedTimelinesMap[bookId] = [];
     relatedTimelinesMap[bookId].push(sorted_timeline_data[bookId]);
 
     Object.keys(sorted_timeline_data).forEach(otherBookId => {
         if (bookId !== otherBookId) {
-            let otherOwnerNames = new Set(sorted_timeline_data[otherBookId].map(entry => entry.owner_names).flat());
+            let otherOwnerNames = new Set(
+                sorted_timeline_data[otherBookId]
+                    .filter(entry => entry.start_time !== "Imprint")
+                    .map(entry => entry.owner_names)
+                    .flat()
+            );
             otherOwnerNames.delete('Owner ID: 3467');
+
             let intersection = new Set([...ownerNames].filter(x => otherOwnerNames.has(x)));
             if (intersection.size > 0) {
                 relatedTimelinesMap[bookId].push(sorted_timeline_data[otherBookId]);
@@ -205,6 +222,7 @@ Object.keys(sorted_timeline_data).forEach(bookId => {
         }
     });
 });
+
 
 
 function drawTimelines(data) {
@@ -255,7 +273,7 @@ function drawTimelines(data) {
     if(timelines.length % 2 === 0){
         len += 1
     }
-    const angleStep = (2 * Math.PI) / len;
+    const angleStep = (Math.PI / 20 * 19) / len;
 
     timelines.forEach((timeline, index) => {
         const angle = angleStep * index;
@@ -277,8 +295,10 @@ function drawTimelines(data) {
             webSvg.append('path')
                 .attr('d', lineLeft)
                 .attr('class', timelineClass)
+                .attr('original-stroke', '#59176F')
+                .attr('original-stroke-width', 0.8)
                 .attr('opacity', 0.6)
-                .attr('stroke', 'black')
+                .attr('stroke', '#59176F')
                 .attr('stroke-width', 0.8)
                 .attr('fill', 'none');
         }
@@ -287,6 +307,8 @@ function drawTimelines(data) {
         webSvg.append('path')
             .attr('d', lineRight)
             .attr('class', timelineClass)
+            .attr('original-stroke', 'black')
+            .attr('original-stroke-width', 0.8)
             .attr('opacity', 0.6)
             .attr('stroke', 'black')
             .attr('stroke-width', 0.8)
@@ -438,40 +460,53 @@ function drawTimelines(data) {
 
 
         webSvg.selectAll(`.${timelineClass}`)
-            .on('mouseover', function() {
-                d3.select(".tooltip").remove();
-                d3.selectAll(`.${timelineClass}`).attr('stroke', 'orange').attr('stroke-width', '2').attr('opacity', 1);
-                const tooltip = d3.select("body").append("div")
-                    .attr("class", "tooltip")
-                    .style("opacity", 0);
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9);
-                tooltip.html(timeline.bookId)
-                    .style("visibility", "visible")
-                    .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY + 20) + "px");
-                const isCheckboxChecked = showYearsCheckbox.checked;
-                d3.selectAll('.timeline-text').style('opacity', function() {
-                    if (isCheckboxChecked) {
-                        return this.classList.contains(textClass) ? 1 : 0.1;
-                    }
-                    else {
-                        return this.classList.contains(textClass) ? 1 : 0;
-                    }
-                });
-                let relatedTimelines = relatedTimelinesMap[timeline.bookId];
-                drawFocusTimelines(relatedTimelines, timeline.bookId);
-                updateBookDetails(timeline.bookId);
-            })
-            .on('mouseout', function() {
-                d3.selectAll(`.${timelineClass}`).attr('stroke', 'black').attr('stroke-width', '1').attr('opacity', 0.6);
-                d3.select(".tooltip").transition()
-                    .duration(0)
-                    .style("opacity", 0)
-                    .remove();
-                const isCheckboxChecked = showYearsCheckbox.checked;
-                d3.selectAll('.timeline-text').style('opacity', isCheckboxChecked ? 1 : 0);
+            .each(function() {
+                const path = d3.select(this);
+
+                path.on('mouseover', function() {
+                    d3.select(".tooltip").remove();
+                    d3.selectAll(`.${timelineClass}`).attr('stroke', 'orange').attr('stroke-width', '2').attr('opacity', 1);
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("opacity", 0);
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html(timeline.bookId)
+                        .style("visibility", "visible")
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY + 20) + "px");
+                    const isCheckboxChecked = showYearsCheckbox.checked;
+                    d3.selectAll('.timeline-text').style('opacity', function() {
+                        if (isCheckboxChecked) {
+                            return this.classList.contains(textClass) ? 1 : 0.1;
+                        }
+                        else {
+                            return this.classList.contains(textClass) ? 1 : 0;
+                        }
+                    });
+                    let relatedTimelines = relatedTimelinesMap[timeline.bookId];
+                    drawFocusTimelines(relatedTimelines, timeline.bookId);
+                    updateBookDetails(timeline.bookId);
+                })
+                    .on('mouseout', function() {
+                        d3.selectAll(`.${timelineClass}`)
+                            .attr('stroke', function() {
+                                return d3.select(this).attr('original-stroke');
+                            })
+                            .attr('stroke-width', function() {
+                                return d3.select(this).attr('original-stroke-width');
+                            })
+                            .attr('opacity', 0.6);
+
+                        d3.select(".tooltip").transition()
+                            .duration(0)
+                            .style("opacity", 0)
+                            .remove();
+
+                        const isCheckboxChecked = showYearsCheckbox.checked;
+                        d3.selectAll('.timeline-text').style('opacity', isCheckboxChecked ? 1 : 0);
+                    });
             });
 
     });
@@ -631,7 +666,7 @@ function drawFocusTimelines(data, bookId) {
     if(timelines.length % 2 === 0){
         len += 1
     }
-    const angleStep = (2 * Math.PI) / len;
+    const angleStep = (Math.PI / 20 * 19) / len;
 
 
     timelines.forEach((timeline, index) => {
@@ -655,7 +690,7 @@ function drawFocusTimelines(data, bookId) {
                 .attr('d', lineLeft)
                 .attr('class', timelineClass)
                 .attr('opacity', 0.6)
-                .attr('stroke', 'black')
+                .attr('stroke', '#59176F')
                 .attr('stroke-width', 0.5)
                 .attr('fill', 'none');
         }

@@ -76,7 +76,7 @@
     margin-bottom: 10px;
 }
 
-#checkboxes, #nodeSelection, #checkboxes2, #ownerCheckboxes {
+#checkboxes, #nodeSelection, #checkboxes2, #ownerCheckboxes, #ownerCheckboxes2 {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -94,7 +94,7 @@
 }
 
 #checkboxes2, #ownerCheckboxes {
-    min-height: 150px;
+    max-height: 150px;
 }
 
 #nodeSelection label {

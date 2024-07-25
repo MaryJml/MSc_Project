@@ -109,7 +109,7 @@ chordSvg.append("g")
     .text(d => nodes[d.index].id);
 
 function updateOwnerCheckboxes(filterText) {
-    const checkboxDiv = d3.select("#ownerCheckboxes");
+    const checkboxDiv = d3.select("#ownerCheckboxes2");
     checkboxDiv.selectAll("*").remove(); // 清空现有复选框
 
     const filteredOwners = nodes.filter(node => {
