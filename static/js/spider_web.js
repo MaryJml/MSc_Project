@@ -274,6 +274,7 @@ function drawTimelines(data) {
         len += 1
     }
     const angleStep = (Math.PI / 20 * 19) / len;
+    let lockedTimelineClass = null;
 
     timelines.forEach((timeline, index) => {
         const angle = angleStep * index;
@@ -347,6 +348,7 @@ function drawTimelines(data) {
                 .attr('cx', x)
                 .attr('cy', y)
                 .attr('r', 2)
+                .attr('class', `circle-${timelineClass}`)
                 .attr('fill',
                     timeline.events[i].owner_names.includes('Owner ID: 3467') ? '#DC267F' :
                         (timeline.events[i].start_time === 'Imprint' ? '#FE6100' : 'blue')
@@ -379,7 +381,7 @@ function drawTimelines(data) {
             if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
                 ifImprint = timeline.events[i].start_time === "Imprint"
                 webSvg.append('text')
-                    .attr('class', `timeline-text ${textClass}`)
+                    .attr('class', `timeline-text ${textClass} text-${timelineClass}`)
                     .attr('x', x)
                     .attr('y', y - 10)
                     .attr('text-anchor', 'middle')
@@ -418,6 +420,7 @@ function drawTimelines(data) {
                 .attr('cx', x)
                 .attr('cy', y)
                 .attr('r', 2)
+                .attr('class', `circle-${timelineClass}`)
                 .attr('fill',
                     timeline.events[i].owner_names.includes('Owner ID: 3467') ? '#DC267F' :
                         (timeline.events[i].start_time === 'Imprint' ? '#FE6100' : 'blue')
@@ -450,7 +453,7 @@ function drawTimelines(data) {
             if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
                 ifImprint = timeline.events[i].start_time === "Imprint"
                 webSvg.append('text')
-                    .attr('class', `timeline-text ${textClass}`)
+                    .attr('class', `timeline-text ${textClass} text-${timelineClass}`)
                     .attr('x', x)
                     .attr('y', y - 10)
                     .attr('text-anchor', 'middle')
@@ -464,8 +467,10 @@ function drawTimelines(data) {
                 const path = d3.select(this);
 
                 path.on('mouseover', function() {
+                    if (lockedTimelineClass && lockedTimelineClass !== timelineClass) return;
+
                     d3.select(".tooltip").remove();
-                    d3.selectAll(`.${timelineClass}`).attr('stroke', 'orange').attr('stroke-width', '2').attr('opacity', 1);
+                    d3.selectAll(`.${timelineClass}`).classed('highlighted', true);
                     const tooltip = d3.select("body").append("div")
                         .attr("class", "tooltip")
                         .style("opacity", 0);
@@ -490,14 +495,9 @@ function drawTimelines(data) {
                     updateBookDetails(timeline.bookId);
                 })
                     .on('mouseout', function() {
-                        d3.selectAll(`.${timelineClass}`)
-                            .attr('stroke', function() {
-                                return d3.select(this).attr('original-stroke');
-                            })
-                            .attr('stroke-width', function() {
-                                return d3.select(this).attr('original-stroke-width');
-                            })
-                            .attr('opacity', 0.6);
+                        if (lockedTimelineClass && lockedTimelineClass !== timelineClass) return;
+
+                        d3.selectAll(`.${timelineClass}`).classed('highlighted', false);
 
                         d3.select(".tooltip").transition()
                             .duration(0)
@@ -506,6 +506,34 @@ function drawTimelines(data) {
 
                         const isCheckboxChecked = showYearsCheckbox.checked;
                         d3.selectAll('.timeline-text').style('opacity', isCheckboxChecked ? 1 : 0);
+                    })
+                    .on('click', function() {
+                        if (lockedTimelineClass === timelineClass) {
+                            lockedTimelineClass = null;
+                            d3.selectAll(`.${timelineClass}`)
+                                .classed('locked', false)
+                                .classed('highlighted', false)
+                                .each(function() {
+                                    d3.select(this).lower();
+                                });
+                            d3.selectAll(`.text-${timelineClass}, .circle-${timelineClass}`)
+                                .classed('text-highlighted', false)
+                                .classed('circle-highlighted', false);
+                        } else {
+                            lockedTimelineClass = timelineClass;
+                            d3.selectAll(`.${timelineClass}`)
+                                .classed('locked', true)
+                                .classed('highlighted', true)
+                                .each(function() {
+                                    d3.select(this).raise();
+                                });
+                            d3.selectAll(`.text-${timelineClass}, .circle-${timelineClass}`)
+                                .classed('text-highlighted', true)
+                                .classed('circle-highlighted', true)
+                                .each(function() {
+                                    d3.select(this).raise();
+                                });
+                        }
                     });
             });
 

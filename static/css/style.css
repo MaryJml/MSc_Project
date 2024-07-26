@@ -403,3 +403,22 @@ nav, .nav-parent {
     fill: darkred;
     font-size: 12px;
 }
+
+.highlighted {
+    stroke: orange !important;
+    stroke-width: 2 !important;
+    opacity: 1 !important;
+}
+.locked {
+    stroke: orange !important;
+    stroke-width: 2 !important;
+    opacity: 1 !important;
+}
+
+.text-highlighted {
+    font-weight: bold;
+    stroke: darkred;
+}
+.circle-highlighted {
+    r: 4 !important;
+}
