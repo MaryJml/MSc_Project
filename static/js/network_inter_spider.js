@@ -501,3 +501,27 @@ function drawTimelines(data, node_id) {
 }
 
 document.addEventListener('DOMContentLoaded', initialize);
+
+const web_svg = d3.select("#web_svg");
+const web_zoom = d3.zoom()
+    .scaleExtent([1, 10])
+    .on("zoom", (event) => {
+        webSvg.attr("transform", event.transform);
+    });
+
+web_svg.call(web_zoom);
+document.getElementById("zoom_in").addEventListener("click", () => {
+    web_zoom.scaleBy(web_svg.transition().duration(500), 1.5);
+});
+
+document.getElementById("zoom_out").addEventListener("click", () => {
+    web_zoom.scaleBy(web_svg.transition().duration(500), 0.67);
+});
+function resetZoom() {
+    web_svg.transition().duration(750).call(
+        web_zoom.transform,
+        d3.zoomIdentity
+    );
+}
+
+d3.select('#reset').on('click', resetZoom);

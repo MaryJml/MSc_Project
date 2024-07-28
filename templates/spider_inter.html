@@ -54,7 +54,14 @@
                     <p><span class="moreText">Hover to read help</span></p>
                 </div>
             </div>
-            <svg id="web"></svg>
+            <svg id="web_svg" width="800" height="800">
+                <g id="web"></g>
+            </svg>
+            <div class="buttons">
+                <button id="zoom_in">Zoom In</button>
+                <button id="zoom_out">Zoom Out</button>
+                <button id="reset">Reset Zoom</button>
+            </div>
         </div>
         <div>
             <div class="hover-description"  style="width: 400px" data-fulltext="This network graph represents book ownership and transfers: nodes symbolize owners, with size reflecting their book count. Links denote book transfers with directional arrows. Node proximity suggests transfer frequency—the closer the nodes, the more frequent the transfers. The graph features zoom functionality for examining tight clusters and a shape-coded system to differentiate owner types: triangles for institutions, crosses for individuals. Hovering reveals the book or owner IDs.">
