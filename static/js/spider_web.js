@@ -429,7 +429,7 @@ function drawTimelines(data) {
                 });
 
             if (!timeline.events[i].owner_names.includes('Owner ID: 3467')) {
-                ifImprint = timeline.events[i].start_time === "Imprint"
+                let ifImprint = timeline.events[i].start_time === "Imprint"
                 webSvg.append('text')
                     .attr('class', `timeline-text ${textClass} text-${timelineClass}`)
                     .attr('x', x)
