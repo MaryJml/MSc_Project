@@ -4,6 +4,17 @@
     margin: 0 auto;
 }
 
+.container2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+#divider {
+    min-width: 2px;
+    background-color: black;
+    height: auto;
+}
 
 .left-panel, .right-panel {
     display: flex;
@@ -76,7 +87,7 @@
     margin-bottom: 10px;
 }
 
-#checkboxes, #nodeSelection, #checkboxes2, #ownerCheckboxes, #ownerCheckboxes2 {
+#checkboxes, #nodeSelection, #checkboxes2, #ownerCheckboxes, #ownerCheckboxes2,#bookCheckboxes {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -85,7 +96,7 @@
     overflow-y: auto;
 }
 
-#checkboxes {
+#checkboxes, #bookCheckboxes {
     max-height: 150px;
 }
 
@@ -210,11 +221,12 @@ text {
     padding: 10px;
     display: none;
     z-index: 100;
-    width: 430px;
+    width: 450px;
     max-height: 150px;
     overflow-y: auto;
     margin-bottom: 20px;
 }
+
 
 button {
     padding: 8px 16px;

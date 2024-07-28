@@ -4,6 +4,7 @@ const showOwnersCheckbox = document.getElementById('showOwnersCheckbox');
 
 const ownerColorScale = d3.scaleOrdinal(d3.schemeCategory10);
 const ownerSet = new Set();
+let lockedTimelineClass = null;
 Object.values(sorted_timeline_data).forEach(events => {
     events.forEach(event => {
         event.owner_names.forEach(owner => ownerSet.add(owner));
@@ -32,12 +33,60 @@ showOwnersCheckbox.addEventListener('change', function() {
 
 const showSameOwnersCheckbox = document.getElementById('showSameOwnersCheckbox');
 const ownerCheckboxesContainer = document.getElementById('ownerCheckboxes');
+const divider = document.getElementById('divider');
 const ownerSearchBar = document.getElementById('ownerSearchBar');
 const selectAllButton = document.getElementById('webSelectAll');
 const deselectAllButton = document.getElementById('webDeselectAll');
+const bookSearchBar = document.getElementById('bookSearchBar');
+const bookCheckboxesContainer = document.getElementById('bookCheckboxes');
+const unlockButton = document.getElementById('unlockButton');
+const statusMessage = document.getElementById('statusMessage');
+
+function initializeBookCheckboxes() {
+    bookCheckboxesContainer.innerHTML = '';
+
+    Object.keys(sorted_timeline_data).forEach(bookId => {
+        const checkboxDiv = document.createElement('div');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'radio';
+        checkbox.name = 'book';
+        checkbox.id = `checkbox-${bookId}`;
+        checkbox.checked = false;
+        checkbox.setAttribute('data-book-id', bookId);
+
+        const label = document.createElement('label');
+        label.htmlFor = `checkbox-${bookId}`;
+        label.appendChild(document.createTextNode(bookId));
+
+        checkboxDiv.appendChild(checkbox);
+        checkboxDiv.appendChild(label);
+        bookCheckboxesContainer.appendChild(checkboxDiv);
+    });
+
+    bookCheckboxesContainer.addEventListener('change', function(event) {
+        if (event.target.type === 'radio') {
+            const bookId = event.target.getAttribute('data-book-id');
+            const isChecked = event.target.checked;
+
+            if (isChecked) {
+                unlockTimeline();
+                lockTimeline(bookId);
+            } else {
+                unlockTimeline();
+                Array.from(bookCheckboxesContainer.querySelectorAll('input[type="radio"]')).forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            }
+        }
+    });
+}
 
 function initialize() {
+    initializeBookCheckboxes();
+
     ownerCheckboxesContainer.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
+    divider.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
 
     Array.from(ownerSet).forEach(ownerIdWithPrefix => {
         const ownerId = ownerIdWithPrefix.replace('Owner ID: ', '');
@@ -81,6 +130,7 @@ function initialize() {
 
     showSameOwnersCheckbox.addEventListener('change', function() {
         ownerCheckboxesContainer.style.display = this.checked ? 'block' : 'none';
+        divider.style.display = this.checked ? 'block' : 'none';
         ownerSearchBar.style.display = this.checked ? 'block' : 'none';
         selectAllButton.style.display = this.checked ? 'block' : 'none';
         deselectAllButton.style.display = this.checked ? 'block' : 'none';
@@ -274,7 +324,7 @@ function drawTimelines(data) {
         len += 1
     }
     const angleStep = (Math.PI / 20 * 19) / len;
-    let lockedTimelineClass = null;
+
 
     timelines.forEach((timeline, index) => {
         const angle = angleStep * index;
@@ -498,41 +548,21 @@ function drawTimelines(data) {
                         if (lockedTimelineClass && lockedTimelineClass !== timelineClass) return;
 
                         d3.selectAll(`.${timelineClass}`).classed('highlighted', false);
-
                         d3.select(".tooltip").transition()
                             .duration(0)
                             .style("opacity", 0)
                             .remove();
-
                         const isCheckboxChecked = showYearsCheckbox.checked;
                         d3.selectAll('.timeline-text').style('opacity', isCheckboxChecked ? 1 : 0);
                     })
                     .on('click', function() {
-                        if (lockedTimelineClass === timelineClass) {
-                            lockedTimelineClass = null;
-                            d3.selectAll(`.${timelineClass}`)
-                                .classed('locked', false)
-                                .classed('highlighted', false)
-                                .each(function() {
-                                    d3.select(this).lower();
-                                });
-                            d3.selectAll(`.text-${timelineClass}, .circle-${timelineClass}`)
-                                .classed('text-highlighted', false)
-                                .classed('circle-highlighted', false);
+                        if (lockedTimelineClass && lockedTimelineClass === timelineClass) {
+                            unlockTimeline();
+                            Array.from(bookCheckboxesContainer.querySelectorAll('input[type="radio"]')).forEach(checkbox => {
+                                checkbox.checked = false;
+                            });
                         } else {
-                            lockedTimelineClass = timelineClass;
-                            d3.selectAll(`.${timelineClass}`)
-                                .classed('locked', true)
-                                .classed('highlighted', true)
-                                .each(function() {
-                                    d3.select(this).raise();
-                                });
-                            d3.selectAll(`.text-${timelineClass}, .circle-${timelineClass}`)
-                                .classed('text-highlighted', true)
-                                .classed('circle-highlighted', true)
-                                .each(function() {
-                                    d3.select(this).raise();
-                                });
+                            lockTimeline(timeline.bookId);
                         }
                     });
             });
@@ -619,6 +649,7 @@ function drawTimelines(data) {
         checkbox.checked = true;
     });
     ownerCheckboxesContainer.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
+    divider.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
     ownerSearchBar.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
     selectAllButton.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
     deselectAllButton.style.display = showSameOwnersCheckbox.checked ? 'block' : 'none';
@@ -943,3 +974,62 @@ function updateBookDetails(bookId) {
         bookDetailsDiv.style.display = 'block';
     }
 }
+
+bookSearchBar.addEventListener('input', function() {
+    const searchText = this.value.toLowerCase();
+    Array.from(bookCheckboxesContainer.children).forEach(div => {
+        if (div.querySelector('label').textContent.toLowerCase().includes(searchText)) {
+            div.style.display = 'block';
+        } else {
+            div.style.display = 'none';
+        }
+    });
+});
+
+
+function lockTimeline(bookId) {
+    const timelineClass = `class-timeline-${bookId}`;
+    lockedTimelineClass = timelineClass;
+
+    d3.selectAll(`.${timelineClass}`)
+        .classed('locked', true)
+        .classed('highlighted', true)
+        .each(function() {
+            d3.select(this).raise();
+        });
+    d3.selectAll(`.text-${timelineClass}, .circle-${timelineClass}`)
+        .classed('text-highlighted', true)
+        .classed('circle-highlighted', true)
+        .each(function() {
+            d3.select(this).raise();
+        });
+
+    statusMessage.textContent = `Book ID: ${bookId} is locked. To unlock, click the highlighted timeline or the unlock button.`;
+    let relatedTimelines = relatedTimelinesMap[bookId];
+    drawFocusTimelines(relatedTimelines, bookId);
+    updateBookDetails(bookId);
+}
+
+function unlockTimeline() {
+    if (lockedTimelineClass) {
+        d3.selectAll(`.${lockedTimelineClass}`)
+            .classed('locked', false)
+            .classed('highlighted', false)
+            .each(function() {
+                d3.select(this).lower();
+            });
+        d3.selectAll(`.text-${lockedTimelineClass}, .circle-${lockedTimelineClass}`)
+            .classed('text-highlighted', false)
+            .classed('circle-highlighted', false);
+
+        lockedTimelineClass = null;
+        statusMessage.textContent = 'You can lock a timeline by clicking or using the checkbox.';
+    }
+}
+
+unlockButton.addEventListener('click', function() {
+    unlockTimeline();
+    Array.from(bookCheckboxesContainer.querySelectorAll('input[type="radio"]')).forEach(checkbox => {
+        checkbox.checked = false;
+    });
+});
