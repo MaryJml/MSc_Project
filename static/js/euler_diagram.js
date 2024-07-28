@@ -75,7 +75,6 @@ var euler_svg = d3.select("#venn").append("svg")
     .attr("width", 900)
     .attr("height", 900);
 
-// 绘制圆
 euler_svg.selectAll("circle")
     .data(positions)
     .enter()

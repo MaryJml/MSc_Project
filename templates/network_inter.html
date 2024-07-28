@@ -37,6 +37,7 @@
                     <p>This network graph represents book ownership and transfers... <span class="moreText">Hover to read more</span></p>
                 </div>
                 <div><label><input type="checkbox" id="showOwnerType"> Show Owner Type</label></div>
+                <p id="ownerTypeExplanation" style="display: none;">This will display the type of the owner as either a triangle (institutions) or a cross (individual).</p>
                 <svg id="network"></svg>
                 <div class="zoom-controls">
                     <button id="zoomInButton">Zoom In</button>
@@ -59,8 +60,11 @@
                     </label>
                     <label>
                         <input type="checkbox" id="showSameOwnersCheckbox" checked>
-                        Show link
+                        Show link between same owner
                     </label>
+                    <div class="hover-description" style="width: 120px" data-fulltext="'Show Start Year': Toggles the display of start years on nodes. Unchecking this makes the timelines cleaner and less cluttered. |'Show Different Owner': Allows for color differentiation of nodes based on different owners. If unchecked, all nodes appear in blue, providing a uniform view. |'Show link between same owner': Controls the visibility of connections between nodes of the same owner across different timelines. Checking this box reveals a list of all owners, enabling users to select specific owners to view their links. Unchecking it hides both the checkbox list and the links on the diagram.">
+                        <p><span class="moreText">Hover to read help</span></p>
+                    </div>
                 </div>
                 <svg id="web_svg" width="850" height="750">
                     <g id="web"></g>
@@ -100,4 +104,14 @@
     <script src="{{ url_for('serve_js', filename='network_inter_main.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='network_inter_spider.js') }}"></script>
     <script src="{{ url_for('serve_js', filename='timeline.js') }}"></script>
+    <script>
+        document.getElementById('showOwnerType').addEventListener('change', function() {
+            const explanation = document.getElementById('ownerTypeExplanation');
+            if (this.checked) {
+                explanation.style.display = 'block';
+            } else {
+                explanation.style.display = 'none';
+            }
+        });
+    </script>
 {% endblock %}

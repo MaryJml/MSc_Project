@@ -416,7 +416,7 @@ d3.select('#selectAll').on('click', () => {
     const allBookIds = Array.from(bookLinkMap.keys());
 
     const checkboxDiv = d3.select("#checkboxes2");
-    checkboxDiv.selectAll("*").remove(); // Clear existing checkboxes
+    checkboxDiv.selectAll("*").remove();
 
     // Create checkboxes for all books
     const labels = checkboxDiv.selectAll('label')
@@ -445,7 +445,7 @@ d3.select('#selectAll').on('click', () => {
         d3.select(`input[name="bookCheckbox"][value="${selectedBookId}"]`).property("checked", true);
         updateTimeline();
     } else {
-        selectedBookId = null; // No books available
+        selectedBookId = null;
     }
 
     // Ensure all nodes are visible
@@ -465,7 +465,7 @@ d3.select('#deselectAll').on('click', () => {
     const allBookIds = Array.from(bookLinkMap.keys());
 
     const checkboxDiv = d3.select("#checkboxes2");
-    checkboxDiv.selectAll("*").remove(); // Clear existing checkboxes
+    checkboxDiv.selectAll("*").remove();
 
     // Create checkboxes for all books
     const labels = checkboxDiv.selectAll('label')
@@ -494,7 +494,7 @@ d3.select('#deselectAll').on('click', () => {
         d3.select(`input[name="bookCheckbox"][value="${selectedBookId}"]`).property("checked", true);
         updateTimeline();
     } else {
-        selectedBookId = null; // No books available
+        selectedBookId = null;
     }
 
     // Ensure all nodes are visible
