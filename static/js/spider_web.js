@@ -94,7 +94,7 @@ function initialize() {
         if (!Object.values(timeline_data).some(events =>
             events.some(event => event.owner_names.includes(ownerIdWithPrefix) && event.start_time === "Imprint"))) {
 
-            const ownerName = ownerIdNameMap[ownerId]; // 从映射中获取名称
+            const ownerName = ownerIdNameMap[ownerId];
             const displayName = ownerName ? `${ownerIdWithPrefix} (${ownerName})` : ownerIdWithPrefix;
 
             const checkboxDiv = document.createElement('div');
@@ -102,7 +102,7 @@ function initialize() {
             checkbox.type = 'checkbox';
             checkbox.id = `checkbox-${ownerId}`;
             checkbox.checked = true;
-            checkbox.setAttribute('data-owner', `Owner ID: ${ownerId}`); // 保证 data-owner 只有 ID
+            checkbox.setAttribute('data-owner', `Owner ID: ${ownerId}`);
 
             const label = document.createElement('label');
             label.htmlFor = `checkbox-${ownerId}`;
