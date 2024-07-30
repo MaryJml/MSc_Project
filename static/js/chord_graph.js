@@ -57,7 +57,7 @@ const ribbons = chordSvg.append("g")
     .attr("fill", d => color(d.target.index))
     .attr("stroke", d => d3.rgb(color(d.target.index)).darker())
     .on("mouseover", function(event, d) {
-        const linkKey = d.source.id + "-" + d.target.id;
+        const linkKey = nodes[d.source.index].id + "-" + nodes[d.target.index].id;
         const bookIds = combinedLinkCount[linkKey]?.bookIds.join(", ") || "No book IDs";
 
         d3.select(this).classed("highlight", true);
