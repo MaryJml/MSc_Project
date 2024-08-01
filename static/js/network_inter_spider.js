@@ -267,7 +267,7 @@ function drawTimelines(data, node_id) {
                 .append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', 2)
+                .attr('r', timeline.events[i].owner_names.includes(node_id) ? 3 : 1.5)
                 .attr('class', `circle-${timelineClass}`)
                 .attr('fill',
                     timeline.events[i].owner_names.includes('Owner ID: 3467') ? '#DC267F' :
@@ -339,7 +339,7 @@ function drawTimelines(data, node_id) {
                 .append('circle')
                 .attr('cx', x)
                 .attr('cy', y)
-                .attr('r', 2)
+                .attr('r', timeline.events[i].owner_names.includes(node_id) ? 3 : 1.5)
                 .attr('class', `circle-${timelineClass}`)
                 .attr('fill',
                     timeline.events[i].owner_names.includes('Owner ID: 3467') ? '#DC267F' :
@@ -472,6 +472,7 @@ function drawTimelines(data, node_id) {
                         .attr('d', d3.line()([[location.x, location.y], [closest.x, closest.y]]))
                         .attr('stroke', ownerColorScale(owner))
                         .attr('fill', 'none')
+                        .attr('stroke-width', owner === node_id ? '3px' : '1px')
                         .on('mouseover', function() {
                             d3.select(".tooltip").remove();
                             const tooltip = d3.select("body").append("div")
