@@ -15,16 +15,22 @@ showOwnersCheckbox.addEventListener('change', function() {
     if (this.checked) {
         webSvg.selectAll('circle')
             .attr('fill', function(d) {
+                if (!d || !d.owner_names) {
+                    return 'red';
+                }
                 return ownerColorScale(d.owner_names[0]);
             });
     } else {
         webSvg.selectAll('circle')
             .attr('fill', function(d) {
+                if (!d || !d.owner_names) {
+                    return '#DC267F';
+                }
                 return d.owner_names.includes('Owner ID: 3467')
                     ? '#DC267F'
                     : (d.start_time === 'Imprint'
                         ? '#FE6100'
-                        : '#648FFF');
+                        : 'blue');
             });
 
     }
